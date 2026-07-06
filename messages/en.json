@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "title": "Hostel of the Convent of Sant'Antonio · Acerno",
+    "description": "Authentic hospitality in a 17th-century Franciscan convent in the heart of the Picentini Mountains. Dorms and private rooms around the cloister, in Acerno (SA), Italy."
+  },
+  "nav": {
+    "home": "Home",
+    "convento": "The Convent",
+    "camere": "Rooms",
+    "contatti": "Contact",
+    "prenota": "Request a booking",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content"
+  },
+  "language": {
+    "label": "Language",
+    "it": "Italiano",
+    "en": "English"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Acerno · Picentini Mountains",
+      "title": "A 17th-century convent,",
+      "titleAccent": "a home for those who walk",
+      "subtitle": "Simple, warm hospitality around a stone cloister. Dorms for groups, private rooms for families and travellers, a step away from the trails of the Park.",
+      "ctaPrimary": "Request a booking",
+      "ctaSecondary": "Discover the convent",
+      "imageAlt": "Arcaded convent cloister with arches on stone columns"
+    },
+    "intro": {
+      "eyebrow": "Who we are",
+      "title": "A place that has welcomed for four centuries",
+      "body1": "The Hostel of the Convent of Sant'Antonio grew out of a 17th-century Franciscan complex in the centre of Acerno, restored and given back to the community as a place of sustainable, accessible hospitality.",
+      "body2": "It is run by Moby Dick ETS, a non-profit social enterprise: no showy luxury, but authenticity, care for the place and attention to everyone — groups, school trips, hikers, pilgrims and families."
+    },
+    "highlights": {
+      "title": "Why stay here",
+      "chiostro": {
+        "title": "The cloister",
+        "body": "The heart of the building: a portico of arches on stone columns, with a garden and a well. Monastic quiet in the middle of the village."
+      },
+      "accessibilita": {
+        "title": "Accessible to all",
+        "body": "Thoughtful accessibility and honest prices: here hospitality is a right, not a privilege."
+      },
+      "territorio": {
+        "title": "In the Picentini Mountains",
+        "body": "Hiking, nature, horse riding and good food: Acerno is the ideal base to explore the Regional Park."
+      }
+    },
+    "rooms": {
+      "eyebrow": "Accommodation",
+      "title": "Dorms and rooms around the cloister",
+      "body": "Around twenty rooms on the first floor, with vaulted or beamed ceilings and terracotta floors. From group dorms to private rooms.",
+      "cta": "See all rooms"
+    },
+    "cta": {
+      "title": "Want to come and stay?",
+      "body": "Pick your dates and tell us about you: we'll reply with availability and details. No online payment, just a request.",
+      "button": "Request a booking"
+    }
+  },
+  "convento": {
+    "hero": {
+      "eyebrow": "The history",
+      "title": "The Convent of Sant'Antonio",
+      "subtitle": "A monastic courtyard complex, dedicated to Saint Anthony, in the centre of Acerno.",
+      "imageAlt": "View of the cloister and the vaulted spaces of the convent"
+    },
+    "story": {
+      "title": "Four centuries, one calling: to welcome",
+      "body1": "A 17th-century Franciscan convent, arranged around a central arcaded cloister — arches on stone columns, a garden with a well — and connected to a single-nave church.",
+      "body2": "Damaged by the 1980 earthquake, it was restored and turned into a youth hostel. During the works, 17th- and 18th-century frescoes resurfaced, today part of the charm of the place.",
+      "body3": "The church is not part of the hostel: hospitality lives in the convent's spaces, among terracotta, vaults and silence."
+    },
+    "spaces": {
+      "title": "The spaces",
+      "intro": "Three levels that tell the life of the convent.",
+      "pianoTerra": {
+        "title": "Ground floor",
+        "body": "Reception in the entrance hall, an office, a meeting room and a dining hall for about 50 with meal service. The cloister is the visual heart; the sacristy remains."
+      },
+      "primoPiano": {
+        "title": "First floor",
+        "body": "Around twenty rooms around the cloister: a mix of 3–4 single-bed dorms and private rooms, vaulted or beamed ceilings, terracotta floors and shared bathrooms. Accessible options available."
+      },
+      "seminterrato": {
+        "title": "Lower level",
+        "body": "Laundry and ironing room, pantry, boiler room and storage, together with historic spaces — the cistern and the hypogeum — to be valued as a point of interest."
+      }
+    },
+    "plan": {
+      "eyebrow": "Floor plan",
+      "title": "The courtyard layout",
+      "body": "The architectural plans show the monastic layout: the rooms are arranged around the cloister, following the logic of the courtyard.",
+      "alt": "Architectural plan of the convent with the central cloister"
+    }
+  },
+  "camere": {
+    "hero": {
+      "eyebrow": "Accommodation",
+      "title": "The rooms",
+      "subtitle": "Group dorms and private rooms, all facing or near the cloister. Vaulted ceilings, terracotta, calm light."
+    },
+    "intro": {
+      "body": "Prices are indicative and per night. Availability is confirmed on request: pick a room and send us a request, with no online payment."
+    },
+    "empty": {
+      "title": "Rooms coming soon",
+      "body": "We're finishing the accommodation catalogue. Write to us in the meantime — we'll be glad to find you a place."
+    },
+    "card": {
+      "from": "from",
+      "perNight": "/ night",
+      "guests": "{count, plural, one {# guest} other {# guests}}",
+      "beds": "{count, plural, one {# bed} other {# beds}}",
+      "accessible": "Accessible",
+      "request": "Request this room"
+    },
+    "types": {
+      "dorm": "Dorm",
+      "private": "Private room",
+      "accessible": "Accessible room"
+    }
+  },
+  "contatti": {
+    "hero": {
+      "eyebrow": "Contact",
+      "title": "Come and visit",
+      "subtitle": "We're in the centre of Acerno, in the Picentini Mountains in the province of Salerno."
+    },
+    "info": {
+      "addressLabel": "Where we are",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "hoursLabel": "Reception",
+      "hours": "Every day, 8:00 am – 8:00 pm"
+    },
+    "how": {
+      "title": "Getting here",
+      "body": "Acerno is reachable by car from the A2 / Salerno–Avellino road. About an hour from the Salerno coast through the woods of the Park. Write to us for directions tailored to your group."
+    },
+    "map": {
+      "label": "Map",
+      "placeholder": "Map of Acerno (SA) — placeholder"
+    }
+  },
+  "prenota": {
+    "hero": {
+      "eyebrow": "Bookings",
+      "title": "Request a booking"
+    },
+    "comingSoon": {
+      "title": "The request form is coming soon",
+      "body": "We're finishing the booking-request system. In the meantime, write or call us: we'll give you availability and details, with no online payment.",
+      "imageAlt": "Detail of a stone arch in the cloister"
+    },
+    "contactCta": "Go to contact",
+    "backHome": "Back to home"
+  },
+  "footer": {
+    "about": {
+      "title": "The Hostel",
+      "body": "Sustainable, accessible hospitality in a 17th-century Franciscan convent, in the centre of Acerno."
+    },
+    "explore": "Explore",
+    "contact": "Contact",
+    "org": "Run by Moby Dick ETS — non-profit social enterprise",
+    "mission": "Sustainable, social and accessible tourism for the Salerno region.",
+    "rights": "All rights reserved.",
+    "provisional": "Provisional venue name."
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "title": "Ostello del Convento di Sant'Antonio · Acerno",
+    "description": "Ospitalità autentica in un convento francescano del XVII secolo nel cuore dei Monti Picentini. Camerate e camere private attorno al chiostro, ad Acerno (SA)."
+  },
+  "nav": {
+    "home": "Home",
+    "convento": "Il Convento",
+    "camere": "Camere",
+    "contatti": "Contatti",
+    "prenota": "Richiedi prenotazione",
+    "openMenu": "Apri il menu",
+    "closeMenu": "Chiudi il menu",
+    "skipToContent": "Vai al contenuto"
+  },
+  "language": {
+    "label": "Lingua",
+    "it": "Italiano",
+    "en": "English"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Acerno · Monti Picentini",
+      "title": "Un convento del Seicento,",
+      "titleAccent": "una casa per chi cammina",
+      "subtitle": "Ospitalità semplice e calda attorno a un chiostro di pietra. Camerate per gruppi, camere private per famiglie e viaggiatori, a un passo dai sentieri del Parco.",
+      "ctaPrimary": "Richiedi una prenotazione",
+      "ctaSecondary": "Scopri il convento",
+      "imageAlt": "Chiostro porticato del convento con archi su colonne in pietra"
+    },
+    "intro": {
+      "eyebrow": "Chi siamo",
+      "title": "Un luogo che accoglie da quattro secoli",
+      "body1": "L'Ostello del Convento di Sant'Antonio nasce da un complesso francescano del XVII secolo nel centro di Acerno, recuperato e restituito alla comunità come luogo di ospitalità sostenibile e accessibile.",
+      "body2": "Lo gestisce Moby Dick ETS, ente del Terzo Settore: niente lusso ostentato, ma autenticità, cura del luogo e attenzione a tutti — gruppi, scolaresche, escursionisti, pellegrini e famiglie."
+    },
+    "highlights": {
+      "title": "Perché fermarsi qui",
+      "chiostro": {
+        "title": "Il chiostro",
+        "body": "Il cuore della struttura: un porticato di archi su colonne di pietra, con il giardino e il pozzo. Quiete monastica nel mezzo del paese."
+      },
+      "accessibilita": {
+        "title": "Accessibile a tutti",
+        "body": "Soluzioni pensate per l'accessibilità e prezzi onesti: l'ospitalità qui è un diritto, non un privilegio."
+      },
+      "territorio": {
+        "title": "Tra i Monti Picentini",
+        "body": "Trekking, natura, escursioni a cavallo ed enogastronomia: Acerno è la base ideale per esplorare il Parco Regionale."
+      }
+    },
+    "rooms": {
+      "eyebrow": "Sistemazioni",
+      "title": "Camerate e camere attorno al chiostro",
+      "body": "Una ventina di stanze al primo piano, con soffitti a volta o travi a vista e pavimenti in cotto. Dalle camerate per gruppi alle camere private.",
+      "cta": "Vedi tutte le camere"
+    },
+    "cta": {
+      "title": "Vuoi venire a trovarci?",
+      "body": "Scegli le date e raccontaci di voi: ti rispondiamo con disponibilità e dettagli. Nessun pagamento online, solo una richiesta.",
+      "button": "Richiedi una prenotazione"
+    }
+  },
+  "convento": {
+    "hero": {
+      "eyebrow": "La storia",
+      "title": "Il Convento di Sant'Antonio",
+      "subtitle": "Un impianto monastico a corte, dedicato a Sant'Antonio, nel centro di Acerno.",
+      "imageAlt": "Veduta del chiostro e degli ambienti voltati del convento"
+    },
+    "story": {
+      "title": "Quattro secoli, una sola vocazione: accogliere",
+      "body1": "Complesso conventuale francescano del XVII secolo, organizzato attorno a un chiostro centrale porticato — archi su colonne in pietra, un giardino con il pozzo — e collegato a una chiesa a navata unica.",
+      "body2": "Danneggiato dal terremoto del 1980, è stato recuperato e trasformato in Ostello della Gioventù. Durante i restauri sono affiorati affreschi sei-settecenteschi, oggi parte del fascino del luogo.",
+      "body3": "La chiesa è esclusa dalla gestione: l'ospitalità vive negli spazi del convento, tra cotto, volte e silenzi."
+    },
+    "spaces": {
+      "title": "Gli spazi",
+      "intro": "Tre livelli che raccontano la vita del convento.",
+      "pianoTerra": {
+        "title": "Piano terra",
+        "body": "Reception nell'atrio di accettazione, ufficio, sala riunioni e una sala mensa da circa 50 posti con ricevimento pasti. Il chiostro è il cuore visivo; resta la sacrestia."
+      },
+      "primoPiano": {
+        "title": "Primo piano",
+        "body": "Una ventina di camere attorno al chiostro: un mix di camerate da 3-4 letti singoli e camere private, soffitti a volta o travi a vista, pavimenti in cotto e bagni comuni. Presenti soluzioni per l'accessibilità."
+      },
+      "seminterrato": {
+        "title": "Seminterrato",
+        "body": "Lavanderia e stireria, dispensa, locale caldaia e deposito, insieme a spazi storici — la cisterna e l'ipogeo — da valorizzare come punto di interesse."
+      }
+    },
+    "plan": {
+      "eyebrow": "Pianta",
+      "title": "L'impianto a corte",
+      "body": "Le piante architettoniche mostrano l'organizzazione monastica: gli ambienti si dispongono attorno al chiostro, secondo la logica della corte.",
+      "alt": "Pianta architettonica del convento con il chiostro centrale"
+    }
+  },
+  "camere": {
+    "hero": {
+      "eyebrow": "Sistemazioni",
+      "title": "Le camere",
+      "subtitle": "Camerate per gruppi e camere private, tutte affacciate o vicine al chiostro. Soffitti a volta, cotto, luce calma."
+    },
+    "intro": {
+      "body": "I prezzi sono indicativi e per notte. La disponibilità si conferma su richiesta: scegli la sistemazione e inviaci una richiesta, senza pagamenti online."
+    },
+    "empty": {
+      "title": "Camere in arrivo",
+      "body": "Stiamo completando il catalogo delle sistemazioni. Scrivici intanto: saremo felici di trovarti un posto."
+    },
+    "card": {
+      "from": "da",
+      "perNight": "/ notte",
+      "guests": "{count, plural, one {# ospite} other {# ospiti}}",
+      "beds": "{count, plural, one {# letto} other {# letti}}",
+      "accessible": "Accessibile",
+      "request": "Richiedi questa camera"
+    },
+    "types": {
+      "dorm": "Camerata",
+      "private": "Camera privata",
+      "accessible": "Camera accessibile"
+    }
+  },
+  "contatti": {
+    "hero": {
+      "eyebrow": "Contatti",
+      "title": "Vieni a trovarci",
+      "subtitle": "Siamo nel centro di Acerno, sui Monti Picentini in provincia di Salerno."
+    },
+    "info": {
+      "addressLabel": "Dove siamo",
+      "phoneLabel": "Telefono",
+      "emailLabel": "Email",
+      "hoursLabel": "Reception",
+      "hours": "Tutti i giorni, 8:00 – 20:00"
+    },
+    "how": {
+      "title": "Come arrivare",
+      "body": "Acerno è raggiungibile in auto dalla A2 / SS Salerno-Avellino. Dalla costa salernitana circa un'ora di strada tra i boschi del Parco. Scrivici per indicazioni su misura per il tuo gruppo."
+    },
+    "map": {
+      "label": "Mappa",
+      "placeholder": "Mappa di Acerno (SA) — segnaposto"
+    }
+  },
+  "prenota": {
+    "hero": {
+      "eyebrow": "Prenotazioni",
+      "title": "Richiedi una prenotazione"
+    },
+    "comingSoon": {
+      "title": "Il modulo di richiesta arriva a breve",
+      "body": "Stiamo completando il sistema di richieste di prenotazione. Nel frattempo scrivici o chiamaci: ti diamo disponibilità e dettagli, senza alcun pagamento online.",
+      "imageAlt": "Dettaglio di un arco in pietra del chiostro"
+    },
+    "contactCta": "Vai ai contatti",
+    "backHome": "Torna alla home"
+  },
+  "footer": {
+    "about": {
+      "title": "L'Ostello",
+      "body": "Ospitalità sostenibile e accessibile in un convento francescano del XVII secolo, nel centro di Acerno."
+    },
+    "explore": "Esplora",
+    "contact": "Contatti",
+    "org": "Gestito da Moby Dick ETS — Ente del Terzo Settore",
+    "mission": "Turismo sostenibile, sociale e accessibile per il territorio salernitano.",
+    "rights": "Tutti i diritti riservati.",
+    "provisional": "Nome della struttura provvisorio."
+  }
+}
