@@ -116,4 +116,83 @@ export function hostelNotificationEmail(d: BookingEmailData): {
   };
 }
 
+type BookingStatusEmailData = {
+  status: "confirmed" | "declined";
+  locale: "it" | "en";
+  guestName: string;
+  roomName: string;
+  checkIn: string;
+  checkOut: string;
+  numGuests: number;
+};
+
+/** Email di esito all'ospite: richiesta confermata o rifiutata. */
+export function bookingStatusEmail(d: BookingStatusEmailData): {
+  subject: string;
+  html: string;
+} {
+  const details = detailRows(
+    {
+      guestName: d.guestName,
+      guestEmail: "",
+      roomName: d.roomName,
+      checkIn: d.checkIn,
+      checkOut: d.checkOut,
+      numGuests: d.numGuests,
+      locale: d.locale,
+    },
+    d.locale === "en"
+      ? { room: "Room", dates: "Dates", guests: "Guests" }
+      : { room: "Sistemazione", dates: "Date", guests: "Ospiti" },
+  );
+
+  if (d.locale === "en") {
+    if (d.status === "confirmed") {
+      const body = `
+        <p style="margin:0 0 12px;line-height:1.6;">Dear ${d.guestName},</p>
+        <p style="margin:0 0 12px;line-height:1.6;">good news — your booking request has been <strong>confirmed</strong>:</p>
+        ${details}
+        <p style="margin:12px 0 0;line-height:1.6;">We look forward to welcoming you in Acerno. If your plans change, just reply to this email.</p>
+        <p style="margin:16px 0 0;line-height:1.6;">With warm regards,<br/>${SITE.name}</p>`;
+      return {
+        subject: `Booking confirmed — ${SITE.shortName}`,
+        html: shell("Your booking is confirmed", body),
+      };
+    }
+    const body = `
+      <p style="margin:0 0 12px;line-height:1.6;">Dear ${d.guestName},</p>
+      <p style="margin:0 0 12px;line-height:1.6;">unfortunately we cannot accommodate your request:</p>
+      ${details}
+      <p style="margin:12px 0 0;line-height:1.6;">This is usually due to availability. Feel free to try different dates, or reply to this email — we'll gladly help you find an alternative.</p>
+      <p style="margin:16px 0 0;line-height:1.6;">With warm regards,<br/>${SITE.name}</p>`;
+    return {
+      subject: `About your booking request — ${SITE.shortName}`,
+      html: shell("About your booking request", body),
+    };
+  }
+
+  if (d.status === "confirmed") {
+    const body = `
+      <p style="margin:0 0 12px;line-height:1.6;">Ciao ${d.guestName},</p>
+      <p style="margin:0 0 12px;line-height:1.6;">buone notizie — la tua richiesta di prenotazione è stata <strong>confermata</strong>:</p>
+      ${details}
+      <p style="margin:12px 0 0;line-height:1.6;">Ti aspettiamo ad Acerno. Se i tuoi piani cambiano, rispondi pure a questa email.</p>
+      <p style="margin:16px 0 0;line-height:1.6;">Un caro saluto,<br/>${SITE.name}</p>`;
+    return {
+      subject: `Prenotazione confermata — ${SITE.shortName}`,
+      html: shell("La tua prenotazione è confermata", body),
+    };
+  }
+  const body = `
+    <p style="margin:0 0 12px;line-height:1.6;">Ciao ${d.guestName},</p>
+    <p style="margin:0 0 12px;line-height:1.6;">purtroppo non possiamo accogliere la tua richiesta:</p>
+    ${details}
+    <p style="margin:12px 0 0;line-height:1.6;">Di solito dipende dalla disponibilità. Prova con altre date, oppure rispondi a questa email: ti aiutiamo volentieri a trovare un'alternativa.</p>
+    <p style="margin:16px 0 0;line-height:1.6;">Un caro saluto,<br/>${SITE.name}</p>`;
+  return {
+    subject: `Sulla tua richiesta di prenotazione — ${SITE.shortName}`,
+    html: shell("Sulla tua richiesta di prenotazione", body),
+  };
+}
+
 export type { BookingEmailData };

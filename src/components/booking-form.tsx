@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale, useTranslations } from "next-intl";
@@ -25,6 +25,7 @@ import {
   submitBookingRequest,
   type BookingActionResult,
 } from "@/app/actions/booking";
+import { fetchAvailableRooms } from "@/app/actions/availability";
 
 export type BookingRoomOption = {
   id: string;
@@ -81,6 +82,7 @@ export function BookingForm({
     control,
     reset,
     setError,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<BookingInput>({
     resolver: zodResolver(schema),
@@ -98,8 +100,53 @@ export function BookingForm({
   });
 
   const watchedRoomId = useWatch({ control, name: "room_id" });
-  const selectedRoom = rooms.find((r) => r.id === watchedRoomId);
+  const watchedCheckIn = useWatch({ control, name: "check_in" });
+  const watchedCheckOut = useWatch({ control, name: "check_out" });
   const minDate = todayISO();
+
+  // Disponibilità live: con date valide, il select mostra solo camere libere.
+  // Stato derivato dalla chiave-date: niente setState sincrono nell'effect.
+  const datesKey =
+    watchedCheckIn && watchedCheckOut && watchedCheckOut > watchedCheckIn
+      ? `${watchedCheckIn}_${watchedCheckOut}`
+      : null;
+  const [fetched, setFetched] = useState<{
+    key: string;
+    rooms: BookingRoomOption[] | null;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!datesKey) return;
+    const [checkIn, checkOut] = datesKey.split("_");
+    let cancelled = false;
+    fetchAvailableRooms(checkIn, checkOut, locale)
+      .then((result) => {
+        if (!cancelled) setFetched({ key: datesKey, rooms: result });
+      })
+      .catch(() => {
+        if (!cancelled) setFetched({ key: datesKey, rooms: null });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [datesKey, locale]);
+
+  const availableRooms =
+    datesKey && fetched?.key === datesKey ? fetched.rooms : null;
+  const checkingAvailability = !!datesKey && fetched?.key !== datesKey;
+  const roomOptions = availableRooms ?? rooms;
+  const selectedRoom = roomOptions.find((r) => r.id === watchedRoomId);
+
+  // Se la camera scelta non è più tra le disponibili, deselezione.
+  useEffect(() => {
+    if (
+      availableRooms !== null &&
+      watchedRoomId &&
+      !availableRooms.some((r) => r.id === watchedRoomId)
+    ) {
+      setValue("room_id", "");
+    }
+  }, [availableRooms, watchedRoomId, setValue]);
 
   async function onSubmit(values: BookingInput) {
     let result: BookingActionResult;
@@ -186,7 +233,7 @@ export function BookingForm({
                   <SelectValue placeholder={t("form.roomPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                  {rooms.map((room) => (
+                  {roomOptions.map((room) => (
                     <SelectItem key={room.id} value={room.id}>
                       {room.name}
                     </SelectItem>
@@ -195,6 +242,26 @@ export function BookingForm({
               </Select>
             )}
           />
+          {checkingAvailability ? (
+            <p className="mt-1.5 text-xs text-pietra" aria-live="polite">
+              {t("form.availability.checking")}
+            </p>
+          ) : availableRooms !== null ? (
+            <p
+              className={
+                availableRooms.length === 0
+                  ? "mt-1.5 text-xs text-destructive"
+                  : "mt-1.5 text-xs text-salvia-foreground"
+              }
+              aria-live="polite"
+            >
+              {availableRooms.length === 0
+                ? t("form.availability.none")
+                : t("form.availability.count", {
+                    count: availableRooms.length,
+                  })}
+            </p>
+          ) : null}
           <FieldError id="err-room" message={errors.room_id?.message} />
         </div>
 

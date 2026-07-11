@@ -2,6 +2,7 @@
 
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { getAvailableRooms } from "@/lib/rooms";
 import { bookingSchema, type BookingMessages } from "@/lib/validation/booking";
 import { sendEmail } from "@/lib/email/send";
 import {
@@ -71,6 +72,13 @@ export async function submitBookingRequest(
   }
   if (data.num_guests > room.capacity) {
     return { ok: false, fieldErrors: { num_guests: t("guestsMax") } };
+  }
+
+  // 2b. La camera deve essere ancora disponibile per le date scelte
+  //     (blocchi + prenotazioni confermate; fallback graceful se RPC assente).
+  const available = await getAvailableRooms(data.check_in, data.check_out);
+  if (!available.some((r) => r.id === data.room_id)) {
+    return { ok: false, fieldErrors: { room_id: t("roomUnavailable") } };
   }
 
   // 3. Insert (RLS: insert pubblico su booking_requests, stato pending).

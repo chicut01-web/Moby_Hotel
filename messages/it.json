@@ -182,13 +182,48 @@
         "checkInFuture": "Il check-in non può essere nel passato.",
         "guestsMin": "Almeno un ospite.",
         "guestsMax": "Troppi ospiti per questa sistemazione.",
+        "roomUnavailable": "La sistemazione non è più disponibile per queste date.",
         "generic": "Qualcosa è andato storto. Riprova o scrivici."
+      },
+      "availability": {
+        "checking": "Verifica disponibilità…",
+        "count": "{count, plural, one {# sistemazione disponibile} other {# sistemazioni disponibili}} per le date scelte",
+        "none": "Nessuna sistemazione disponibile per queste date. Prova altre date o scrivici."
       }
     },
     "success": {
       "title": "Richiesta ricevuta, grazie!",
       "body": "Abbiamo salvato la tua richiesta per {room} dal {checkIn} al {checkOut}. Ti ricontattiamo presto via email per confermare disponibilità e dettagli.",
       "again": "Invia un'altra richiesta"
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Area riservata",
+      "subtitle": "Accesso per la gestione delle richieste di prenotazione.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Entra",
+      "submitting": "Accesso…",
+      "error": "Credenziali non valide."
+    },
+    "dashboard": {
+      "title": "Richieste di prenotazione",
+      "subtitle": "Conferma o rifiuta le richieste: l'ospite riceve un'email con l'esito.",
+      "empty": "Nessuna richiesta per ora.",
+      "logout": "Esci",
+      "confirm": "Conferma",
+      "decline": "Rifiuta",
+      "requestedOn": "Richiesta del",
+      "guests": "{count, plural, one {# ospite} other {# ospiti}}",
+      "night": "notti",
+      "noRoom": "Camera rimossa",
+      "status": {
+        "pending": "In attesa",
+        "confirmed": "Confermata",
+        "declined": "Rifiutata"
+      },
+      "actionError": "Operazione non riuscita. Riprova."
     }
   },
   "footer": {

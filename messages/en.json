@@ -182,13 +182,48 @@
         "checkInFuture": "Check-in cannot be in the past.",
         "guestsMin": "At least one guest.",
         "guestsMax": "Too many guests for this accommodation.",
+        "roomUnavailable": "This accommodation is no longer available for these dates.",
         "generic": "Something went wrong. Try again or write to us."
+      },
+      "availability": {
+        "checking": "Checking availability…",
+        "count": "{count, plural, one {# accommodation available} other {# accommodations available}} for your dates",
+        "none": "No accommodation available for these dates. Try different dates or write to us."
       }
     },
     "success": {
       "title": "Request received, thank you!",
       "body": "We've saved your request for {room} from {checkIn} to {checkOut}. We'll get back to you soon by email to confirm availability and details.",
       "again": "Send another request"
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Restricted area",
+      "subtitle": "Sign in to manage booking requests.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "error": "Invalid credentials."
+    },
+    "dashboard": {
+      "title": "Booking requests",
+      "subtitle": "Confirm or decline requests: the guest receives an email with the outcome.",
+      "empty": "No requests yet.",
+      "logout": "Sign out",
+      "confirm": "Confirm",
+      "decline": "Decline",
+      "requestedOn": "Requested on",
+      "guests": "{count, plural, one {# guest} other {# guests}}",
+      "night": "nights",
+      "noRoom": "Room removed",
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "declined": "Declined"
+      },
+      "actionError": "Action failed. Try again."
     }
   },
   "footer": {
