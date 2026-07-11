@@ -149,15 +149,47 @@
   "prenota": {
     "hero": {
       "eyebrow": "Prenotazioni",
-      "title": "Richiedi una prenotazione"
+      "title": "Richiedi una prenotazione",
+      "subtitle": "Scegli date e sistemazione: salviamo la tua richiesta e ti ricontattiamo per confermare. Nessun pagamento online."
     },
-    "comingSoon": {
-      "title": "Il modulo di richiesta arriva a breve",
-      "body": "Stiamo completando il sistema di richieste di prenotazione. Nel frattempo scrivici o chiamaci: ti diamo disponibilità e dettagli, senza alcun pagamento online.",
-      "imageAlt": "Dettaglio di un arco in pietra del chiostro"
+    "form": {
+      "sectionStay": "Il soggiorno",
+      "sectionGuest": "I tuoi dati",
+      "roomLabel": "Sistemazione",
+      "roomPlaceholder": "Scegli una sistemazione",
+      "checkInLabel": "Check-in",
+      "checkOutLabel": "Check-out",
+      "guestsLabel": "Ospiti",
+      "capacityHint": "Max {count} per questa sistemazione",
+      "nameLabel": "Nome e cognome",
+      "namePlaceholder": "Mario Rossi",
+      "emailLabel": "Email",
+      "emailPlaceholder": "mario@esempio.it",
+      "phoneLabel": "Telefono",
+      "phonePlaceholder": "+39 333 1234567",
+      "optional": "facoltativo",
+      "messageLabel": "Messaggio",
+      "messagePlaceholder": "Siamo un gruppo, viaggiamo con un cane, arriviamo in tarda serata…",
+      "submit": "Invia richiesta",
+      "submitting": "Invio in corso…",
+      "errors": {
+        "name": "Inserisci il tuo nome (min. 2 caratteri).",
+        "email": "Inserisci un'email valida.",
+        "room": "Scegli una sistemazione.",
+        "checkIn": "Indica la data di arrivo.",
+        "checkOut": "Indica la data di partenza.",
+        "checkOutAfter": "Il check-out deve essere dopo il check-in.",
+        "checkInFuture": "Il check-in non può essere nel passato.",
+        "guestsMin": "Almeno un ospite.",
+        "guestsMax": "Troppi ospiti per questa sistemazione.",
+        "generic": "Qualcosa è andato storto. Riprova o scrivici."
+      }
     },
-    "contactCta": "Vai ai contatti",
-    "backHome": "Torna alla home"
+    "success": {
+      "title": "Richiesta ricevuta, grazie!",
+      "body": "Abbiamo salvato la tua richiesta per {room} dal {checkIn} al {checkOut}. Ti ricontattiamo presto via email per confermare disponibilità e dettagli.",
+      "again": "Invia un'altra richiesta"
+    }
   },
   "footer": {
     "about": {

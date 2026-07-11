@@ -91,7 +91,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
             variant="ghost"
             className="h-auto px-0 text-cotto hover:bg-transparent hover:text-cotto/80"
           >
-            <Link href="/prenota">
+            <Link href={{ pathname: "/prenota", query: { room: room.id } }}>
               {t("card.request")}
               <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
                 &rarr;

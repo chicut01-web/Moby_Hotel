@@ -149,15 +149,47 @@
   "prenota": {
     "hero": {
       "eyebrow": "Bookings",
-      "title": "Request a booking"
+      "title": "Request a booking",
+      "subtitle": "Pick your dates and room: we save your request and get back to you to confirm. No online payment."
     },
-    "comingSoon": {
-      "title": "The request form is coming soon",
-      "body": "We're finishing the booking-request system. In the meantime, write or call us: we'll give you availability and details, with no online payment.",
-      "imageAlt": "Detail of a stone arch in the cloister"
+    "form": {
+      "sectionStay": "Your stay",
+      "sectionGuest": "Your details",
+      "roomLabel": "Accommodation",
+      "roomPlaceholder": "Choose an accommodation",
+      "checkInLabel": "Check-in",
+      "checkOutLabel": "Check-out",
+      "guestsLabel": "Guests",
+      "capacityHint": "Max {count} for this accommodation",
+      "nameLabel": "Full name",
+      "namePlaceholder": "Jane Doe",
+      "emailLabel": "Email",
+      "emailPlaceholder": "jane@example.com",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "+39 333 1234567",
+      "optional": "optional",
+      "messageLabel": "Message",
+      "messagePlaceholder": "We're a group, travelling with a dog, arriving late in the evening…",
+      "submit": "Send request",
+      "submitting": "Sending…",
+      "errors": {
+        "name": "Please enter your name (min. 2 characters).",
+        "email": "Please enter a valid email.",
+        "room": "Please choose an accommodation.",
+        "checkIn": "Please set an arrival date.",
+        "checkOut": "Please set a departure date.",
+        "checkOutAfter": "Check-out must be after check-in.",
+        "checkInFuture": "Check-in cannot be in the past.",
+        "guestsMin": "At least one guest.",
+        "guestsMax": "Too many guests for this accommodation.",
+        "generic": "Something went wrong. Try again or write to us."
+      }
     },
-    "contactCta": "Go to contact",
-    "backHome": "Back to home"
+    "success": {
+      "title": "Request received, thank you!",
+      "body": "We've saved your request for {room} from {checkIn} to {checkOut}. We'll get back to you soon by email to confirm availability and details.",
+      "again": "Send another request"
+    }
   },
   "footer": {
     "about": {

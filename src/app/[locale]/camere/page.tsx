@@ -7,6 +7,9 @@ import { RoomCard } from "@/components/room-card";
 import { getActiveRooms } from "@/lib/rooms";
 import type { Locale } from "@/i18n/routing";
 
+// ISR: le camere arrivano dal DB, la pagina si rigenera senza rebuild.
+export const revalidate = 300;
+
 export default async function CamerePage({
   params,
 }: {

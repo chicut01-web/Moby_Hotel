@@ -1,48 +1,83 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
-import { ArchPlaceholder } from "@/components/arch-motif";
+import { ArchColonnade } from "@/components/arch-motif";
+import { BookingForm, type BookingRoomOption } from "@/components/booking-form";
+import { getActiveRooms } from "@/lib/rooms";
+import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
 
 export default async function PrenotaPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{ room?: string }>;
 }) {
   const { locale } = await params;
+  const { room } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations("prenota");
+  const tc = await getTranslations("contatti");
+
+  const rooms: BookingRoomOption[] = (await getActiveRooms()).map((r) => ({
+    id: r.id,
+    name: locale === "en" ? r.name_en : r.name_it,
+    capacity: r.capacity,
+  }));
 
   return (
     <>
-      <PageHero eyebrow={t("hero.eyebrow")} title={t("hero.title")} />
+      <PageHero
+        eyebrow={t("hero.eyebrow")}
+        title={t("hero.title")}
+        subtitle={t("hero.subtitle")}
+      />
 
-      <section className="py-16 sm:py-24">
-        <Container className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="relative order-2 aspect-[4/3] overflow-hidden rounded-t-[8rem] rounded-b-2xl ring-1 ring-border/70 lg:order-1">
-            <ArchPlaceholder tone="salvia" label={t("comingSoon.imageAlt")} />
-          </div>
-          <div className="order-1 lg:order-2">
-            <h2 className="text-3xl sm:text-4xl">{t("comingSoon.title")}</h2>
-            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              {t("comingSoon.body")}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="rounded-full px-7">
-                <Link href="/contatti">{t("contactCta")}</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-border/80 px-7"
-              >
-                <Link href="/">{t("backHome")}</Link>
-              </Button>
+      <section className="py-16 sm:py-20">
+        <Container className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+          <BookingForm rooms={rooms} preselectedRoomId={room} />
+
+          <aside className="lg:pt-2">
+            <div className="rounded-2xl border border-border/70 bg-card p-7">
+              <h2 className="text-lg">{tc("how.title")}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {tc("how.body")}
+              </p>
+              <dl className="mt-6 space-y-3 text-sm">
+                <div>
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                    {tc("info.emailLabel")}
+                  </dt>
+                  <dd className="mt-0.5">
+                    <a
+                      href={`mailto:${SITE.email}`}
+                      className="transition-colors hover:text-cotto"
+                    >
+                      {SITE.email}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                    {tc("info.phoneLabel")}
+                  </dt>
+                  <dd className="mt-0.5">
+                    <a
+                      href={`tel:${SITE.phoneHref}`}
+                      className="transition-colors hover:text-cotto"
+                    >
+                      {SITE.phone}
+                    </a>
+                  </dd>
+                </div>
+              </dl>
+              <ArchColonnade
+                count={4}
+                className="mt-7 h-10 w-36 text-salvia/50"
+              />
             </div>
-          </div>
+          </aside>
         </Container>
       </section>
     </>

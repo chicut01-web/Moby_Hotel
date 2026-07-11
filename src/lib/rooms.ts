@@ -1,5 +1,5 @@
 import "server-only";
-import { createClient } from "./supabase/server";
+import { createPublicClient } from "./supabase/public";
 import { isSupabaseConfigured } from "./supabase/env";
 import { PLACEHOLDER_ROOMS } from "./placeholder-rooms";
 import type { Room } from "./types";
@@ -7,8 +7,9 @@ import type { Room } from "./types";
 /**
  * Camere attive, ordinate per prezzo.
  * - Senza credenziali Supabase: usa le camere segnaposto (dev/design).
- * - Con Supabase: legge `rooms` attive via RLS pubblica; in caso di errore
- *   restituisce lista vuota (la pagina mostra lo stato "vuoto").
+ * - Con Supabase: legge `rooms` attive via RLS pubblica con il client senza
+ *   cookie (compatibile con prerender/ISR); in caso di errore restituisce
+ *   lista vuota (la pagina mostra lo stato "vuoto").
  */
 export async function getActiveRooms(): Promise<Room[]> {
   if (!isSupabaseConfigured()) {
@@ -16,7 +17,7 @@ export async function getActiveRooms(): Promise<Room[]> {
   }
 
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("rooms")
       .select("*")
