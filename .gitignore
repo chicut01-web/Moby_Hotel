@@ -34,6 +34,10 @@ yarn-error.log*
 .env*
 !.env.example
 
+# Foto/video originali della struttura (HEIC/MOV, ~260MB): restano fuori dal
+# repo. Le versioni web ottimizzate vanno in public/images/.
+/ACERNO/
+
 # vercel
 .vercel
 
