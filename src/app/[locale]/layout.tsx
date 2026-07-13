@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { MapCursorTrail } from "@/components/map-cursor-trail";
 import "../globals.css";
 
 const fraunces = Fraunces({
@@ -62,6 +63,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <SiteFooter />
+          <MapCursorTrail />
         </NextIntlClientProvider>
       </body>
     </html>
