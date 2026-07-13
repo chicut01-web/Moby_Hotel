@@ -1,10 +1,12 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Accessibility, Columns3, Mountain } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
-import { ArchColonnade, ArchPlaceholder } from "@/components/arch-motif";
+import { ArchColonnade } from "@/components/arch-motif";
 import { RoomCard } from "@/components/room-card";
+import { WaveDivider } from "@/components/wave-divider";
 import { getActiveRooms } from "@/lib/rooms";
 import type { Locale } from "@/i18n/routing";
 
@@ -30,7 +32,7 @@ export default async function HomePage({
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-b from-calce via-pietra-soft/20 to-calce pt-6">
         <Container className="grid gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
           <div>
             <p
@@ -74,8 +76,15 @@ export default async function HomePage({
             className="relative animate-in fade-in duration-1000"
             style={{ animationDelay: "180ms", animationFillMode: "both" }}
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[11rem] rounded-b-2xl ring-1 ring-border/70 shadow-[0_40px_80px_-50px_oklch(0.45_0.06_60/0.6)]">
-              <ArchPlaceholder tone="salvia" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[11rem] rounded-b-2xl ring-1 ring-border/70 shadow-[0_40px_80px_-50px_var(--cotto)]">
+              <Image
+                src="/images/chiostro-alto.jpg"
+                alt={t("hero.imageAlt")}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
             </div>
             <div className="absolute -left-4 bottom-10 hidden rounded-xl border border-border/70 bg-card/90 px-4 py-3 backdrop-blur sm:block">
               <p className="text-[0.65rem] uppercase tracking-[0.16em] text-cotto">
@@ -84,6 +93,8 @@ export default async function HomePage({
             </div>
           </div>
         </Container>
+
+        <WaveDivider waveColorClass="fill-background" className="translate-y-px" />
       </section>
 
       {/* Intro */}

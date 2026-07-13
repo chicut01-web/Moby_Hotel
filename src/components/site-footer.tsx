@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
+import { WaveDivider } from "@/components/wave-divider";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -17,14 +18,15 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-border/70 bg-calce-deep">
+    <footer className="mt-24 bg-calce-deep">
+      <WaveDivider flipped={true} waveColorClass="fill-calce-deep" className="-translate-y-px" />
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-sm">
             <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cotto">
-              Ostello del Convento
+              Hub for
             </span>
-            <p className="mt-1 font-serif text-2xl">Sant&rsquo;Antonio</p>
+            <p className="mt-1 font-serif text-2xl">European Youth</p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {t("about.body")}
             </p>

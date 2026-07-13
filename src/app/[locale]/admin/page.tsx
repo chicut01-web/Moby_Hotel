@@ -26,7 +26,7 @@ type AdminRequest = {
 };
 
 const statusStyles: Record<AdminRequest["status"], string> = {
-  pending: "bg-ocra/15 text-[oklch(0.45_0.09_73)] border-ocra/30",
+  pending: "bg-ocra/15 text-ocra-foreground border-ocra/30",
   confirmed: "bg-salvia-soft text-salvia-foreground border-salvia/30",
   declined: "bg-destructive/10 text-destructive border-destructive/25",
 };

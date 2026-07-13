@@ -5,11 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  Ostello del Convento di Sant'Antonio — design tokens.
-  Concept: "serenità monastica + ospitalità calda e contemporanea".
-  Palette ispirata ai materiali reali: calce, pietra, cotto, salvia, ocra.
-  Tema chiaro e luminoso (no dark/heavy). I valori dark restano per i componenti
-  shadcn ma il sito pubblico è solo light.
+  Hub for European Youth — design tokens.
+  Concept: "Captain's Cabin / Old Study Room" (dark wood, amber lanterns, velvet blue, parchment maps).
 */
 
 @theme inline {
@@ -32,6 +29,7 @@
   --color-salvia-soft: var(--salvia-soft);
   --color-salvia-foreground: var(--salvia-foreground);
   --color-ocra: var(--ocra);
+  --color-ocra-foreground: var(--ocra-foreground);
   --color-inchiostro: var(--inchiostro);
 
   --color-sidebar-ring: var(--sidebar-ring);
@@ -75,50 +73,51 @@
 :root {
   --radius: 0.5rem;
 
-  /* Materiali */
-  --calce: oklch(0.967 0.012 84);        /* bianco caldo / calce, sfondo */
-  --calce-deep: oklch(0.935 0.016 82);   /* calce un filo più scura, sezioni */
-  --pietra: oklch(0.588 0.013 74);       /* grigio pietra caldo */
-  --pietra-soft: oklch(0.9 0.01 80);     /* pietra chiarissima, bordi/linee */
-  --cotto: oklch(0.565 0.118 44);        /* terracotta / cotto */
-  --cotto-foreground: oklch(0.98 0.012 84);
-  --salvia: oklch(0.6 0.062 126);        /* verde salvia-oliva, il chiostro */
-  --salvia-soft: oklch(0.93 0.025 122);  /* salvia chiarissima, sfondi */
-  --salvia-foreground: oklch(0.31 0.04 128);
-  --ocra: oklch(0.7 0.108 73);           /* accento caldo, parsimonioso */
-  --inchiostro: oklch(0.265 0.014 70);   /* testo, marrone-pietra scuro */
+  /* Palette di colori in stile cabin / studio antico (dai colori della foto) */
+  --calce: #1C130D;                      /* Sfondo legno scuro / noce antico */
+  --calce-deep: #110B07;                 /* Legno ebano profondo (per il footer) */
+  --pietra: #8E9DAA;                     /* Faded slate blue (testo secondario / link inattivi) */
+  --pietra-soft: #261C14;                /* Sfondo pannelli in legno (card e contenitori) */
+  --cotto: #DF973A;                      /* Luce della lanterna / ambra dorata (accento primario) */
+  --cotto-foreground: #110B07;           /* Testo scuro su sfondo ambra */
+  --salvia: #43668F;                     /* Blu velluto più chiaro per i link / evidenziatore */
+  --salvia-soft: #1E2B3C;                /* Navy grigiastro scuro (sfondo badge) */
+  --salvia-foreground: #E8DFCB;          /* Testo chiaro su badge blu */
+  --ocra: #C89551;                       /* Ottone spazzolato / dettagli metallici */
+  --ocra-foreground: #110B07;            /* Testo scuro su ocra */
+  --inchiostro: #E8DFCB;                 /* Carta mappa pergamena invecchiata (testo primario chiaro) */
 
   /* Token semantici shadcn mappati sulla palette */
   --background: var(--calce);
   --foreground: var(--inchiostro);
-  --card: oklch(0.985 0.008 86);
+  --card: var(--pietra-soft);
   --card-foreground: var(--inchiostro);
-  --popover: oklch(0.985 0.008 86);
+  --popover: var(--pietra-soft);
   --popover-foreground: var(--inchiostro);
   --primary: var(--cotto);
   --primary-foreground: var(--cotto-foreground);
   --secondary: var(--salvia-soft);
   --secondary-foreground: var(--salvia-foreground);
-  --muted: oklch(0.93 0.014 82);
-  --muted-foreground: oklch(0.5 0.016 72);
+  --muted: #241C15;
+  --muted-foreground: #A69B8A;
   --accent: var(--salvia-soft);
   --accent-foreground: var(--salvia-foreground);
-  --destructive: oklch(0.505 0.16 25);
-  --border: oklch(0.88 0.014 80);
-  --input: oklch(0.88 0.014 80);
+  --destructive: #BD4235;
+  --border: #3A2E24;
+  --input: #241C15;
   --ring: var(--cotto);
   --chart-1: var(--cotto);
   --chart-2: var(--salvia);
   --chart-3: var(--ocra);
   --chart-4: var(--pietra);
-  --chart-5: oklch(0.44 0.04 60);
-  --sidebar: oklch(0.985 0.008 86);
+  --chart-5: var(--ocra-foreground);
+  --sidebar: var(--pietra-soft);
   --sidebar-foreground: var(--inchiostro);
   --sidebar-primary: var(--cotto);
   --sidebar-primary-foreground: var(--cotto-foreground);
   --sidebar-accent: var(--salvia-soft);
   --sidebar-accent-foreground: var(--salvia-foreground);
-  --sidebar-border: oklch(0.88 0.014 80);
+  --sidebar-border: #3A2E24;
   --sidebar-ring: var(--cotto);
 }
 
@@ -161,11 +160,53 @@
     font-size: 0.72rem;
     color: var(--cotto);
   }
-  /* Texture di calce molto tenue per dare atmosfera senza appesantire */
+  /* Texture pannello in legno / pergamena con luce calda della lanterna */
   .bg-calce-texture {
     background-color: var(--calce);
     background-image:
-      radial-gradient(transparent 0, transparent 60%, oklch(0.9 0.02 80 / 0.35) 100%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      radial-gradient(ellipse at top, rgba(223,151,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, rgba(44,70,99,0.06) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  /* Animazione onde SVG */
+  @keyframes wave-move {
+    0% { transform: translate3d(-90px, 0, 0); }
+    100% { transform: translate3d(85px, 0, 0); }
+  }
+  
+  .animate-wave-slow {
+    animation: wave-move 22s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  }
+  .animate-wave-medium {
+    animation: wave-move 14s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+    animation-delay: -3s;
+  }
+  .animate-wave-fast {
+    animation: wave-move 9s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+    animation-delay: -5s;
+  }
+
+  /* Animazione bolle marine */
+  @keyframes float-bubble {
+    0% { transform: translateY(105%) translateX(0) scale(1); opacity: 0; }
+    10% { opacity: 0.35; }
+    90% { opacity: 0.35; }
+    100% { transform: translateY(-30px) translateX(25px) scale(1.1); opacity: 0; }
+  }
+
+  .bubble-item {
+    animation: float-bubble 10s infinite linear;
+    animation-fill-mode: both;
+  }
+
+  /* Animazione galleggiamento balena */
+  @keyframes whale-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(-1.5deg); }
+  }
+
+  .animate-whale {
+    animation: whale-float 12s ease-in-out infinite;
   }
 }

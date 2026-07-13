@@ -19,14 +19,14 @@ type BookingEmailData = {
 function shell(title: string, bodyHtml: string): string {
   return `<!doctype html>
 <html>
-<body style="margin:0;padding:0;background:#f4efe6;font-family:Georgia,'Times New Roman',serif;color:#332e26;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4efe6;padding:32px 16px;">
+<body style="margin:0;padding:0;background:#FAF6EE;font-family:Georgia,'Times New Roman',serif;color:#221D1A;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAF6EE;padding:32px 16px;">
     <tr><td align="center">
-      <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fdfbf7;border:1px solid #e2dacc;border-radius:12px;overflow:hidden;">
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #E2DAC9;border-radius:12px;overflow:hidden;">
         <tr>
-          <td style="padding:28px 32px;border-bottom:1px solid #e2dacc;">
-            <p style="margin:0;font-family:Verdana,Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#a65a33;">Ostello del Convento</p>
-            <p style="margin:4px 0 0;font-size:22px;">Sant&rsquo;Antonio &middot; Acerno</p>
+          <td style="padding:28px 32px;border-bottom:1px solid #E2DAC9;">
+            <p style="margin:0;font-family:Verdana,Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#DF973A;">Hub for</p>
+            <p style="margin:4px 0 0;font-size:22px;">European Youth &middot; Acerno</p>
           </td>
         </tr>
         <tr>
@@ -36,9 +36,9 @@ function shell(title: string, bodyHtml: string): string {
           </td>
         </tr>
         <tr>
-          <td style="padding:20px 32px;border-top:1px solid #e2dacc;font-family:Verdana,Arial,sans-serif;font-size:11px;color:#8a8479;">
+          <td style="padding:20px 32px;border-top:1px solid #E2DAC9;font-family:Verdana,Arial,sans-serif;font-size:11px;color:#676156;">
             ${SITE.name} &middot; ${SITE.address}<br/>
-            ${SITE.org} &middot; <a href="mailto:${SITE.email}" style="color:#a65a33;">${SITE.email}</a>
+            ${SITE.org} &middot; <a href="mailto:${SITE.email}" style="color:#DF973A;">${SITE.email}</a>
           </td>
         </tr>
       </table>
@@ -51,10 +51,10 @@ function shell(title: string, bodyHtml: string): string {
 function detailRows(d: BookingEmailData, labels: Record<string, string>): string {
   const row = (k: string, v: string) =>
     `<tr>
-      <td style="padding:6px 12px 6px 0;font-family:Verdana,Arial,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8a8479;white-space:nowrap;">${k}</td>
+      <td style="padding:6px 12px 6px 0;font-family:Verdana,Arial,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#676156;white-space:nowrap;">${k}</td>
       <td style="padding:6px 0;font-size:15px;">${v}</td>
     </tr>`;
-  return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:12px 0;border-left:3px solid #b8875a;padding-left:14px;">
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:12px 0;border-left:3px solid #2C4663;padding-left:14px;">
     ${row(labels.room, d.roomName)}
     ${row(labels.dates, `${d.checkIn} → ${d.checkOut}`)}
     ${row(labels.guests, String(d.numGuests))}
@@ -96,7 +96,7 @@ export function hostelNotificationEmail(d: BookingEmailData): {
   html: string;
 } {
   const contact = [
-    `<a href="mailto:${d.guestEmail}" style="color:#a65a33;">${d.guestEmail}</a>`,
+    `<a href="mailto:${d.guestEmail}" style="color:#DF973A;">${d.guestEmail}</a>`,
     d.guestPhone ? d.guestPhone : null,
   ]
     .filter(Boolean)
@@ -109,7 +109,7 @@ export function hostelNotificationEmail(d: BookingEmailData): {
         ? `<p style="margin:12px 0 0;line-height:1.6;"><em>«${d.message}»</em></p>`
         : ""
     }
-    <p style="margin:16px 0 0;line-height:1.6;font-family:Verdana,Arial,sans-serif;font-size:12px;color:#8a8479;">Lingua ospite: ${d.locale.toUpperCase()} — rispondere per confermare o rifiutare.</p>`;
+    <p style="margin:16px 0 0;line-height:1.6;font-family:Verdana,Arial,sans-serif;font-size:12px;color:#676156;">Lingua ospite: ${d.locale.toUpperCase()} — rispondere per confermare o rifiutare.</p>`;
   return {
     subject: `Nuova richiesta: ${d.guestName} · ${d.checkIn} → ${d.checkOut}`,
     html: shell("Nuova richiesta di prenotazione", body),

@@ -35,10 +35,10 @@ function Brand({ onClick }: { onClick?: () => void }) {
       className="group flex flex-col leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm"
     >
       <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cotto">
-        Ostello del Convento
+        Hub for
       </span>
       <span className="font-serif text-xl tracking-tight text-foreground">
-        Sant&rsquo;Antonio
+        European Youth
       </span>
     </Link>
   );
@@ -80,7 +80,9 @@ export function SiteHeader() {
               <span className="relative">
                 {t(item.key)}
                 {isActive(pathname, item.href) ? (
-                  <span className="absolute -bottom-1 left-0 h-px w-full bg-cotto" />
+                  <svg className="absolute -bottom-1.5 left-0 h-1 w-full text-cotto" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0,5 Q25,0 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
                 ) : null}
               </span>
             </Link>
@@ -112,10 +114,10 @@ export function SiteHeader() {
             <SheetContent side="right" className="w-80 bg-calce p-0">
               <SheetTitle className="border-b border-border/70 p-5">
                 <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cotto">
-                  Ostello del Convento
+                  Hub for
                 </span>
                 <span className="block font-serif text-xl">
-                  Sant&rsquo;Antonio
+                  European Youth
                 </span>
               </SheetTitle>
               <nav className="flex flex-col p-3" aria-label="Mobile">

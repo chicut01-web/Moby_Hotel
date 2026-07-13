@@ -4,16 +4,10 @@ import { Accessibility, BedDouble, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArchPlaceholder } from "@/components/arch-motif";
+import { roomCoverImage } from "@/lib/room-images";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
-import type { Room, RoomType } from "@/lib/types";
-
-const toneByType: Record<RoomType, "salvia" | "cotto" | "pietra"> = {
-  dorm: "salvia",
-  private: "cotto",
-  accessible: "pietra",
-};
+import type { Room } from "@/lib/types";
 
 export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
   const t = useTranslations("camere");
@@ -25,25 +19,18 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
     currency: "EUR",
     maximumFractionDigits: 0,
   }).format(room.price_per_night);
-  const cover = room.images?.[0];
+  const cover = roomCoverImage(room);
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card transition-all duration-300 hover:-translate-y-0.5 hover:border-cotto/40 hover:shadow-[0_18px_40px_-24px_oklch(0.45_0.06_60/0.5)]">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card transition-all duration-300 hover:-translate-y-0.5 hover:border-cotto/40 hover:shadow-[0_18px_40px_-24px_var(--cotto)]">
       <div className="relative aspect-[5/4] overflow-hidden">
-        {cover ? (
-          <Image
-            src={cover}
-            alt={name}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          />
-        ) : (
-          <ArchPlaceholder
-            tone={toneByType[room.type]}
-            label={t(`types.${room.type}`)}
-          />
-        )}
+        <Image
+          src={cover}
+          alt={name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
       </div>
 
       <div className="flex flex-1 flex-col p-6">

@@ -4,8 +4,8 @@
  * I contatti sono segnaposto finché non arrivano quelli reali.
  */
 export const SITE = {
-  name: "Ostello del Convento di Sant'Antonio",
-  shortName: "Ostello Sant'Antonio",
+  name: "Hub for European Youth",
+  shortName: "European Youth Hub",
   org: "Moby Dick ETS",
   email: "info@mobydickets.it",
   phone: "+39 089 000 000",

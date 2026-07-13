@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Hostel of the Convent of Sant'Antonio · Acerno",
+    "title": "Hub for European Youth · Acerno",
     "description": "Authentic hospitality in a 17th-century Franciscan convent in the heart of the Picentini Mountains. Dorms and private rooms around the cloister, in Acerno (SA), Italy."
   },
   "nav": {
@@ -31,7 +31,7 @@
     "intro": {
       "eyebrow": "Who we are",
       "title": "A place that has welcomed for four centuries",
-      "body1": "The Hostel of the Convent of Sant'Antonio grew out of a 17th-century Franciscan complex in the centre of Acerno, restored and given back to the community as a place of sustainable, accessible hospitality.",
+      "body1": "The Hub for European Youth is located inside the suggestive 17th-century Franciscan complex in the centre of Acerno, restored and given back to the community as a place of sustainable, accessible hospitality.",
       "body2": "It is run by Moby Dick ETS, a non-profit social enterprise: no showy luxury, but authenticity, care for the place and attention to everyone — groups, school trips, hikers, pilgrims and families."
     },
     "highlights": {
@@ -95,6 +95,12 @@
       "title": "The courtyard layout",
       "body": "The architectural plans show the monastic layout: the rooms are arranged around the cloister, following the logic of the courtyard.",
       "alt": "Architectural plan of the convent with the central cloister"
+    },
+    "gallery": {
+      "affreschiAlt": "17th–18th-century frescoes resurfaced in the convent church",
+      "affreschiCaption": "The frescoes that resurfaced during restoration",
+      "volteAlt": "Cross vaults of the portico seen from below",
+      "volteCaption": "The cross vaults of the portico"
     }
   },
   "camere": {
@@ -143,7 +149,8 @@
     },
     "map": {
       "label": "Map",
-      "placeholder": "Map of Acerno (SA) — placeholder"
+      "placeholder": "Map of Acerno (SA) — placeholder",
+      "photoAlt": "The convent façade with its entrance portal, in the centre of Acerno"
     }
   },
   "prenota": {
@@ -228,7 +235,7 @@
   },
   "footer": {
     "about": {
-      "title": "The Hostel",
+      "title": "The Hub",
       "body": "Sustainable, accessible hospitality in a 17th-century Franciscan convent, in the centre of Acerno."
     },
     "explore": "Explore",

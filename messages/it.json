@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Ostello del Convento di Sant'Antonio · Acerno",
+    "title": "Hub for European Youth · Acerno",
     "description": "Ospitalità autentica in un convento francescano del XVII secolo nel cuore dei Monti Picentini. Camerate e camere private attorno al chiostro, ad Acerno (SA)."
   },
   "nav": {
@@ -31,7 +31,7 @@
     "intro": {
       "eyebrow": "Chi siamo",
       "title": "Un luogo che accoglie da quattro secoli",
-      "body1": "L'Ostello del Convento di Sant'Antonio nasce da un complesso francescano del XVII secolo nel centro di Acerno, recuperato e restituito alla comunità come luogo di ospitalità sostenibile e accessibile.",
+      "body1": "L'Hub for European Youth sorge all'interno del suggestivo complesso francescano del XVII secolo nel centro di Acerno, recuperato e restituito alla comunità come luogo di ospitalità sostenibile e accessibile.",
       "body2": "Lo gestisce Moby Dick ETS, ente del Terzo Settore: niente lusso ostentato, ma autenticità, cura del luogo e attenzione a tutti — gruppi, scolaresche, escursionisti, pellegrini e famiglie."
     },
     "highlights": {
@@ -95,6 +95,12 @@
       "title": "L'impianto a corte",
       "body": "Le piante architettoniche mostrano l'organizzazione monastica: gli ambienti si dispongono attorno al chiostro, secondo la logica della corte.",
       "alt": "Pianta architettonica del convento con il chiostro centrale"
+    },
+    "gallery": {
+      "affreschiAlt": "Affreschi sei-settecenteschi riaffiorati nella chiesa del convento",
+      "affreschiCaption": "Gli affreschi riaffiorati durante i restauri",
+      "volteAlt": "Volte a crociera del porticato viste dal basso",
+      "volteCaption": "Le volte a crociera del porticato"
     }
   },
   "camere": {
@@ -143,7 +149,8 @@
     },
     "map": {
       "label": "Mappa",
-      "placeholder": "Mappa di Acerno (SA) — segnaposto"
+      "placeholder": "Mappa di Acerno (SA) — segnaposto",
+      "photoAlt": "La facciata del convento con il portale d'ingresso, nel centro di Acerno"
     }
   },
   "prenota": {
@@ -228,7 +235,7 @@
   },
   "footer": {
     "about": {
-      "title": "L'Ostello",
+      "title": "L'Hub",
       "body": "Ospitalità sostenibile e accessibile in un convento francescano del XVII secolo, nel centro di Acerno."
     },
     "explore": "Esplora",

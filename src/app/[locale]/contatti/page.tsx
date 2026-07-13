@@ -1,8 +1,8 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
-import { ArchColonnade } from "@/components/arch-motif";
 import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
 
@@ -84,20 +84,20 @@ export default async function ContattiPage({
             </div>
           </div>
 
-          {/* Map placeholder */}
-          <div className="relative min-h-72 overflow-hidden rounded-2xl border border-border/70 bg-salvia-soft">
-            <ArchColonnade
-              count={6}
-              className="absolute bottom-0 left-0 h-40 w-full text-salvia/40"
+          {/* Facciata + località */}
+          <div className="relative min-h-72 overflow-hidden rounded-2xl border border-border/70">
+            <Image
+              src="/images/facciata.jpg"
+              alt={t("map.photoAlt")}
+              fill
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              className="object-cover"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
-              <MapPin className="size-7 text-salvia-foreground" aria-hidden="true" />
-              <p className="px-6 text-sm text-salvia-foreground">
-                {t("map.placeholder")}
-              </p>
-              <p className="font-serif text-2xl text-foreground">
+            <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-border/60 bg-calce/90 px-4 py-2 backdrop-blur">
+              <MapPin className="size-4 text-cotto" aria-hidden="true" />
+              <span className="font-serif text-lg text-foreground">
                 {SITE.locality}
-              </p>
+              </span>
             </div>
           </div>
         </Container>

@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
-import { ArchColonnade, ArchPlaceholder } from "@/components/arch-motif";
+import { ArchColonnade } from "@/components/arch-motif";
 import type { Locale } from "@/i18n/routing";
 
 const SPACES = ["pianoTerra", "primoPiano", "seminterrato"] as const;
@@ -35,8 +36,48 @@ export default async function ConventoPage({
             </div>
           </div>
           <div className="relative aspect-[3/4] overflow-hidden rounded-t-[9rem] rounded-b-2xl ring-1 ring-border/70">
-            <ArchPlaceholder tone="cotto" label={t("hero.imageAlt")} />
+            <Image
+              src="/images/porticato.jpg"
+              alt={t("hero.imageAlt")}
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover"
+            />
           </div>
+        </Container>
+      </section>
+
+      {/* Gallery: affreschi + volte */}
+      <section className="pb-4">
+        <Container className="grid gap-6 md:grid-cols-2">
+          <figure className="overflow-hidden rounded-2xl border border-border/70 bg-card">
+            <div className="relative aspect-[4/3]">
+              <Image
+                src="/images/affreschi.jpg"
+                alt={t("gallery.affreschiAlt")}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="px-5 py-3 text-sm text-muted-foreground">
+              {t("gallery.affreschiCaption")}
+            </figcaption>
+          </figure>
+          <figure className="overflow-hidden rounded-2xl border border-border/70 bg-card">
+            <div className="relative aspect-[4/3]">
+              <Image
+                src="/images/volte.jpg"
+                alt={t("gallery.volteAlt")}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="px-5 py-3 text-sm text-muted-foreground">
+              {t("gallery.volteCaption")}
+            </figcaption>
+          </figure>
         </Container>
       </section>
 

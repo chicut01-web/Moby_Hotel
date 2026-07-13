@@ -25,7 +25,7 @@ export async function sendEmail(
     const resend = new Resend(key);
     const from =
       process.env.RESEND_FROM ||
-      "Ostello del Convento <onboarding@resend.dev>";
+      "Hub for European Youth <onboarding@resend.dev>";
     const { error } = await resend.emails.send({
       from,
       to: mail.to,

@@ -1,5 +1,6 @@
 import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
+import { WaveDivider } from "@/components/wave-divider";
 
 export function PageHero({
   eyebrow,
@@ -11,10 +12,10 @@ export function PageHero({
   subtitle?: string;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-border/60 bg-calce-deep">
+    <section className="relative overflow-hidden bg-gradient-to-b from-calce to-pietra-soft/20">
       <ArchColonnade
         count={7}
-        className="pointer-events-none absolute -bottom-2 right-0 h-32 w-[34rem] max-w-none text-salvia/25"
+        className="pointer-events-none absolute -bottom-2 right-0 h-32 w-[34rem] max-w-none text-salvia/15"
       />
       <Container className="relative py-16 sm:py-24">
         <p className="eyebrow">{eyebrow}</p>
@@ -27,6 +28,7 @@ export function PageHero({
           </p>
         ) : null}
       </Container>
+      <WaveDivider waveColorClass="fill-background" className="translate-y-px" />
     </section>
   );
 }

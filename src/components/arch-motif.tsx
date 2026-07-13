@@ -55,7 +55,7 @@ type Tone = "salvia" | "cotto" | "pietra";
 
 const toneClasses: Record<Tone, string> = {
   salvia: "from-salvia-soft to-calce text-salvia",
-  cotto: "from-[oklch(0.91_0.045_55)] to-calce text-cotto",
+  cotto: "from-cotto/10 to-calce text-cotto",
   pietra: "from-pietra-soft to-calce text-pietra",
 };
 
