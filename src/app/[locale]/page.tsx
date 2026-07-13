@@ -10,6 +10,34 @@ import { WaveDivider } from "@/components/wave-divider";
 import { Reveal } from "@/components/reveal";
 import { Seagulls } from "@/components/seagulls";
 import { CompassRose } from "@/components/compass-rose";
+import { SailboatCrossing } from "@/components/sailboat";
+import { TiltCard } from "@/components/tilt-card";
+
+/** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
+function InkWords({
+  text,
+  startDelay = 0,
+  className,
+}: {
+  text: string;
+  startDelay?: number;
+  className?: string;
+}) {
+  return (
+    <>
+      {text.split(" ").map((word, i) => (
+        <span
+          key={`${word}-${i}`}
+          className={`ink-word ${className ?? ""}`}
+          style={{ animationDelay: `${startDelay + i * 130}ms` }}
+        >
+          {word}
+          {" "}
+        </span>
+      ))}
+    </>
+  );
+}
 import { getActiveRooms } from "@/lib/rooms";
 import type { Locale } from "@/i18n/routing";
 
@@ -46,12 +74,14 @@ export default async function HomePage({
             >
               {t("hero.eyebrow")}
             </p>
-            <h1
-              className="mt-5 text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl animate-in fade-in slide-in-from-bottom-3 duration-700"
-              style={{ animationDelay: "120ms", animationFillMode: "both" }}
-            >
-              {t("hero.title")}{" "}
-              <span className="italic text-cotto">{t("hero.titleAccent")}</span>
+            <h1 className="mt-5 text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl">
+              <InkWords text={t("hero.title")} startDelay={120} />
+              <span className="italic text-cotto">
+                <InkWords
+                  text={t("hero.titleAccent")}
+                  startDelay={120 + (t("hero.title").split(" ").length + 1) * 130}
+                />
+              </span>
             </h1>
             <p
               className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground animate-in fade-in slide-in-from-bottom-3 duration-700"
@@ -101,6 +131,7 @@ export default async function HomePage({
           </div>
         </Container>
 
+        <SailboatCrossing />
         <WaveDivider waveColorClass="fill-background" className="translate-y-px" />
       </section>
 
@@ -168,7 +199,9 @@ export default async function HomePage({
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {rooms.map((room, i) => (
               <Reveal key={room.id} delay={i * 110} className="h-full">
-                <RoomCard room={room} locale={locale} />
+                <TiltCard className="h-full">
+                  <RoomCard room={room} locale={locale} />
+                </TiltCard>
               </Reveal>
             ))}
           </div>

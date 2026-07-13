@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
 import { WaveDivider } from "@/components/wave-divider";
+import { Whale } from "@/components/whale";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -30,10 +31,10 @@ export function SiteFooter() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {t("about.body")}
             </p>
-            <ArchColonnade
-              count={5}
-              className="mt-6 h-12 w-44 text-salvia/60"
-            />
+            <div className="mt-6 flex items-end gap-5">
+              <ArchColonnade count={5} className="h-12 w-44 text-salvia/60" />
+              <Whale className="w-20" />
+            </div>
           </div>
 
           <nav aria-label="Footer" className="flex flex-col gap-3">

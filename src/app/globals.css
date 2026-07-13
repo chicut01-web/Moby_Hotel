@@ -337,6 +337,54 @@
     animation: slow-spin 90s linear infinite;
   }
 
+  /* Titolo che si "scrive" a inchiostro, parola per parola */
+  @keyframes ink-in {
+    from {
+      opacity: 0;
+      filter: blur(7px);
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: none;
+    }
+  }
+  .ink-word {
+    display: inline-block;
+    opacity: 0;
+    animation: ink-in 0.7s ease forwards;
+  }
+
+  /* Veliero che attraversa l'orizzonte */
+  @keyframes sail-across {
+    from {
+      transform: translateX(-10vw);
+    }
+    to {
+      transform: translateX(108vw);
+    }
+  }
+  @keyframes sail-roll {
+    0%,
+    100% {
+      transform: rotate(-2.5deg) translateY(0);
+    }
+    50% {
+      transform: rotate(2.5deg) translateY(-4px);
+    }
+  }
+  .sail-track {
+    position: absolute;
+    left: 0;
+    animation: sail-across 75s linear infinite;
+    will-change: transform;
+  }
+  .sail-roll {
+    animation: sail-roll 5s ease-in-out infinite;
+    transform-origin: 50% 90%;
+  }
+
   /* Riflesso "shine" che attraversa i bottoni primari */
   .btn-shine {
     position: relative;
@@ -376,6 +424,12 @@
     .btn-shine::after {
       display: none;
     }
+    .ink-word {
+      animation: none;
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
     .animate-wave-slow,
     .animate-wave-medium,
     .animate-wave-fast,
@@ -383,6 +437,8 @@
     .animate-whale,
     .seagull-track,
     .seagull-bob,
+    .sail-track,
+    .sail-roll,
     .animate-slow-spin,
     .parallax-drift {
       animation: none;

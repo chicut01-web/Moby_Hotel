@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MapCursorTrail } from "@/components/map-cursor-trail";
+import { ScrollRouteProgress } from "@/components/scroll-route-progress";
 import "../globals.css";
 
 const fraunces = Fraunces({
@@ -64,6 +65,7 @@ export default async function LocaleLayout({
           </main>
           <SiteFooter />
           <MapCursorTrail />
+          <ScrollRouteProgress />
         </NextIntlClientProvider>
       </body>
     </html>
