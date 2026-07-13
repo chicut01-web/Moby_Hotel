@@ -123,7 +123,7 @@ export default async function HomePage({
             {HIGHLIGHTS.map(({ key, Icon }) => (
               <div
                 key={key}
-                className="rounded-2xl border border-border/70 bg-card p-7 transition-colors hover:border-salvia/50"
+                className="lantern-card rounded-2xl border border-border/70 bg-card p-7"
               >
                 <span className="inline-flex size-12 items-center justify-center rounded-full bg-secondary text-salvia-foreground">
                   <Icon className="size-5" aria-hidden="true" />

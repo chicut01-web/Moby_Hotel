@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { roomCoverImage } from "@/lib/room-images";
+import { MapTrailArrow } from "@/components/map-trail-arrow";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
 import type { Room } from "@/lib/types";
@@ -22,14 +23,14 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
   const cover = roomCoverImage(room);
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card transition-all duration-300 hover:-translate-y-0.5 hover:border-cotto/40 hover:shadow-[0_18px_40px_-24px_var(--cotto)]">
+    <article className="lantern-card group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card">
       <div className="relative aspect-[5/4] overflow-hidden">
         <Image
           src={cover}
           alt={name}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-110"
         />
       </div>
 
@@ -80,9 +81,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
           >
             <Link href={{ pathname: "/prenota", query: { room: room.id } }}>
               {t("card.request")}
-              <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
-                &rarr;
-              </span>
+              <MapTrailArrow className="ml-1" />
             </Link>
           </Button>
         </div>

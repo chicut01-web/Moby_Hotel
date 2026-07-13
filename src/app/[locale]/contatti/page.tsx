@@ -85,13 +85,13 @@ export default async function ContattiPage({
           </div>
 
           {/* Facciata + località */}
-          <div className="relative min-h-72 overflow-hidden rounded-2xl border border-border/70">
+          <div className="lantern-card group relative min-h-72 overflow-hidden rounded-2xl border border-border/70">
             <Image
               src="/images/facciata.jpg"
               alt={t("map.photoAlt")}
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-cover"
+              className="object-cover transition-[filter] duration-500 group-hover:brightness-110"
             />
             <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-border/60 bg-calce/90 px-4 py-2 backdrop-blur">
               <MapPin className="size-4 text-cotto" aria-hidden="true" />

@@ -31,6 +31,7 @@
   --color-ocra: var(--ocra);
   --color-ocra-foreground: var(--ocra-foreground);
   --color-inchiostro: var(--inchiostro);
+  --color-tramonto: var(--tramonto);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -74,10 +75,10 @@
   --radius: 0.5rem;
 
   /* Palette di colori in stile cabin / studio antico (dai colori della foto) */
-  --calce: #1C130D;                      /* Sfondo legno scuro / noce antico */
-  --calce-deep: #110B07;                 /* Legno ebano profondo (per il footer) */
+  --calce: #1F1309;                      /* Sfondo legno noce caldo/rossiccio (pareti cabina) */
+  --calce-deep: #120B06;                 /* Legno ebano profondo (per il footer) */
   --pietra: #8E9DAA;                     /* Faded slate blue (testo secondario / link inattivi) */
-  --pietra-soft: #261C14;                /* Sfondo pannelli in legno (card e contenitori) */
+  --pietra-soft: #2A1C10;                /* Sfondo pannelli in legno (card e contenitori) */
   --cotto: #DF973A;                      /* Luce della lanterna / ambra dorata (accento primario) */
   --cotto-foreground: #110B07;           /* Testo scuro su sfondo ambra */
   --salvia: #43668F;                     /* Blu velluto più chiaro per i link / evidenziatore */
@@ -86,6 +87,7 @@
   --ocra: #C89551;                       /* Ottone spazzolato / dettagli metallici */
   --ocra-foreground: #110B07;            /* Testo scuro su ocra */
   --inchiostro: #E8DFCB;                 /* Carta mappa pergamena invecchiata (testo primario chiaro) */
+  --tramonto: #D96B3F;                   /* Arancio tramonto dall'oblò (accento raro) */
 
   /* Token semantici shadcn mappati sulla palette */
   --background: var(--calce);
@@ -102,8 +104,8 @@
   --muted-foreground: #A69B8A;
   --accent: var(--salvia-soft);
   --accent-foreground: var(--salvia-foreground);
-  --destructive: #BD4235;
-  --border: #3A2E24;
+  --destructive: #C24C33;
+  --border: #413020;
   --input: #241C15;
   --ring: var(--cotto);
   --chart-1: var(--cotto);
@@ -117,7 +119,7 @@
   --sidebar-primary-foreground: var(--cotto-foreground);
   --sidebar-accent: var(--salvia-soft);
   --sidebar-accent-foreground: var(--salvia-foreground);
-  --sidebar-border: #3A2E24;
+  --sidebar-border: #413020;
   --sidebar-ring: var(--cotto);
 }
 
@@ -164,7 +166,7 @@
   .bg-calce-texture {
     background-color: var(--calce);
     background-image:
-      radial-gradient(ellipse at top, rgba(223,151,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at top, rgba(223,151,58,0.11) 0%, transparent 60%),
       radial-gradient(ellipse at bottom, rgba(44,70,99,0.06) 0%, transparent 70%),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   }
@@ -208,5 +210,77 @@
 
   .animate-whale {
     animation: whale-float 12s ease-in-out infinite;
+  }
+
+  /* Card "illuminata dalla lanterna" al passaggio del mouse */
+  .lantern-card {
+    position: relative;
+    transition:
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s ease;
+  }
+  .lantern-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      120% 90% at 50% 0%,
+      rgba(223, 151, 58, 0.14),
+      transparent 62%
+    );
+  }
+  .lantern-card:hover {
+    border-color: rgba(223, 151, 58, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(223, 151, 58, 0.22),
+      0 0 34px -6px rgba(223, 151, 58, 0.3),
+      0 22px 55px -24px rgba(223, 151, 58, 0.38);
+    transform: translateY(-3px);
+  }
+  .lantern-card:hover::after {
+    opacity: 1;
+  }
+
+  /* Rotta di mappa antica: trattini che marciano lungo il percorso */
+  @keyframes map-dash {
+    to {
+      stroke-dashoffset: -14;
+    }
+  }
+  .map-trail-dash {
+    stroke-dasharray: 3.5 3.5;
+    stroke-dashoffset: 0;
+  }
+  .group:hover .map-trail-dash {
+    animation: map-dash 0.7s linear infinite;
+  }
+  .map-trail-x {
+    opacity: 0;
+    transition: opacity 0.35s ease 0.15s;
+  }
+  .group:hover .map-trail-x {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lantern-card,
+    .lantern-card:hover {
+      transform: none;
+    }
+    .group:hover .map-trail-dash {
+      animation: none;
+    }
+    .animate-wave-slow,
+    .animate-wave-medium,
+    .animate-wave-fast,
+    .bubble-item,
+    .animate-whale {
+      animation: none;
+    }
   }
 }

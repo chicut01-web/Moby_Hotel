@@ -50,28 +50,28 @@ export default async function ConventoPage({
       {/* Gallery: affreschi + volte */}
       <section className="pb-4">
         <Container className="grid gap-6 md:grid-cols-2">
-          <figure className="overflow-hidden rounded-2xl border border-border/70 bg-card">
-            <div className="relative aspect-[4/3]">
+          <figure className="lantern-card group overflow-hidden rounded-2xl border border-border/70 bg-card">
+            <div className="relative aspect-[4/3] overflow-hidden">
               <Image
                 src="/images/affreschi.jpg"
                 alt={t("gallery.affreschiAlt")}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
+                className="object-cover transition-[filter,transform] duration-500 group-hover:scale-[1.02] group-hover:brightness-110"
               />
             </div>
             <figcaption className="px-5 py-3 text-sm text-muted-foreground">
               {t("gallery.affreschiCaption")}
             </figcaption>
           </figure>
-          <figure className="overflow-hidden rounded-2xl border border-border/70 bg-card">
-            <div className="relative aspect-[4/3]">
+          <figure className="lantern-card group overflow-hidden rounded-2xl border border-border/70 bg-card">
+            <div className="relative aspect-[4/3] overflow-hidden">
               <Image
                 src="/images/volte.jpg"
                 alt={t("gallery.volteAlt")}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
+                className="object-cover transition-[filter,transform] duration-500 group-hover:scale-[1.02] group-hover:brightness-110"
               />
             </div>
             <figcaption className="px-5 py-3 text-sm text-muted-foreground">
