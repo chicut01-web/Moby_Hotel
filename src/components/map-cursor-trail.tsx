@@ -66,9 +66,9 @@ export function MapCursorTrail() {
         for (let i = 1; i < points.length; i++) {
           const p0 = points[i - 1];
           const p1 = points[i];
-          const alpha = Math.max(0, 1 - (now - p1.t) / TRAIL_LIFE) * 0.65;
+          const alpha = Math.max(0, 1 - (now - p1.t) / TRAIL_LIFE) * 0.5;
           if (alpha <= 0.01) continue;
-          ctx.strokeStyle = `rgba(223, 151, 58, ${alpha})`;
+          ctx.strokeStyle = `rgba(34, 54, 74, ${alpha})`;
           // Ancora i trattini alla lunghezza percorsa: restano "sulla carta".
           ctx.lineDashOffset = -p0.d;
           ctx.beginPath();

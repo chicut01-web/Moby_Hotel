@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { RoomCard } from "@/components/room-card";
+import { Reveal } from "@/components/reveal";
 import { getActiveRooms } from "@/lib/rooms";
 import type { Locale } from "@/i18n/routing";
 
@@ -37,8 +38,10 @@ export default async function CamerePage({
 
           {rooms.length > 0 ? (
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {rooms.map((room) => (
-                <RoomCard key={room.id} room={room} locale={locale} />
+              {rooms.map((room, i) => (
+                <Reveal key={room.id} delay={(i % 3) * 110} className="h-full">
+                  <RoomCard room={room} locale={locale} />
+                </Reveal>
               ))}
             </div>
           ) : (

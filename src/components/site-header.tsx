@@ -94,7 +94,7 @@ export function SiteHeader() {
           <Button
             asChild
             size="sm"
-            className="hidden rounded-full px-4 sm:inline-flex"
+            className="btn-shine hidden rounded-full px-4 sm:inline-flex"
           >
             <Link href="/prenota">{t("prenota")}</Link>
           </Button>

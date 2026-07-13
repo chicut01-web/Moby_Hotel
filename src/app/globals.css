@@ -6,7 +6,9 @@
 
 /*
   Hub for European Youth — design tokens.
-  Concept: "Captain's Cabin / Old Study Room" (dark wood, amber lanterns, velvet blue, parchment maps).
+  Concept: "Corda & Cielo" — carta nautica alla luce del giorno: tela di vela
+  chiara, corda/canapa, blu cielo, inchiostro navy. Il tramonto resta come
+  accento raro.
 */
 
 @theme inline {
@@ -74,52 +76,52 @@
 :root {
   --radius: 0.5rem;
 
-  /* Palette di colori in stile cabin / studio antico (dai colori della foto) */
-  --calce: #1F1309;                      /* Sfondo legno noce caldo/rossiccio (pareti cabina) */
-  --calce-deep: #120B06;                 /* Legno ebano profondo (per il footer) */
-  --pietra: #8E9DAA;                     /* Faded slate blue (testo secondario / link inattivi) */
-  --pietra-soft: #2A1C10;                /* Sfondo pannelli in legno (card e contenitori) */
-  --cotto: #DF973A;                      /* Luce della lanterna / ambra dorata (accento primario) */
-  --cotto-foreground: #110B07;           /* Testo scuro su sfondo ambra */
-  --salvia: #43668F;                     /* Blu velluto più chiaro per i link / evidenziatore */
-  --salvia-soft: #1E2B3C;                /* Navy grigiastro scuro (sfondo badge) */
-  --salvia-foreground: #E8DFCB;          /* Testo chiaro su badge blu */
-  --ocra: #C89551;                       /* Ottone spazzolato / dettagli metallici */
-  --ocra-foreground: #110B07;            /* Testo scuro su ocra */
-  --inchiostro: #E8DFCB;                 /* Carta mappa pergamena invecchiata (testo primario chiaro) */
-  --tramonto: #D96B3F;                   /* Arancio tramonto dall'oblò (accento raro) */
+  /* Palette "corda e cielo": vela, canapa, cielo, inchiostro navy */
+  --calce: #F4ECDD;                      /* Tela di vela / carta nautica chiara (sfondo) */
+  --calce-deep: #E9DEC6;                 /* Sabbia più profonda (footer, sezioni) */
+  --pietra: #5B7186;                     /* Grigio-cielo (testo secondario) */
+  --pietra-soft: #EADFC8;                /* Corda chiara (pannelli, decori) */
+  --cotto: #A87B42;                      /* Corda/canapa scura (accento primario) */
+  --cotto-foreground: #FFF8EA;           /* Crema su corda */
+  --salvia: #2E6FA3;                     /* Blu cielo profondo (link, accenti) */
+  --salvia-soft: #D9EAF6;                /* Cielo pallido (sfondi badge) */
+  --salvia-foreground: #1D4568;          /* Blu oceano su cielo pallido */
+  --ocra: #C9A86A;                       /* Corda dorata / ottone chiaro */
+  --ocra-foreground: #241903;            /* Testo scuro su ocra */
+  --inchiostro: #22364A;                 /* Inchiostro navy (testo primario) */
+  --tramonto: #D96B3F;                   /* Arancio tramonto (accento raro) */
 
   /* Token semantici shadcn mappati sulla palette */
   --background: var(--calce);
   --foreground: var(--inchiostro);
-  --card: var(--pietra-soft);
+  --card: #FBF6EA;
   --card-foreground: var(--inchiostro);
-  --popover: var(--pietra-soft);
+  --popover: #FBF6EA;
   --popover-foreground: var(--inchiostro);
   --primary: var(--cotto);
   --primary-foreground: var(--cotto-foreground);
   --secondary: var(--salvia-soft);
   --secondary-foreground: var(--salvia-foreground);
-  --muted: #241C15;
-  --muted-foreground: #A69B8A;
+  --muted: #EDE4D1;
+  --muted-foreground: #66727E;
   --accent: var(--salvia-soft);
   --accent-foreground: var(--salvia-foreground);
   --destructive: #C24C33;
-  --border: #413020;
-  --input: #241C15;
+  --border: #D9C9A8;
+  --input: #E4D8BE;
   --ring: var(--cotto);
   --chart-1: var(--cotto);
   --chart-2: var(--salvia);
   --chart-3: var(--ocra);
   --chart-4: var(--pietra);
-  --chart-5: var(--ocra-foreground);
-  --sidebar: var(--pietra-soft);
+  --chart-5: var(--tramonto);
+  --sidebar: #FBF6EA;
   --sidebar-foreground: var(--inchiostro);
   --sidebar-primary: var(--cotto);
   --sidebar-primary-foreground: var(--cotto-foreground);
   --sidebar-accent: var(--salvia-soft);
   --sidebar-accent-foreground: var(--salvia-foreground);
-  --sidebar-border: #413020;
+  --sidebar-border: #D9C9A8;
   --sidebar-ring: var(--cotto);
 }
 
@@ -162,13 +164,13 @@
     font-size: 0.72rem;
     color: var(--cotto);
   }
-  /* Texture pannello in legno / pergamena con luce calda della lanterna */
+  /* Texture tela di vela: cielo in alto, sabbia in basso, grana di carta */
   .bg-calce-texture {
     background-color: var(--calce);
     background-image:
-      radial-gradient(ellipse at top, rgba(223,151,58,0.11) 0%, transparent 60%),
-      radial-gradient(ellipse at bottom, rgba(44,70,99,0.06) 0%, transparent 70%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      radial-gradient(ellipse at top, rgba(74, 147, 200, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, rgba(168, 123, 66, 0.06) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   }
 
   /* Animazione onde SVG */
@@ -230,16 +232,16 @@
     transition: opacity 0.4s ease;
     background: radial-gradient(
       120% 90% at 50% 0%,
-      rgba(223, 151, 58, 0.14),
+      rgba(201, 168, 106, 0.18),
       transparent 62%
     );
   }
   .lantern-card:hover {
-    border-color: rgba(223, 151, 58, 0.55);
+    border-color: rgba(168, 123, 66, 0.6);
     box-shadow:
-      0 0 0 1px rgba(223, 151, 58, 0.22),
-      0 0 34px -6px rgba(223, 151, 58, 0.3),
-      0 22px 55px -24px rgba(223, 151, 58, 0.38);
+      0 0 0 1px rgba(168, 123, 66, 0.22),
+      0 0 34px -6px rgba(168, 123, 66, 0.3),
+      0 22px 55px -24px rgba(34, 54, 74, 0.35);
     transform: translateY(-3px);
   }
   .lantern-card:hover::after {
@@ -267,6 +269,97 @@
     opacity: 1;
   }
 
+  /* Reveal allo scroll (attivato da <Reveal/> via IntersectionObserver) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Parallasse leggera guidata dallo scroll (solo browser che la supportano) */
+  @supports (animation-timeline: view()) {
+    .parallax-drift {
+      animation: parallax-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+  @keyframes parallax-drift {
+    from {
+      transform: translateY(4%) scale(1.12);
+    }
+    to {
+      transform: translateY(-4%) scale(1.12);
+    }
+  }
+
+  /* Gabbiani in traversata */
+  @keyframes fly-across {
+    from {
+      transform: translateX(-8vw);
+    }
+    to {
+      transform: translateX(108vw);
+    }
+  }
+  @keyframes seagull-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-9px);
+    }
+  }
+  .seagull-track {
+    position: absolute;
+    left: 0;
+    animation: fly-across linear infinite;
+    will-change: transform;
+  }
+  .seagull-bob {
+    animation: seagull-bob 2.6s ease-in-out infinite;
+  }
+
+  /* Rosa dei venti che ruota piano */
+  @keyframes slow-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-slow-spin {
+    animation: slow-spin 90s linear infinite;
+  }
+
+  /* Riflesso "shine" che attraversa i bottoni primari */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 32%,
+      rgba(255, 252, 240, 0.4) 50%,
+      transparent 68%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+  .btn-shine:hover::after {
+    transform: translateX(130%);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .lantern-card,
     .lantern-card:hover {
@@ -275,11 +368,23 @@
     .group:hover .map-trail-dash {
       animation: none;
     }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .btn-shine::after {
+      display: none;
+    }
     .animate-wave-slow,
     .animate-wave-medium,
     .animate-wave-fast,
     .bubble-item,
-    .animate-whale {
+    .animate-whale,
+    .seagull-track,
+    .seagull-bob,
+    .animate-slow-spin,
+    .parallax-drift {
       animation: none;
     }
   }

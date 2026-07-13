@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { ArchColonnade } from "@/components/arch-motif";
+import { Reveal } from "@/components/reveal";
 import type { Locale } from "@/i18n/routing";
 
 const SPACES = ["pianoTerra", "primoPiano", "seminterrato"] as const;
@@ -50,6 +51,7 @@ export default async function ConventoPage({
       {/* Gallery: affreschi + volte */}
       <section className="pb-4">
         <Container className="grid gap-6 md:grid-cols-2">
+          <Reveal>
           <figure className="lantern-card group overflow-hidden rounded-2xl border border-border/70 bg-card">
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
@@ -64,6 +66,8 @@ export default async function ConventoPage({
               {t("gallery.affreschiCaption")}
             </figcaption>
           </figure>
+          </Reveal>
+          <Reveal delay={120}>
           <figure className="lantern-card group overflow-hidden rounded-2xl border border-border/70 bg-card">
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
@@ -78,6 +82,7 @@ export default async function ConventoPage({
               {t("gallery.volteCaption")}
             </figcaption>
           </figure>
+          </Reveal>
         </Container>
       </section>
 

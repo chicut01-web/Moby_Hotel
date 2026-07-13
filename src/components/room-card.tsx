@@ -23,7 +23,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
   const cover = roomCoverImage(room);
 
   return (
-    <article className="lantern-card group flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card">
+    <article className="lantern-card group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card">
       <div className="relative aspect-[5/4] overflow-hidden">
         <Image
           src={cover}
