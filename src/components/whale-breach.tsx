@@ -40,7 +40,7 @@ export function WhaleBreach({ className }: { className?: string }) {
           className="pointer-events-none fixed inset-x-0 top-[38vh] z-[80]"
         >
           <div className="whale-breach">
-            <Whale className="w-44 opacity-90 sm:w-56" />
+            <Whale className="w-52 drop-shadow-lg sm:w-72" />
           </div>
         </div>
       ) : null}

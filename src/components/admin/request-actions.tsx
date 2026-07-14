@@ -26,7 +26,7 @@ export function RequestActions({ requestId }: { requestId: string }) {
           size="sm"
           disabled={pending}
           onClick={() => run(confirmBooking)}
-          className="rounded-full bg-salvia text-calce hover:bg-salvia/90"
+          className="rounded-full"
         >
           <Check className="size-3.5" aria-hidden="true" />
           {t("confirm")}
