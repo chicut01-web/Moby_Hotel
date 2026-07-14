@@ -1,5 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { isSupabaseConfigured } from "./env";
+import { createMockClient } from "./mock";
 
 /**
  * Client Supabase lato server (RSC, route handler, server action).
@@ -7,6 +9,10 @@ import { cookies } from "next/headers";
  */
 export async function createClient() {
   const cookieStore = await cookies();
+
+  if (!isSupabaseConfigured()) {
+    return createMockClient(true, cookieStore) as unknown as ReturnType<typeof createServerClient>;
+  }
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

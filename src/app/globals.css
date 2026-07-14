@@ -78,7 +78,7 @@
 
   /* Palette "corda e cielo": vela, canapa, cielo, inchiostro navy */
   --calce: #E5DDD0;                      /* Tela di vela / carta nautica chiara (sfondo) */
-  --calce-deep: #F6F1E7;                 /* Sabbia più profonda (footer, sezioni) */
+  --calce-deep: #E9DEC6;                 /* Sabbia più profonda (footer, sezioni) */
   --pietra: #5B7186;                     /* Grigio-cielo (testo secondario) */
   --pietra-soft: #EADFC8;                /* Corda chiara (pannelli, decori) */
   --cotto: #4D93B8;                      /* Corda/canapa scura (accento primario) */
@@ -88,7 +88,7 @@
   --salvia-foreground: #1D4568;          /* Blu oceano su cielo pallido */
   --ocra: #C9A86A;                       /* Corda dorata / ottone chiaro */
   --ocra-foreground: #241903;            /* Testo scuro su ocra */
-  --inchiostro: #0F3D4C;                 /* Inchiostro navy (testo primario) */
+  --inchiostro: #22364A;                 /* Inchiostro navy (testo primario) */
   --tramonto: #D96B3F;                   /* Arancio tramonto (accento raro) */
 
   /* Token semantici shadcn mappati sulla palette */
