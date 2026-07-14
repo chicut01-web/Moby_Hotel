@@ -222,6 +222,9 @@
       "again": "Send another request"
     }
   },
+  "intro": {
+    "skip": "Skip intro"
+  },
   "admin": {
     "login": {
       "title": "Restricted area",

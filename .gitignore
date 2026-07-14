@@ -38,6 +38,11 @@ yarn-error.log*
 # repo. Le versioni web ottimizzate vanno in public/images/.
 /ACERNO/
 
+# Master video intro (pesanti, per editing/archivio): sul sito va solo
+# convento-intro.mp4 ottimizzato.
+/public/videos/convento-intro-1080p.mp4
+/public/videos/convento-intro-4k.mp4
+
 # vercel
 .vercel
 

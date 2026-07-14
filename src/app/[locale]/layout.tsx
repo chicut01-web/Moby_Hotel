@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MapCursorTrail } from "@/components/map-cursor-trail";
 import { ScrollRouteProgress } from "@/components/scroll-route-progress";
+import { IntroVideo } from "@/components/intro-video";
 import { PageTransition } from "@/components/page-transition";
 import "../globals.css";
 
@@ -67,6 +68,7 @@ export default async function LocaleLayout({
           <SiteFooter />
           <MapCursorTrail />
           <ScrollRouteProgress />
+          <IntroVideo />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -222,6 +222,9 @@
       "again": "Invia un'altra richiesta"
     }
   },
+  "intro": {
+    "skip": "Salta intro"
+  },
   "admin": {
     "login": {
       "title": "Area riservata",
