@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MapCursorTrail } from "@/components/map-cursor-trail";
 import { ScrollRouteProgress } from "@/components/scroll-route-progress";
+import { PageTransition } from "@/components/page-transition";
 import "../globals.css";
 
 const fraunces = Fraunces({
@@ -61,7 +62,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <SiteHeader />
           <main id="contenuto" className="flex-1">
-            {children}
+            <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter />
           <MapCursorTrail />

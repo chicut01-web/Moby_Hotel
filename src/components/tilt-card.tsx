@@ -30,6 +30,9 @@ export function TiltCard({
     const px = (e.clientX - rect.left) / rect.width - 0.5;
     const py = (e.clientY - rect.top) / rect.height - 0.5;
     el.style.transform = `perspective(900px) rotateX(${(-py * MAX_TILT).toFixed(2)}deg) rotateY(${(px * MAX_TILT).toFixed(2)}deg)`;
+    // Riflesso "glare" che segue il cursore (posizione in percentuale).
+    el.style.setProperty("--mx", `${((px + 0.5) * 100).toFixed(1)}%`);
+    el.style.setProperty("--my", `${((py + 0.5) * 100).toFixed(1)}%`);
   }
 
   function onPointerLeave() {
@@ -43,10 +46,23 @@ export function TiltCard({
       ref={ref}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className={cn("transition-transform duration-300 ease-out", className)}
+      className={cn(
+        "tilt-card group/tilt relative transition-transform duration-300 ease-out",
+        className,
+      )}
       style={{ transformStyle: "preserve-3d" }}
     >
       {children}
+      {/* Riflesso di luce radiale che segue il cursore sulla "tela" inclinata */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover/tilt:opacity-100"
+        style={{
+          background:
+            "radial-gradient(180px circle at var(--mx,50%) var(--my,50%), rgba(255,248,234,0.22), transparent 60%)",
+          mixBlendMode: "soft-light",
+        }}
+      />
     </div>
   );
 }

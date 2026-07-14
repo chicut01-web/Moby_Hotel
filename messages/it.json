@@ -34,6 +34,24 @@
       "body1": "L'Hub for European Youth sorge all'interno del suggestivo complesso francescano del XVII secolo nel centro di Acerno, recuperato e restituito alla comunità come luogo di ospitalità sostenibile e accessibile.",
       "body2": "Lo gestisce Moby Dick ETS, ente del Terzo Settore: niente lusso ostentato, ma autenticità, cura del luogo e attenzione a tutti — gruppi, scolaresche, escursionisti, pellegrini e famiglie."
     },
+    "stats": {
+      "eyebrow": "In cifre",
+      "years": {
+        "value": 400,
+        "suffix": "+",
+        "label": "Anni di storia"
+      },
+      "rooms": {
+        "value": 20,
+        "suffix": "",
+        "label": "Stanze nel chiostro"
+      },
+      "altitude": {
+        "value": 727,
+        "suffix": " m",
+        "label": "Sui Monti Picentini"
+      }
+    },
     "highlights": {
       "title": "Perché fermarsi qui",
       "chiostro": {

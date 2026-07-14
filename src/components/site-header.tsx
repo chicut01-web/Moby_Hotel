@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { Magnetic } from "@/components/magnetic";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -96,7 +97,9 @@ export function SiteHeader() {
             size="sm"
             className="btn-shine hidden rounded-full px-4 sm:inline-flex"
           >
-            <Link href="/prenota">{t("prenota")}</Link>
+            <Magnetic>
+              <Link href="/prenota">{t("prenota")}</Link>
+            </Magnetic>
           </Button>
 
           {/* Menu mobile */}

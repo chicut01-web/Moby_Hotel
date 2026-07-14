@@ -34,6 +34,24 @@
       "body1": "The Hub for European Youth is located inside the suggestive 17th-century Franciscan complex in the centre of Acerno, restored and given back to the community as a place of sustainable, accessible hospitality.",
       "body2": "It is run by Moby Dick ETS, a non-profit social enterprise: no showy luxury, but authenticity, care for the place and attention to everyone — groups, school trips, hikers, pilgrims and families."
     },
+    "stats": {
+      "eyebrow": "At a glance",
+      "years": {
+        "value": 400,
+        "suffix": "+",
+        "label": "Years of history"
+      },
+      "rooms": {
+        "value": 20,
+        "suffix": "",
+        "label": "Rooms around the cloister"
+      },
+      "altitude": {
+        "value": 727,
+        "suffix": " m",
+        "label": "Up in the Picentini"
+      }
+    },
     "highlights": {
       "title": "Why stay here",
       "chiostro": {

@@ -4,6 +4,7 @@ import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
 import { WaveDivider } from "@/components/wave-divider";
 import { Whale } from "@/components/whale";
+import { Bubbles } from "@/components/bubbles";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -31,9 +32,10 @@ export function SiteFooter() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {t("about.body")}
             </p>
-            <div className="mt-6 flex items-end gap-5">
+            <div className="relative mt-6 flex items-end gap-5">
               <ArchColonnade count={5} className="h-12 w-44 text-salvia/60" />
-              <Whale className="w-20" />
+              <Bubbles className="inset-y-0 right-0 w-24" />
+              <Whale className="relative w-20" />
             </div>
           </div>
 

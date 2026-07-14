@@ -11,7 +11,13 @@ import { Reveal } from "@/components/reveal";
 import { Seagulls } from "@/components/seagulls";
 import { CompassRose } from "@/components/compass-rose";
 import { SailboatCrossing } from "@/components/sailboat";
+import { Clouds } from "@/components/clouds";
+import { OceanWaves } from "@/components/ocean-waves";
+import { Bubbles } from "@/components/bubbles";
 import { TiltCard } from "@/components/tilt-card";
+import { Magnetic } from "@/components/magnetic";
+import { InkReveal } from "@/components/ink-reveal";
+import { CountUp } from "@/components/count-up";
 
 /** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
 function InkWords({
@@ -64,6 +70,7 @@ export default async function HomePage({
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-salvia-soft/50 via-calce to-calce pt-6">
+        <Clouds />
         <Seagulls />
         <CompassRose className="animate-slow-spin pointer-events-none absolute -right-16 -top-16 size-64 opacity-[0.07]" />
         <Container className="relative grid gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
@@ -94,7 +101,9 @@ export default async function HomePage({
               style={{ animationDelay: "280ms", animationFillMode: "both" }}
             >
               <Button asChild size="lg" className="btn-shine rounded-full px-7">
-                <Link href="/prenota">{t("hero.ctaPrimary")}</Link>
+                <Magnetic>
+                  <Link href="/prenota">{t("hero.ctaPrimary")}</Link>
+                </Magnetic>
               </Button>
               <Button
                 asChild
@@ -131,6 +140,8 @@ export default async function HomePage({
           </div>
         </Container>
 
+        <OceanWaves className="h-28" />
+        <Bubbles className="bottom-0 h-28" />
         <SailboatCrossing />
         <WaveDivider waveColorClass="fill-background" className="translate-y-px" />
       </section>
@@ -140,7 +151,7 @@ export default async function HomePage({
         <Container className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
           <div>
             <p className="eyebrow">{t("intro.eyebrow")}</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl">{t("intro.title")}</h2>
+            <InkReveal text={t("intro.title")} className="mt-4 text-3xl sm:text-4xl" />
             <ArchColonnade
               count={4}
               className="mt-7 h-14 w-40 text-salvia/45"
@@ -149,6 +160,39 @@ export default async function HomePage({
           <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
             <p>{t("intro.body1")}</p>
             <p>{t("intro.body2")}</p>
+          </div>
+        </Container>
+      </section>
+
+      {/* Stats band */}
+      <section className="border-y border-border/50 bg-calce-deep/40 py-12 sm:py-16">
+        <Container>
+          <p className="eyebrow text-center">{t("stats.eyebrow")}</p>
+          <div className="mt-8 grid gap-8 text-center sm:grid-cols-3">
+            <Reveal>
+              <span className="block font-serif text-4xl text-salvia sm:text-5xl">
+                <CountUp value={Number(t("stats.years.value"))} suffix={t("stats.years.suffix")} />
+              </span>
+              <span className="mt-2 block text-sm text-muted-foreground">
+                {t("stats.years.label")}
+              </span>
+            </Reveal>
+            <Reveal delay={120}>
+              <span className="block font-serif text-4xl text-salvia sm:text-5xl">
+                <CountUp value={Number(t("stats.rooms.value"))} suffix={t("stats.rooms.suffix")} />
+              </span>
+              <span className="mt-2 block text-sm text-muted-foreground">
+                {t("stats.rooms.label")}
+              </span>
+            </Reveal>
+            <Reveal delay={240}>
+              <span className="block font-serif text-4xl text-salvia sm:text-5xl">
+                <CountUp value={Number(t("stats.altitude.value"))} suffix={t("stats.altitude.suffix")} />
+              </span>
+              <span className="mt-2 block text-sm text-muted-foreground">
+                {t("stats.altitude.label")}
+              </span>
+            </Reveal>
           </div>
         </Container>
       </section>
@@ -183,7 +227,7 @@ export default async function HomePage({
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl">
               <p className="eyebrow">{t("rooms.eyebrow")}</p>
-              <h2 className="mt-3 text-3xl sm:text-4xl">{t("rooms.title")}</h2>
+              <InkReveal text={t("rooms.title")} className="mt-3 text-3xl sm:text-4xl" />
               <p className="mt-4 leading-relaxed text-muted-foreground">
                 {t("rooms.body")}
               </p>
@@ -218,9 +262,10 @@ export default async function HomePage({
               className="pointer-events-none absolute -bottom-2 right-0 h-44 w-[44rem] max-w-none text-cotto-foreground/15"
             />
             <div className="relative max-w-xl">
-              <h2 className="text-3xl text-cotto-foreground sm:text-4xl">
-                {t("cta.title")}
-              </h2>
+              <InkReveal
+                text={t("cta.title")}
+                className="text-3xl text-cotto-foreground sm:text-4xl"
+              />
               <p className="mt-4 leading-relaxed text-cotto-foreground/85">
                 {t("cta.body")}
               </p>
@@ -229,7 +274,9 @@ export default async function HomePage({
                 size="lg"
                 className="btn-shine mt-8 rounded-full bg-calce px-7 text-foreground hover:bg-calce/90"
               >
-                <Link href="/prenota">{t("cta.button")}</Link>
+                <Magnetic>
+                  <Link href="/prenota">{t("cta.button")}</Link>
+                </Magnetic>
               </Button>
             </div>
           </div>

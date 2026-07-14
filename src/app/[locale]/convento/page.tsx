@@ -3,7 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { ArchColonnade } from "@/components/arch-motif";
-import { Reveal } from "@/components/reveal";
+import { GalleryWithLightbox } from "@/components/gallery-with-lightbox";
+import { InkReveal } from "@/components/ink-reveal";
 import type { Locale } from "@/i18n/routing";
 
 const SPACES = ["pianoTerra", "primoPiano", "seminterrato"] as const;
@@ -29,7 +30,7 @@ export default async function ConventoPage({
       <section className="py-16 sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-16">
           <div>
-            <h2 className="text-3xl sm:text-4xl">{t("story.title")}</h2>
+            <InkReveal text={t("story.title")} className="text-3xl sm:text-4xl" />
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-muted-foreground">
               <p>{t("story.body1")}</p>
               <p>{t("story.body2")}</p>
@@ -48,41 +49,23 @@ export default async function ConventoPage({
         </Container>
       </section>
 
-      {/* Gallery: affreschi + volte */}
+      {/* Gallery: affreschi + volte (con lightbox) */}
       <section className="pb-4">
-        <Container className="grid gap-6 md:grid-cols-2">
-          <Reveal>
-          <figure className="lantern-card group overflow-hidden rounded-2xl border border-border/70 bg-card">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src="/images/affreschi.jpg"
-                alt={t("gallery.affreschiAlt")}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover transition-[filter,transform] duration-500 group-hover:scale-[1.02] group-hover:brightness-110"
-              />
-            </div>
-            <figcaption className="px-5 py-3 text-sm text-muted-foreground">
-              {t("gallery.affreschiCaption")}
-            </figcaption>
-          </figure>
-          </Reveal>
-          <Reveal delay={120}>
-          <figure className="lantern-card group overflow-hidden rounded-2xl border border-border/70 bg-card">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src="/images/volte.jpg"
-                alt={t("gallery.volteAlt")}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover transition-[filter,transform] duration-500 group-hover:scale-[1.02] group-hover:brightness-110"
-              />
-            </div>
-            <figcaption className="px-5 py-3 text-sm text-muted-foreground">
-              {t("gallery.volteCaption")}
-            </figcaption>
-          </figure>
-          </Reveal>
+        <Container>
+          <GalleryWithLightbox
+            items={[
+              {
+                src: "/images/affreschi.jpg",
+                alt: t("gallery.affreschiAlt"),
+                caption: t("gallery.affreschiCaption"),
+              },
+              {
+                src: "/images/volte.jpg",
+                alt: t("gallery.volteAlt"),
+                caption: t("gallery.volteCaption"),
+              },
+            ]}
+          />
         </Container>
       </section>
 
@@ -91,7 +74,7 @@ export default async function ConventoPage({
         <Container>
           <div className="max-w-xl">
             <p className="eyebrow">{t("spaces.title")}</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl">{t("spaces.intro")}</h2>
+            <InkReveal text={t("spaces.intro")} className="mt-3 text-3xl sm:text-4xl" />
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border/70 bg-border/70 md:grid-cols-3">
             {SPACES.map((key, i) => (
@@ -122,7 +105,7 @@ export default async function ConventoPage({
           </div>
           <div>
             <p className="eyebrow">{t("plan.eyebrow")}</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl">{t("plan.title")}</h2>
+            <InkReveal text={t("plan.title")} className="mt-3 text-3xl sm:text-4xl" />
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
               {t("plan.body")}
             </p>

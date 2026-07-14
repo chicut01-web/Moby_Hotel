@@ -204,6 +204,20 @@
     animation-fill-mode: both;
   }
 
+  /* Nubi lente che attraversano il cielo */
+  @keyframes drift-cloud {
+    from {
+      transform: translateX(-25vw) scale(1);
+    }
+    to {
+      transform: translateX(125vw) scale(1.08);
+    }
+  }
+  .drift-cloud {
+    animation: drift-cloud linear infinite;
+    will-change: transform;
+  }
+
   /* Animazione galleggiamento balena */
   @keyframes whale-float {
     0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -337,6 +351,32 @@
     animation: slow-spin 90s linear infinite;
   }
 
+  /* Transizione morbida della pagina al cambio rotta (vedi <PageTransition/>) */
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+      filter: blur(3px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+  }
+  .page-enter {
+    animation: page-enter 0.5s ease both;
+  }
+
+  /* Overlay lightbox: fade-in dello sfondo + zoom-in dell'immagine */
+  .lightbox-overlay {
+    animation: lightbox-in 0.3s ease both;
+  }
+  @keyframes lightbox-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
   /* Titolo che si "scrive" a inchiostro, parola per parola */
   @keyframes ink-in {
     from {
@@ -424,6 +464,12 @@
     .btn-shine::after {
       display: none;
     }
+    .page-enter {
+      animation: none;
+    }
+    .lightbox-overlay {
+      animation: none;
+    }
     .ink-word {
       animation: none;
       opacity: 1;
@@ -434,6 +480,7 @@
     .animate-wave-medium,
     .animate-wave-fast,
     .bubble-item,
+    .drift-cloud,
     .animate-whale,
     .seagull-track,
     .seagull-bob,
