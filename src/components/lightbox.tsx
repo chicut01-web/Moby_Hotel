@@ -26,13 +26,13 @@ export function Lightbox({
   onClose: () => void;
 }) {
   const [current, setCurrent] = useState(initial);
-  const prevInitialRef = useRef(initial);
+  const [prevInitial, setPrevInitial] = useState(initial);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  // Sync indice iniziale senza setState in effect: se initial cambia
-  // mentre siamo chiusi, il prossimo render avrà il valore giusto.
-  if (!open && prevInitialRef.current !== initial) {
-    prevInitialRef.current = initial;
+  // Sync indice iniziale durante il render (pattern React "derived state"):
+  // se initial cambia mentre siamo chiusi, il prossimo render è già giusto.
+  if (!open && prevInitial !== initial) {
+    setPrevInitial(initial);
     setCurrent(initial);
   }
 

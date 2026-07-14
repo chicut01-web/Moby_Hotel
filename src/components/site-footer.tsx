@@ -3,8 +3,9 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
 import { WaveDivider } from "@/components/wave-divider";
-import { Whale } from "@/components/whale";
+import { WhaleBreach } from "@/components/whale-breach";
 import { Bubbles } from "@/components/bubbles";
+import { Kraken } from "@/components/kraken";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -21,7 +22,14 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-24 bg-calce-deep">
-      <WaveDivider flipped={true} waveColorClass="fill-calce-deep" className="-translate-y-px" />
+      <div className="relative">
+        <Kraken />
+        <WaveDivider
+          flipped={true}
+          waveColorClass="fill-calce-deep"
+          className="relative -translate-y-px"
+        />
+      </div>
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-sm">
@@ -35,7 +43,7 @@ export function SiteFooter() {
             <div className="relative mt-6 flex items-end gap-5">
               <ArchColonnade count={5} className="h-12 w-44 text-salvia/60" />
               <Bubbles className="inset-y-0 right-0 w-24" />
-              <Whale className="relative w-20" />
+              <WhaleBreach className="relative" />
             </div>
           </div>
 

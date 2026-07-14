@@ -18,6 +18,7 @@ import { TiltCard } from "@/components/tilt-card";
 import { Magnetic } from "@/components/magnetic";
 import { InkReveal } from "@/components/ink-reveal";
 import { CountUp } from "@/components/count-up";
+import { FishJump } from "@/components/fish-jump";
 
 /** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
 function InkWords({
@@ -143,6 +144,8 @@ export default async function HomePage({
         <OceanWaves className="h-28" />
         <Bubbles className="bottom-0 h-28" />
         <SailboatCrossing />
+        <FishJump />
+        <div aria-hidden="true" className="lighthouse-beam left-0" />
         <WaveDivider waveColorClass="fill-background" className="translate-y-px" />
       </section>
 

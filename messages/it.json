@@ -37,17 +37,17 @@
     "stats": {
       "eyebrow": "In cifre",
       "years": {
-        "value": 400,
+        "value": "400",
         "suffix": "+",
         "label": "Anni di storia"
       },
       "rooms": {
-        "value": 20,
+        "value": "20",
         "suffix": "",
         "label": "Stanze nel chiostro"
       },
       "altitude": {
-        "value": 727,
+        "value": "727",
         "suffix": " m",
         "label": "Sui Monti Picentini"
       }

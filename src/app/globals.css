@@ -425,6 +425,104 @@
     transform-origin: 50% 90%;
   }
 
+  /* Tentacoli del kraken che ondeggiano dietro l'onda del footer */
+  @keyframes kraken-sway {
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(6deg);
+    }
+  }
+  .kraken-tentacle {
+    transform-origin: 50% 100%;
+    animation: kraken-sway 7s ease-in-out infinite;
+  }
+
+  /* Fascio del faro che spazza l'orizzonte */
+  @keyframes beam-sweep {
+    0% {
+      transform: translateX(-70vw) skewX(-18deg);
+      opacity: 0;
+    }
+    6% {
+      opacity: 0.55;
+    }
+    40% {
+      opacity: 0.55;
+    }
+    52% {
+      transform: translateX(115vw) skewX(-18deg);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(115vw) skewX(-18deg);
+      opacity: 0;
+    }
+  }
+  .lighthouse-beam {
+    position: absolute;
+    top: -10%;
+    bottom: -10%;
+    width: 9rem;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 248, 224, 0.5) 50%,
+      transparent
+    );
+    mix-blend-mode: soft-light;
+    animation: beam-sweep 11s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  /* Pesciolino che salta ad arco fuori dall'onda */
+  @keyframes fish-arc {
+    0%,
+    77% {
+      transform: translateY(14px) rotate(38deg);
+      opacity: 0;
+    }
+    79% {
+      opacity: 0.75;
+    }
+    86% {
+      transform: translateY(-44px) rotate(0deg);
+      opacity: 0.75;
+    }
+    93% {
+      transform: translateY(14px) rotate(-38deg);
+      opacity: 0.75;
+    }
+    95%,
+    100% {
+      opacity: 0;
+    }
+  }
+  .fish-jumper {
+    animation: fish-arc 9s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  /* Balena che attraversa lo schermo (easter egg al click) */
+  @keyframes breach-cross {
+    0% {
+      transform: translateX(-30vw) translateY(2vh) rotate(3deg);
+    }
+    50% {
+      transform: translateX(45vw) translateY(-3vh) rotate(-4deg);
+    }
+    100% {
+      transform: translateX(125vw) translateY(2vh) rotate(3deg);
+    }
+  }
+  .whale-breach {
+    animation: breach-cross 5.5s ease-in-out forwards;
+    will-change: transform;
+  }
+
   /* Riflesso "shine" che attraversa i bottoni primari */
   .btn-shine {
     position: relative;
@@ -487,8 +585,16 @@
     .sail-track,
     .sail-roll,
     .animate-slow-spin,
-    .parallax-drift {
+    .parallax-drift,
+    .kraken-tentacle,
+    .lighthouse-beam,
+    .fish-jumper,
+    .whale-breach {
       animation: none;
+    }
+    .lighthouse-beam,
+    .fish-jumper {
+      opacity: 0;
     }
   }
 }

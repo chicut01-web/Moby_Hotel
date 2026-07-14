@@ -37,17 +37,17 @@
     "stats": {
       "eyebrow": "At a glance",
       "years": {
-        "value": 400,
+        "value": "400",
         "suffix": "+",
         "label": "Years of history"
       },
       "rooms": {
-        "value": 20,
+        "value": "20",
         "suffix": "",
         "label": "Rooms around the cloister"
       },
       "altitude": {
-        "value": 727,
+        "value": "727",
         "suffix": " m",
         "label": "Up in the Picentini"
       }
