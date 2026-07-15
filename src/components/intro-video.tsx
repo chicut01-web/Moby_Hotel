@@ -3,14 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
-const SESSION_KEY = "intro-seen";
 const START_TIMEOUT_MS = 3000; // se il video non parte entro, via l'overlay
 
 /**
  * Intro a schermo intero: il volo nel chiostro fino alla porta socchiusa,
- * poi dissolvenza sulla home. Solo alla prima visita della sessione, muto,
- * saltabile; con prefers-reduced-motion o autoplay bloccato non appare/si
- * chiude subito.
+ * poi dissolvenza sulla home. Parte a ogni caricamento pieno della pagina
+ * (F5/arrivo sul sito) — mai durante la navigazione interna, che è
+ * client-side. Muto, saltabile; con prefers-reduced-motion o autoplay
+ * bloccato non appare/si chiude subito.
  */
 export function IntroVideo() {
   const t = useTranslations("intro");
@@ -18,16 +18,10 @@ export function IntroVideo() {
   const [phase, setPhase] = useState<"hidden" | "playing" | "fading">("hidden");
 
   useEffect(() => {
-    if (
-      sessionStorage.getItem(SESSION_KEY) ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
-    const raf = requestAnimationFrame(() => {
-      sessionStorage.setItem(SESSION_KEY, "1");
-      setPhase("playing");
-    });
+    const raf = requestAnimationFrame(() => setPhase("playing"));
     return () => cancelAnimationFrame(raf);
   }, []);
 
