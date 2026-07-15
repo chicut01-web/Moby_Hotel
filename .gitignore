@@ -42,6 +42,7 @@ yarn-error.log*
 # convento-intro.mp4 ottimizzato.
 /public/videos/convento-intro-1080p.mp4
 /public/videos/convento-intro-4k.mp4
+/public/videos/convento-intro-kling-4k.mp4
 
 # vercel
 .vercel
