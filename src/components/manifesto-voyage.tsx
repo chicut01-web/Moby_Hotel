@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import { SailboatIcon } from "@/components/sailboat";
 import { OceanWaves } from "@/components/ocean-waves";
 import { Clouds } from "@/components/clouds";
 import { InkReveal } from "@/components/ink-reveal";
@@ -11,9 +10,13 @@ const LEGS = [
   { key: "persone", num: "03", accent: "text-tramonto", ring: "border-tramonto/50" },
 ] as const;
 
-/** Rotta che serpeggia lungo i tre "porti" della traversata (0–3000 × 0–800). */
+/**
+ * Rotta che serpeggia lungo i tre "porti" della traversata (0–3000 × 0–800).
+ * Termina ESATTAMENTE sul terzo porto (2480,500): così l'inchiostro che si
+ * disegna e la barchetta in offset-path arrivano a destinazione, non oltre.
+ */
 const ROUTE_D =
-  "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2260 480 2480 500 C 2700 520 2880 420 3040 360";
+  "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500";
 
 /**
  * Il manifesto come traversata: la sezione si "aggancia" e lo scroll
@@ -74,6 +77,28 @@ export function ManifestoVoyage() {
               <circle cx="1860" cy="280" r="7" fill="var(--salvia)" strokeWidth="6" strokeOpacity="0.12" />
               <circle cx="2480" cy="500" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
             </g>
+            {/* La barchetta naviga la rotta stessa (offset-path sul path,
+                in user units SVG), con l'increspatura d'onda sotto lo
+                scafo e un rollio time-based sul gruppo interno. */}
+            <g className="manifesto-boat-rider" fill="none">
+              <g transform="scale(1.5 1.75) translate(-24 -33)">
+                <g className="manifesto-boat-bob" fill="var(--inchiostro)">
+                  <path d="M 6 30 L 42 30 L 36 37 L 12 37 Z" opacity="0.85" />
+                  <path d="M 24 6 L 24 30" stroke="var(--inchiostro)" strokeWidth="1.6" />
+                  <path d="M 26 8 Q 38 18 26 28 Z" opacity="0.65" />
+                  <path d="M 22 11 Q 12 19 22 28 Z" opacity="0.5" />
+                  <path d="M 24 6 L 30 8 L 24 10 Z" />
+                  <path
+                    d="M 0 38 Q 6 34 12 38 T 24 38 T 36 38 T 48 38"
+                    fill="none"
+                    stroke="var(--salvia)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    opacity="0.55"
+                  />
+                </g>
+              </g>
+            </g>
           </svg>
 
           {LEGS.map(({ key, num, accent, ring }) => (
@@ -103,11 +128,6 @@ export function ManifestoVoyage() {
               </div>
             </article>
           ))}
-        </div>
-
-        {/* Il veliero resta in scena: è il mondo a scorrergli incontro */}
-        <div aria-hidden="true" className="manifesto-boat">
-          <SailboatIcon className="sail-roll w-16 text-inchiostro/70 sm:w-20" />
         </div>
 
         <OceanWaves className="h-24" />

@@ -538,8 +538,10 @@
   .manifesto-track {
     position: relative;
   }
-  .manifesto-track > svg,
-  .manifesto-boat {
+  .manifesto-track > svg {
+    display: none;
+  }
+  .manifesto-boat-rider {
     display: none;
   }
   .manifesto-leg {
@@ -563,7 +565,7 @@
   }
   @supports (animation-timeline: view()) {
     .manifesto-voyage {
-      height: 380vh;
+      height: 400vh;
     }
     .manifesto-pin {
       position: sticky;
@@ -605,24 +607,66 @@
       stroke-dashoffset: 1;
       animation: voyage-ink linear both;
       animation-timeline: --voyage;
-      animation-range: contain 0% contain 96%;
+      animation-range: contain 0% contain 100%;
     }
-    .manifesto-boat {
-      display: block;
-      position: absolute;
-      bottom: 5.5rem;
-      left: clamp(1rem, 9vw, 9rem);
-      z-index: 10;
+    /* La barchetta cavalca la rotta: offset-path sullo stesso path
+       (user units del viewBox), tangente alla curva. Solo dove anche
+       il motion path è supportato; altrove resta nascosta. */
+    @supports (offset-path: path("M 0 0 H 10")) {
+      .manifesto-boat-rider {
+        display: inline;
+        offset-path: path(
+          "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500"
+        );
+        offset-rotate: auto;
+        animation: voyage-ride linear both;
+        animation-timeline: --voyage;
+        animation-range: contain 0% contain 100%;
+      }
+      .manifesto-boat-bob {
+        transform-box: fill-box;
+        transform-origin: 50% 78%;
+        animation: boat-bob 3.6s ease-in-out infinite;
+      }
     }
   }
+  /* Plateau finale: traversata, inchiostro e barca completano all'82%
+     dello scrub e si resta in sosta sul terzo porto per il tratto
+     rimanente, così l'approdo ha il suo tempo. */
   @keyframes voyage-sail {
-    to {
+    0% {
+      transform: translateX(0);
+    }
+    82%,
+    100% {
       transform: translateX(-200vw);
     }
   }
   @keyframes voyage-ink {
-    to {
+    0% {
+      stroke-dashoffset: 1;
+    }
+    82%,
+    100% {
       stroke-dashoffset: 0;
+    }
+  }
+  @keyframes voyage-ride {
+    0% {
+      offset-distance: 0%;
+    }
+    82%,
+    100% {
+      offset-distance: 100%;
+    }
+  }
+  @keyframes boat-bob {
+    0%,
+    100% {
+      transform: rotate(-2deg) translateY(0);
+    }
+    50% {
+      transform: rotate(2.4deg) translateY(-4px);
     }
   }
 
@@ -693,8 +737,7 @@
       animation: none;
       transform: none;
     }
-    .manifesto-track > svg,
-    .manifesto-boat {
+    .manifesto-track > svg {
       display: none;
     }
     .manifesto-leg {
