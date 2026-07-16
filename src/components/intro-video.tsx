@@ -30,10 +30,11 @@ export function IntroVideo() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Se il video non è partito entro il timeout (rete lenta, autoplay
-    // bloccato), non tenere il sito in ostaggio.
+    // Se al timeout il video non sta davvero andando (rete lenta,
+    // autoplay bloccato o revocato dopo il primo frame, tab in
+    // background), non tenere il sito in ostaggio.
     const timeout = setTimeout(() => {
-      if (video.currentTime === 0) setPhase("fading");
+      if (video.paused || video.currentTime === 0) setPhase("fading");
     }, START_TIMEOUT_MS);
 
     video.play().catch(() => setPhase("fading"));

@@ -19,7 +19,7 @@ import { Magnetic } from "@/components/magnetic";
 import { InkReveal } from "@/components/ink-reveal";
 import { CountUp } from "@/components/count-up";
 import { FishJump } from "@/components/fish-jump";
-import { ManifestoDeck } from "@/components/manifesto-deck";
+import { ManifestoVoyage } from "@/components/manifesto-voyage";
 
 /** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
 function InkWords({
@@ -170,8 +170,8 @@ export default async function HomePage({
         </Container>
       </section>
 
-      {/* Manifesto: deck di carte nautiche a scroll */}
-      <ManifestoDeck />
+      {/* Manifesto: traversata orizzontale guidata dallo scroll */}
+      <ManifestoVoyage />
 
       {/* Stats band */}
       <section className="border-y border-border/50 bg-calce-deep/40 py-12 sm:py-16">
