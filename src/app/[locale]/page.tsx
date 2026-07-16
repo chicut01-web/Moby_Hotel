@@ -19,6 +19,7 @@ import { Magnetic } from "@/components/magnetic";
 import { InkReveal } from "@/components/ink-reveal";
 import { CountUp } from "@/components/count-up";
 import { FishJump } from "@/components/fish-jump";
+import { ManifestoDeck } from "@/components/manifesto-deck";
 
 /** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
 function InkWords({
@@ -33,13 +34,15 @@ function InkWords({
   return (
     <>
       {text.split(" ").map((word, i) => (
-        <span
-          key={`${word}-${i}`}
-          className={`ink-word ${className ?? ""}`}
-          style={{ animationDelay: `${startDelay + i * 130}ms` }}
-        >
-          {word}
-          {" "}
+        // Spazio FUORI dallo span: dentro un inline-block verrebbe
+        // troncato (l'NBSP evitava il taglio ma bloccava il wrapping).
+        <span key={`${word}-${i}`}>
+          <span
+            className={`ink-word ${className ?? ""}`}
+            style={{ animationDelay: `${startDelay + i * 130}ms` }}
+          >
+            {word}
+          </span>{" "}
         </span>
       ))}
     </>
@@ -166,6 +169,9 @@ export default async function HomePage({
           </div>
         </Container>
       </section>
+
+      {/* Manifesto: deck di carte nautiche a scroll */}
+      <ManifestoDeck />
 
       {/* Stats band */}
       <section className="border-y border-border/50 bg-calce-deep/40 py-12 sm:py-16">

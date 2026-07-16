@@ -67,6 +67,24 @@
         "body": "Hiking, nature, horse riding and good food: Acerno is the ideal base to explore the Regional Park."
       }
     },
+    "manifesto": {
+      "eyebrow": "Our manifesto",
+      "title": "Our course",
+      "cards": {
+        "rotta": {
+          "title": "Every route begins at a starting point.",
+          "body": "The Hub for European Youth is where ideas become directions and aspirations start to take shape."
+        },
+        "orizzonti": {
+          "title": "Every encounter opens new horizons.",
+          "body": "The cultures, languages and experiences we meet along the way transform how we see the world and ourselves."
+        },
+        "persone": {
+          "title": "The most important routes don't cross the sea. They cross people.",
+          "body": "The Hub is a safe harbour to set out from, explore, and return to with new skills, relationships and opportunities."
+        }
+      }
+    },
     "rooms": {
       "eyebrow": "Accommodation",
       "title": "Dorms and rooms around the cloister",

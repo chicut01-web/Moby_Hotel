@@ -88,15 +88,15 @@
   --salvia-foreground: #1D4568;          /* Blu oceano su cielo pallido */
   --ocra: #C9A86A;                       /* Corda dorata / ottone chiaro */
   --ocra-foreground: #241903;            /* Testo scuro su ocra */
-  --inchiostro: #22364A;                 /* Inchiostro navy (testo primario) */
+  --inchiostro: #0F3D4C;                 /* Petrolio profondo del brand (testo primario) */
   --tramonto: #D96B3F;                   /* Arancio tramonto (accento raro) */
 
   /* Token semantici shadcn mappati sulla palette */
   --background: var(--calce);
   --foreground: var(--inchiostro);
-  --card: #FBF6EA;
+  --card: #F6F1E7;
   --card-foreground: var(--inchiostro);
-  --popover: #FBF6EA;
+  --popover: #F6F1E7;
   --popover-foreground: var(--inchiostro);
   --primary: var(--cotto);
   --primary-foreground: var(--cotto-foreground);
@@ -115,7 +115,7 @@
   --chart-3: var(--ocra);
   --chart-4: var(--pietra);
   --chart-5: var(--tramonto);
-  --sidebar: #FBF6EA;
+  --sidebar: #F6F1E7;
   --sidebar-foreground: var(--inchiostro);
   --sidebar-primary: var(--cotto);
   --sidebar-primary-foreground: var(--cotto-foreground);
@@ -216,16 +216,6 @@
   .drift-cloud {
     animation: drift-cloud linear infinite;
     will-change: transform;
-  }
-
-  /* Animazione galleggiamento balena */
-  @keyframes whale-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-8px) rotate(-1.5deg); }
-  }
-
-  .animate-whale {
-    animation: whale-float 12s ease-in-out infinite;
   }
 
   /* Card "illuminata dalla lanterna" al passaggio del mouse */
@@ -506,23 +496,6 @@
     will-change: transform, opacity;
   }
 
-  /* Balena che attraversa lo schermo (easter egg al click) */
-  @keyframes breach-cross {
-    0% {
-      transform: translateX(-30vw) translateY(2vh) rotate(3deg);
-    }
-    50% {
-      transform: translateX(45vw) translateY(-3vh) rotate(-4deg);
-    }
-    100% {
-      transform: translateX(125vw) translateY(2vh) rotate(3deg);
-    }
-  }
-  .whale-breach {
-    animation: breach-cross 5.5s ease-in-out forwards;
-    will-change: transform;
-  }
-
   /* Riflesso "shine" che attraversa i bottoni primari */
   .btn-shine {
     position: relative;
@@ -544,6 +517,101 @@
   }
   .btn-shine:hover::after {
     transform: translateX(130%);
+  }
+
+  /* Deck manifesto: carte nautiche sticky che si impilano durante lo
+     scroll. Le timeline con nome (carta 2 e 3, e la rotta di fondo)
+     guidano il ritiro della carta coperta, il disegno della rotta e la
+     rotazione della bussola nei browser con scroll-driven animations. */
+  .manifesto-deck {
+    timeline-scope: --mstep-2, --mstep-3, --mdeck;
+    padding-bottom: 10vh;
+  }
+  .manifesto-route {
+    view-timeline-name: --mdeck;
+  }
+  .manifesto-route-ink {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  .manifesto-card {
+    position: sticky;
+    top: clamp(4.5rem, 14vh, 8rem);
+    transform-origin: 50% 0;
+  }
+  .manifesto-card:not(:last-of-type) {
+    margin-bottom: 52vh;
+  }
+  .manifesto-card:nth-of-type(2) {
+    view-timeline-name: --mstep-2;
+  }
+  .manifesto-card:nth-of-type(3) {
+    view-timeline-name: --mstep-3;
+  }
+  @supports (animation-timeline: view()) {
+    .manifesto-card {
+      animation-name: manifesto-enter;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+    }
+    /* La carta coperta si ritira nel mazzo seguendo l'ingresso della
+       successiva (timeline con nome della carta che arriva). */
+    .manifesto-card:nth-of-type(1),
+    .manifesto-card:nth-of-type(2) {
+      animation-name: manifesto-enter, manifesto-covered;
+      animation-fill-mode: both, both;
+      animation-timing-function: linear, linear;
+    }
+    .manifesto-card:nth-of-type(1) {
+      animation-timeline: view(), --mstep-2;
+      animation-range: entry 0% entry 90%, entry 0% entry 100%;
+    }
+    .manifesto-card:nth-of-type(2) {
+      animation-timeline: view(), --mstep-3;
+      animation-range: entry 0% entry 90%, entry 0% entry 100%;
+    }
+    .manifesto-route-ink {
+      animation: manifesto-route-draw linear both;
+      animation-timeline: --mdeck;
+      animation-range: cover 5% cover 90%;
+    }
+    .manifesto-compass > svg {
+      animation: manifesto-compass-spin linear both;
+      animation-timeline: --mdeck;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+  @keyframes manifesto-enter {
+    from {
+      opacity: 0.35;
+      transform: perspective(1100px) rotateX(10deg) scale(0.95)
+        translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: perspective(1100px) rotateX(0deg) scale(1) translateY(0);
+    }
+  }
+  @keyframes manifesto-covered {
+    to {
+      transform: scale(0.92) rotate(-1.6deg);
+      filter: brightness(0.93) saturate(0.82);
+    }
+  }
+  @keyframes manifesto-route-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes manifesto-compass-spin {
+    to {
+      transform: rotate(200deg);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -579,7 +647,6 @@
     .animate-wave-fast,
     .bubble-item,
     .drift-cloud,
-    .animate-whale,
     .seagull-track,
     .seagull-bob,
     .sail-track,
@@ -588,13 +655,28 @@
     .parallax-drift,
     .kraken-tentacle,
     .lighthouse-beam,
-    .fish-jumper,
-    .whale-breach {
+    .fish-jumper {
       animation: none;
     }
     .lighthouse-beam,
     .fish-jumper {
       opacity: 0;
+    }
+    /* Il deck manifesto diventa un semplice elenco statico */
+    .manifesto-card,
+    .manifesto-route-ink,
+    .manifesto-compass > svg {
+      animation: none;
+    }
+    .manifesto-card {
+      position: relative;
+      top: auto;
+    }
+    .manifesto-card:not(:last-of-type) {
+      margin-bottom: 2.5rem;
+    }
+    .manifesto-route-ink {
+      stroke-dashoffset: 0;
     }
   }
 }

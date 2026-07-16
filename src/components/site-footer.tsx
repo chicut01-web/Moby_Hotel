@@ -3,7 +3,6 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
 import { WaveDivider } from "@/components/wave-divider";
-import { WhaleBreach } from "@/components/whale-breach";
 import { Bubbles } from "@/components/bubbles";
 import { Kraken } from "@/components/kraken";
 import { SITE } from "@/lib/site";
@@ -43,7 +42,6 @@ export function SiteFooter() {
             <div className="relative mt-6 flex items-end gap-5">
               <ArchColonnade count={5} className="h-12 w-44 text-salvia/60" />
               <Bubbles className="inset-y-0 right-0 w-24" />
-              <WhaleBreach className="relative" />
             </div>
           </div>
 

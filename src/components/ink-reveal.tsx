@@ -52,18 +52,20 @@ export function InkReveal({
   return (
     <Tag ref={ref} className={cn(className)}>
       {words.map((word, i) => (
-        <span
-          key={`${word}-${i}`}
-          className={cn("ink-word", wordClassName)}
-          style={{
-            animationDelay: active
-              ? `${startDelay + i * stagger}ms`
-              : undefined,
-            animationPlayState: active ? "running" : "paused",
-          }}
-        >
-          {word}
-          {" "}
+        // Lo spazio sta FUORI dallo span: dentro un inline-block il
+        // whitespace finale viene troncato e le parole si attaccano.
+        <span key={`${word}-${i}`}>
+          <span
+            className={cn("ink-word", wordClassName)}
+            style={{
+              animationDelay: active
+                ? `${startDelay + i * stagger}ms`
+                : undefined,
+              animationPlayState: active ? "running" : "paused",
+            }}
+          >
+            {word}
+          </span>{" "}
         </span>
       ))}
     </Tag>

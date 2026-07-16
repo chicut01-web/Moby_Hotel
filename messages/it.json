@@ -67,6 +67,24 @@
         "body": "Trekking, natura, escursioni a cavallo ed enogastronomia: Acerno è la base ideale per esplorare il Parco Regionale."
       }
     },
+    "manifesto": {
+      "eyebrow": "Il nostro manifesto",
+      "title": "La nostra rotta",
+      "cards": {
+        "rotta": {
+          "title": "Ogni rotta nasce da un punto di partenza.",
+          "body": "L'Hub for European Youth è il luogo in cui le idee diventano direzioni e le aspirazioni iniziano a prendere forma."
+        },
+        "orizzonti": {
+          "title": "Ogni incontro apre nuovi orizzonti.",
+          "body": "Le culture, le lingue e le esperienze che incontriamo lungo il cammino trasformano il modo in cui guardiamo il mondo e noi stessi."
+        },
+        "persone": {
+          "title": "Le rotte più importanti non attraversano il mare. Attraversano le persone.",
+          "body": "L'Hub è un porto sicuro da cui partire, esplorare e tornare con nuove competenze, relazioni e opportunità."
+        }
+      }
+    },
     "rooms": {
       "eyebrow": "Sistemazioni",
       "title": "Camerate e camere attorno al chiostro",
