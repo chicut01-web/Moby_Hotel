@@ -609,14 +609,16 @@
       animation-timeline: --voyage;
       animation-range: contain 0% contain 100%;
     }
-    /* La barchetta cavalca la rotta: offset-path sullo stesso path
-       (user units del viewBox), tangente alla curva. Solo dove anche
-       il motion path è supportato; altrove resta nascosta. */
+    /* La barchetta cavalca la rotta: offset-path con la stessa ROUTE_D
+       del componente (user units del viewBox) più una coda oltre il
+       terzo porto, così l'approdo finale è al largo della terza
+       scritta e non sopra. Solo dove anche il motion path è
+       supportato; altrove resta nascosta. */
     @supports (offset-path: path("M 0 0 H 10")) {
       .manifesto-boat-rider {
         display: inline;
         offset-path: path(
-          "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500"
+          "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500 C 2610 530 2780 545 2940 525"
         );
         offset-rotate: auto;
         animation: voyage-ride linear both;
