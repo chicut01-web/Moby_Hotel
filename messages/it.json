@@ -241,7 +241,12 @@
     }
   },
   "intro": {
-    "skip": "Salta intro"
+    "scrollHint": "Scorri",
+    "steps": {
+      "monti": "Acerno, tra i Monti Picentini",
+      "chiostro": "Un chiostro del Seicento, quieto da quattro secoli",
+      "porta": "La porta è aperta. Benvenuti all'Hub for European Youth."
+    }
   },
   "admin": {
     "login": {

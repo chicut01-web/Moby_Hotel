@@ -20,6 +20,7 @@ import { InkReveal } from "@/components/ink-reveal";
 import { CountUp } from "@/components/count-up";
 import { FishJump } from "@/components/fish-jump";
 import { ManifestoVoyage } from "@/components/manifesto-voyage";
+import { IntroScrub } from "@/components/intro-scrub";
 
 /** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
 function InkWords({
@@ -72,6 +73,9 @@ export default async function HomePage({
 
   return (
     <>
+      {/* Apertura: il volo sul convento scandito dallo scroll */}
+      <IntroScrub />
+
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-salvia-soft/50 via-calce to-calce pt-6">
         <Clouds />

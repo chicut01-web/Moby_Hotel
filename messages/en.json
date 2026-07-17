@@ -241,7 +241,12 @@
     }
   },
   "intro": {
-    "skip": "Skip intro"
+    "scrollHint": "Scroll",
+    "steps": {
+      "monti": "Acerno, high in the Picentini Mountains",
+      "chiostro": "A 17th-century cloister, four hundred years of quiet",
+      "porta": "The door is open. Welcome to the Hub for European Youth."
+    }
   },
   "admin": {
     "login": {

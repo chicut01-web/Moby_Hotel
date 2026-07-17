@@ -39,7 +39,7 @@ yarn-error.log*
 /ACERNO/
 
 # Master video intro (pesanti, per editing/archivio): sul sito va solo
-# convento-intro.mp4 ottimizzato.
+# convento-intro-scrub.mp4 (all-keyframe per lo scrubbing da scroll).
 /public/videos/convento-intro-1080p.mp4
 /public/videos/convento-intro-4k.mp4
 /public/videos/convento-intro-kling-4k.mp4

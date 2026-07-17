@@ -519,6 +519,61 @@
     transform: translateX(130%);
   }
 
+  /* Apertura a scrubbing: la sezione si aggancia e lo scroll scorre il
+     video (currentTime via JS in intro-scrub.tsx); qui solo layout e
+     dissolvenze delle scritte. */
+  .intro-scrub {
+    height: 320vh;
+  }
+  .intro-scrub-step {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 16vh;
+    margin-inline: auto;
+    max-width: 52rem;
+    padding-inline: 1.5rem;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: clamp(1.7rem, 4.2vw, 3.4rem);
+    line-height: 1.15;
+    color: #f6f1e7;
+    text-shadow: 0 2px 28px rgba(15, 61, 76, 0.65);
+    opacity: 0;
+    translate: 0 1.2rem;
+    transition:
+      opacity 0.6s ease,
+      translate 0.6s ease;
+    pointer-events: none;
+  }
+  .intro-scrub-step.is-active {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .intro-scrub-hint {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(246, 241, 231, 0.85);
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .intro-scrub-hint svg {
+    animation: hint-dip 1.8s ease-in-out infinite;
+  }
+  @keyframes hint-dip {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 0.35rem;
+    }
+  }
+
   /* Manifesto "traversata": la sezione si aggancia (sticky) e lo scroll
      verticale scorre un binario orizzontale di 300vw con le tre
      dichiarazioni. La rotta si inchiostra sullo stesso progresso; il
