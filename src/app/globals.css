@@ -623,10 +623,20 @@
         animation-timeline: --voyage;
         animation-range: contain 0% contain 100%;
       }
-      .manifesto-boat-bob {
+      /* Mare mosso credibile: sollevamento e beccheggio su periodi
+         diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena;
+         l'onda fluisce all'indietro di una lunghezza d'onda esatta,
+         così il loop non si vede. */
+      .manifesto-boat-heave {
+        animation: boat-heave 5.6s ease-in-out infinite;
+      }
+      .manifesto-boat-pitch {
         transform-box: fill-box;
-        transform-origin: 50% 78%;
-        animation: boat-bob 3.6s ease-in-out infinite;
+        transform-origin: 50% 85%;
+        animation: boat-pitch 4.1s ease-in-out infinite;
+      }
+      .manifesto-boat-wave {
+        animation: wave-flow 1.9s linear infinite;
       }
     }
   }
@@ -660,13 +670,30 @@
       offset-distance: 100%;
     }
   }
-  @keyframes boat-bob {
+  @keyframes boat-heave {
     0%,
     100% {
-      transform: rotate(-2deg) translateY(0);
+      translate: 0 0;
     }
     50% {
-      transform: rotate(2.4deg) translateY(-4px);
+      translate: 0 -3.5px;
+    }
+  }
+  @keyframes boat-pitch {
+    0%,
+    100% {
+      rotate: -1.5deg;
+    }
+    50% {
+      rotate: 1.8deg;
+    }
+  }
+  @keyframes wave-flow {
+    from {
+      translate: 0 0;
+    }
+    to {
+      translate: -12px 0;
     }
   }
 
