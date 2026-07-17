@@ -78,9 +78,7 @@ export function ManifestoVoyage() {
               <circle cx="2480" cy="500" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
             </g>
             {/* La barchetta naviga la rotta stessa (offset-path sul path,
-                in user units SVG). Il mare è separato dal legno: l'onda
-                resta alla sua quota e fluisce all'indietro sotto lo
-                scafo, mentre la barca si solleva (heave) e beccheggia
+                in user units SVG): si solleva (heave) e beccheggia
                 (pitch) su periodi diversi che si sfasano da soli. */}
             <g className="manifesto-boat-rider" fill="none">
               <g transform="scale(1.5 1.75) translate(-24 -33)">
@@ -93,17 +91,6 @@ export function ManifestoVoyage() {
                     <path d="M 24 6 L 30 8 L 24 10 Z" />
                   </g>
                 </g>
-                {/* Onda periodica (lunghezza d'onda 12): scorrendo di
-                    un'onda esatta il loop è invisibile */}
-                <path
-                  className="manifesto-boat-wave"
-                  d="M -12 37.5 Q -6 34 0 37.5 T 12 37.5 T 24 37.5 T 36 37.5 T 48 37.5 T 60 37.5"
-                  fill="none"
-                  stroke="var(--salvia)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  opacity="0.55"
-                />
               </g>
             </g>
           </svg>

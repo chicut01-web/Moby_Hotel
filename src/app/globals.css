@@ -624,9 +624,7 @@
         animation-range: contain 0% contain 100%;
       }
       /* Mare mosso credibile: sollevamento e beccheggio su periodi
-         diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena;
-         l'onda fluisce all'indietro di una lunghezza d'onda esatta,
-         così il loop non si vede. */
+         diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena. */
       .manifesto-boat-heave {
         animation: boat-heave 5.6s ease-in-out infinite;
       }
@@ -634,9 +632,6 @@
         transform-box: fill-box;
         transform-origin: 50% 85%;
         animation: boat-pitch 4.1s ease-in-out infinite;
-      }
-      .manifesto-boat-wave {
-        animation: wave-flow 1.9s linear infinite;
       }
     }
   }
@@ -686,14 +681,6 @@
     }
     50% {
       rotate: 1.8deg;
-    }
-  }
-  @keyframes wave-flow {
-    from {
-      translate: 0 0;
-    }
-    to {
-      translate: -12px 0;
     }
   }
 
