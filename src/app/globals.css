@@ -610,10 +610,10 @@
       animation-range: contain 0% contain 100%;
     }
     /* La barchetta cavalca la rotta: offset-path con la stessa ROUTE_D
-       del componente (user units del viewBox) più una coda oltre il
-       terzo porto, così l'approdo finale è al largo della terza
-       scritta e non sopra. Solo dove anche il motion path è
-       supportato; altrove resta nascosta. */
+       del componente (user units del viewBox), che termina al largo
+       della terza scritta dove stanno anche il terzo porto e la fine
+       dell'inchiostro. Solo dove anche il motion path è supportato;
+       altrove resta nascosta. */
     @supports (offset-path: path("M 0 0 H 10")) {
       .manifesto-boat-rider {
         display: inline;

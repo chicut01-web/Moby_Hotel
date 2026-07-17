@@ -12,11 +12,13 @@ const LEGS = [
 
 /**
  * Rotta che serpeggia lungo i tre "porti" della traversata (0–3000 × 0–800).
- * Termina ESATTAMENTE sul terzo porto (2480,500): così l'inchiostro che si
- * disegna e la barchetta in offset-path arrivano a destinazione, non oltre.
+ * Termina al largo della terza scritta (2940,525), ESATTAMENTE dove la
+ * barchetta in offset-path va a riposare: lì stanno anche il terzo porto
+ * e la fine dell'inchiostro. Stessa stringa dell'offset-path in
+ * globals.css (.manifesto-boat-rider): tenerle sincronizzate.
  */
 const ROUTE_D =
-  "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500";
+  "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500 C 2610 530 2780 545 2940 525";
 
 /**
  * Il manifesto come traversata: la sezione si "aggancia" e lo scroll
@@ -75,7 +77,7 @@ export function ManifestoVoyage() {
             <g stroke="var(--inchiostro)" strokeOpacity="0.35">
               <circle cx="640" cy="340" r="7" fill="var(--cotto)" strokeWidth="6" strokeOpacity="0.12" />
               <circle cx="1860" cy="280" r="7" fill="var(--salvia)" strokeWidth="6" strokeOpacity="0.12" />
-              <circle cx="2480" cy="500" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
+              <circle cx="2940" cy="525" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
             </g>
             {/* La barchetta naviga la rotta stessa (offset-path sul path,
                 in user units SVG): si solleva (heave) e beccheggia
