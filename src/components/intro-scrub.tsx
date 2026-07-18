@@ -7,21 +7,23 @@ import { cn } from "@/lib/utils";
 
 const STEPS = ["monti", "chiostro", "porta"] as const;
 
+/* Media query come external store: funzioni stabili a livello modulo,
+   così useSyncExternalStore non risottoscrive a ogni render. */
 const REDUCED_QUERY = "(prefers-reduced-motion: reduce)";
+const MOBILE_QUERY = "(max-width: 768px)";
 
-function subscribeReduced(onChange: () => void) {
-  const mq = window.matchMedia(REDUCED_QUERY);
-  mq.addEventListener("change", onChange);
-  return () => mq.removeEventListener("change", onChange);
+function makeSubscribe(query: string) {
+  return (onChange: () => void) => {
+    const mq = window.matchMedia(query);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  };
 }
-
-function useReducedMotion() {
-  return useSyncExternalStore(
-    subscribeReduced,
-    () => window.matchMedia(REDUCED_QUERY).matches,
-    () => false,
-  );
-}
+const subscribeReduced = makeSubscribe(REDUCED_QUERY);
+const subscribeMobile = makeSubscribe(MOBILE_QUERY);
+const getReduced = () => window.matchMedia(REDUCED_QUERY).matches;
+const getMobile = () => window.matchMedia(MOBILE_QUERY).matches;
+const getServerSnapshot = () => false;
 
 /**
  * Il volo sul convento come apertura della home, governato dallo scroll:
@@ -36,7 +38,16 @@ export function IntroScrub() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stage, setStage] = useState(0);
-  const reduced = useReducedMotion();
+  const reduced = useSyncExternalStore(
+    subscribeReduced,
+    getReduced,
+    getServerSnapshot,
+  );
+  const mobile = useSyncExternalStore(
+    subscribeMobile,
+    getMobile,
+    getServerSnapshot,
+  );
 
   useEffect(() => {
     if (reduced) return;
@@ -46,17 +57,28 @@ export function IntroScrub() {
 
     let raf = 0;
     let progress = 0;
+    let current = -1; // tempo-video inseguitore; -1 = da inizializzare
 
-    const seek = () => {
-      raf = 0;
+    // Il video insegue lo scroll con una coda morbida (lerp): il loop
+    // rAF si spegne da solo quando ha raggiunto il target e riparte al
+    // prossimo evento di scroll.
+    const tick = () => {
       const d = video.duration;
       if (Number.isFinite(d) && d > 0) {
         const target = progress * (d - 0.05);
-        // Sotto un frame di distanza non riposizioniamo: meno seek, più fluido.
-        if (Math.abs(video.currentTime - target) > 0.03) {
-          video.currentTime = target;
+        if (current < 0) current = video.currentTime;
+        current += (target - current) * 0.16;
+        // Sotto ~mezzo frame non riposizioniamo: meno seek, più fluido.
+        if (Math.abs(video.currentTime - current) > 0.02) {
+          video.currentTime = current;
         }
+        if (Math.abs(target - current) > 0.01) {
+          raf = requestAnimationFrame(tick);
+          return;
+        }
+        current = target;
       }
+      raf = 0;
     };
 
     const onScroll = () => {
@@ -64,7 +86,10 @@ export function IntroScrub() {
       const total = r.height - window.innerHeight;
       progress = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
       setStage(progress < 0.36 ? 0 : progress < 0.7 ? 1 : 2);
-      if (!raf) raf = requestAnimationFrame(seek);
+      // Ultimo 10%: la home emerge dal volo (overlay calce via --exit).
+      const exit = progress > 0.9 ? (progress - 0.9) / 0.1 : 0;
+      section.style.setProperty("--exit", exit.toFixed(3));
+      if (!raf) raf = requestAnimationFrame(tick);
     };
 
     // Prima lettura al frame successivo: niente setState sincrono
@@ -102,14 +127,18 @@ export function IntroScrub() {
 
   return (
     <section ref={sectionRef} className="intro-scrub relative">
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 h-dvh overflow-hidden">
         <video
           ref={videoRef}
-          src="/videos/convento-intro-scrub.mp4"
+          src={
+            mobile
+              ? "/videos/convento-intro-scrub-540.mp4"
+              : "/videos/convento-intro-scrub.mp4"
+          }
           poster="/videos/convento-intro-poster.jpg"
           muted
           playsInline
-          preload="auto"
+          preload={mobile ? "metadata" : "auto"}
           className="h-full w-full object-cover"
         />
         <div
@@ -124,6 +153,12 @@ export function IntroScrub() {
             {t(`steps.${key}`)}
           </p>
         ))}
+        {/* Uscita: la home emerge dal volo, niente taglio netto */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-calce"
+          style={{ opacity: "var(--exit, 0)" }}
+        />
         <div
           aria-hidden="true"
           className={cn(

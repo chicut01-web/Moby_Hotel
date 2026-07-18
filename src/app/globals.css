@@ -596,7 +596,8 @@
   .manifesto-track > svg {
     display: none;
   }
-  .manifesto-boat-rider {
+  .manifesto-boat-rider,
+  .manifesto-far {
     display: none;
   }
   .manifesto-leg {
@@ -626,7 +627,20 @@
       position: sticky;
       top: 0;
       height: 100vh;
+      /* Su mobile la barra indirizzi cambia l'altezza reale: dvh la segue */
+      height: 100dvh;
       overflow: hidden;
+    }
+    /* Sfondo di costa a metà velocità del binario: parallasse vera */
+    .manifesto-far {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 200vw;
+      animation: voyage-drift-far linear both;
+      animation-timeline: --voyage;
+      animation-range: contain 0% contain 100%;
+      will-change: transform;
     }
     .manifesto-eyebrow {
       position: absolute;
@@ -722,6 +736,15 @@
       offset-distance: 100%;
     }
   }
+  @keyframes voyage-drift-far {
+    0% {
+      transform: translateX(0);
+    }
+    82%,
+    100% {
+      transform: translateX(-100vw);
+    }
+  }
   @keyframes boat-heave {
     0%,
     100% {
@@ -808,7 +831,8 @@
       animation: none;
       transform: none;
     }
-    .manifesto-track > svg {
+    .manifesto-track > svg,
+    .manifesto-far {
       display: none;
     }
     .manifesto-leg {

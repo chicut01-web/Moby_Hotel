@@ -38,6 +38,34 @@ export function ManifestoVoyage() {
       <div className="manifesto-pin bg-gradient-to-b from-salvia-soft/40 via-calce to-calce">
         <Clouds />
 
+        {/* Strato lontano: costa a inchiostro che scorre a metà velocità
+            del binario (stessa timeline --voyage) = profondità */}
+        <div aria-hidden="true" className="manifesto-far">
+          <svg
+            viewBox="0 0 2000 800"
+            preserveAspectRatio="none"
+            fill="none"
+            className="h-full w-full"
+          >
+            <path
+              d="M 0 620 Q 250 540 480 600 T 980 590 T 1500 610 T 2000 580 V 800 H 0 Z"
+              fill="var(--inchiostro)"
+              opacity="0.045"
+            />
+            <path
+              d="M 0 680 Q 300 630 600 665 T 1200 660 T 2000 670 V 800 H 0 Z"
+              fill="var(--salvia)"
+              opacity="0.05"
+            />
+            {/* Una vela all'orizzonte */}
+            <path
+              d="M 1252 596 L 1252 574 L 1266 596 Z"
+              fill="var(--inchiostro)"
+              opacity="0.12"
+            />
+          </svg>
+        </div>
+
         <div className="manifesto-eyebrow relative z-10 pt-10 text-center">
           <p className="eyebrow">{t("eyebrow")}</p>
           <h2 id="manifesto-heading" className="sr-only">
