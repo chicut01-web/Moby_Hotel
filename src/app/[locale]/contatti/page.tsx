@@ -3,8 +3,30 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
+import { InkReveal } from "@/components/ink-reveal";
+import { TerritoryMap } from "@/components/territory-map";
 import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "metadata.pages.contatti",
+  });
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: pageAlternates("/contatti", locale),
+  };
+}
 
 export default async function ContattiPage({
   params,
@@ -14,6 +36,7 @@ export default async function ContattiPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("contatti");
+  const tt = await getTranslations("territorio");
 
   const items = [
     {
@@ -100,6 +123,22 @@ export default async function ContattiPage({
               </span>
             </div>
           </div>
+        </Container>
+      </section>
+
+      {/* Il territorio: carta illustrata dei Picentini */}
+      <section className="pb-20 sm:pb-24">
+        <Container>
+          <Reveal className="max-w-2xl">
+            <p className="eyebrow">{tt("eyebrow")}</p>
+            <InkReveal text={tt("title")} className="mt-3 text-3xl sm:text-4xl" />
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              {tt("body")}
+            </p>
+          </Reveal>
+          <Reveal delay={140} className="mt-10">
+            <TerritoryMap />
+          </Reveal>
         </Container>
       </section>
     </>

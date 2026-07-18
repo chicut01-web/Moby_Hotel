@@ -4,6 +4,12 @@ import { createClient } from "@/lib/supabase/server";
 import { Container } from "@/components/container";
 import { AdminLoginForm } from "@/components/admin/login-form";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+
+// Area riservata: fuori dai motori di ricerca.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminLoginPage({
   params,

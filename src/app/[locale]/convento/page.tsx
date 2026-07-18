@@ -4,10 +4,30 @@ import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { ArchColonnade } from "@/components/arch-motif";
 import { GalleryWithLightbox } from "@/components/gallery-with-lightbox";
+import { HistoryTimeline } from "@/components/history-timeline";
 import { InkReveal } from "@/components/ink-reveal";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
 
 const SPACES = ["pianoTerra", "primoPiano", "seminterrato"] as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "metadata.pages.convento",
+  });
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: pageAlternates("/convento", locale),
+  };
+}
 
 export default async function ConventoPage({
   params,
@@ -68,6 +88,9 @@ export default async function ConventoPage({
           />
         </Container>
       </section>
+
+      {/* Linea del tempo: quattro secoli in cinque tappe */}
+      <HistoryTimeline />
 
       {/* Spaces */}
       <section className="bg-calce-deep py-16 sm:py-24">

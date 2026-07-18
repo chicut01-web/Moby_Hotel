@@ -3,9 +3,45 @@ import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { ArchColonnade } from "@/components/arch-motif";
 import { BookingForm, type BookingRoomOption } from "@/components/booking-form";
+import { Reveal } from "@/components/reveal";
+import { InkReveal } from "@/components/ink-reveal";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { getActiveRooms } from "@/lib/rooms";
 import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
+
+const FAQ_KEYS = [
+  "orari",
+  "gruppi",
+  "accessibilita",
+  "animali",
+  "pasti",
+  "tariffe",
+] as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "metadata.pages.prenota",
+  });
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: pageAlternates("/prenota", locale),
+  };
+}
 
 export default async function PrenotaPage({
   params,
@@ -19,6 +55,7 @@ export default async function PrenotaPage({
   setRequestLocale(locale);
   const t = await getTranslations("prenota");
   const tc = await getTranslations("contatti");
+  const tf = await getTranslations("faq");
 
   const rooms: BookingRoomOption[] = (await getActiveRooms()).map((r) => ({
     id: r.id,
@@ -91,6 +128,30 @@ export default async function PrenotaPage({
               />
             </div>
           </aside>
+        </Container>
+      </section>
+
+      {/* FAQ / info pratiche */}
+      <section className="pb-20 sm:pb-24">
+        <Container className="max-w-3xl">
+          <Reveal>
+            <p className="eyebrow">{tf("eyebrow")}</p>
+            <InkReveal text={tf("title")} className="mt-3 text-3xl sm:text-4xl" />
+          </Reveal>
+          <Reveal delay={120}>
+            <Accordion type="single" collapsible className="mt-8">
+              {FAQ_KEYS.map((key) => (
+                <AccordionItem key={key} value={key}>
+                  <AccordionTrigger className="text-left font-serif text-lg hover:text-cotto hover:no-underline">
+                    {tf(`items.${key}.q`)}
+                  </AccordionTrigger>
+                  <AccordionContent className="leading-relaxed text-muted-foreground">
+                    {tf(`items.${key}.a`)}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </Reveal>
         </Container>
       </section>
     </>

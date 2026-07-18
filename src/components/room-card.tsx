@@ -15,11 +15,6 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
   const name = locale === "en" ? room.name_en : room.name_it;
   const description =
     locale === "en" ? room.description_en : room.description_it;
-  const price = new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: "EUR",
-    maximumFractionDigits: 0,
-  }).format(room.price_per_night);
   const cover = roomCoverImage(room);
 
   return (
@@ -42,10 +37,10 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
           >
             {t(`types.${room.type}`)}
           </Badge>
-          <p className="text-sm text-muted-foreground">
-            <span className="text-xs">{t("card.from")} </span>
-            <span className="font-serif text-lg text-foreground">{price}</span>
-            <span className="text-xs"> {t("card.perNight")}</span>
+          {/* Ente del Terzo Settore: niente prezzi sul sito, tariffe
+              comunicate su richiesta */}
+          <p className="text-xs italic text-muted-foreground">
+            {t("card.onRequest")}
           </p>
         </div>
 

@@ -1,7 +1,25 @@
 {
   "metadata": {
     "title": "Hub for European Youth · Acerno",
-    "description": "Authentic hospitality in a 17th-century Franciscan convent in the heart of the Picentini Mountains. Dorms and private rooms around the cloister, in Acerno (SA), Italy."
+    "description": "Authentic hospitality in a 17th-century Franciscan convent in the heart of the Picentini Mountains. Dorms and private rooms around the cloister, in Acerno (SA), Italy.",
+    "pages": {
+      "convento": {
+        "title": "The Convent of Sant'Antonio · Hub for European Youth",
+        "description": "Four centuries of history: the arcaded cloister, the resurfaced frescoes and the spaces of the Franciscan complex in Acerno, today a place of hospitality."
+      },
+      "camere": {
+        "title": "Rooms and dorms · Hub for European Youth",
+        "description": "Group dorms and private rooms around the cloister: vaulted ceilings, terracotta, calm light. Availability and rates on request."
+      },
+      "contatti": {
+        "title": "Contact and directions · Hub for European Youth",
+        "description": "We are in the centre of Acerno, in the Picentini Mountains, province of Salerno. How to reach us and how to write to us."
+      },
+      "prenota": {
+        "title": "Request a booking · Hub for European Youth",
+        "description": "Pick your dates and room: we save your request and get back to you to confirm. No online payment."
+      }
+    }
   },
   "nav": {
     "home": "Home",
@@ -110,6 +128,37 @@
       "body2": "Damaged by the 1980 earthquake, it was restored and turned into a youth hostel. During the works, 17th- and 18th-century frescoes resurfaced, today part of the charm of the place.",
       "body3": "The church is not part of the hostel: hospitality lives in the convent's spaces, among terracotta, vaults and silence."
     },
+    "timeline": {
+      "eyebrow": "The timeline",
+      "title": "Four centuries in five stages",
+      "items": {
+        "fondazione": {
+          "era": "17th century",
+          "title": "The foundation",
+          "body": "In the centre of Acerno the Franciscan complex dedicated to Saint Anthony is born: a courtyard monastic layout, the arcaded cloister with its well, the single-nave church."
+        },
+        "vita": {
+          "era": "1600s–1700s",
+          "title": "Life in the convent",
+          "body": "Centuries of monastic life around the cloister: vaults are frescoed, spaces layer up between prayer, work and the welcome of travellers."
+        },
+        "terremoto": {
+          "era": "1980",
+          "title": "The earthquake",
+          "body": "The Irpinia earthquake wounds the complex. The convent empties, but the village does not forget it."
+        },
+        "recupero": {
+          "era": "1990s–2000s",
+          "title": "The recovery",
+          "body": "Restoration gives the spaces back and brings the 17th–18th-century frescoes to light. The convent is reborn as a youth hostel."
+        },
+        "oggi": {
+          "era": "Today",
+          "title": "The Hub",
+          "body": "With Moby Dick ETS the complex becomes the Hub for European Youth: sustainable, social, accessible hospitality — once again a home for those who walk."
+        }
+      }
+    },
     "spaces": {
       "title": "The spaces",
       "intro": "Three levels that tell the life of the convent.",
@@ -146,15 +195,14 @@
       "subtitle": "Group dorms and private rooms, all facing or near the cloister. Vaulted ceilings, terracotta, calm light."
     },
     "intro": {
-      "body": "Prices are indicative and per night. Availability is confirmed on request: pick a room and send us a request, with no online payment."
+      "body": "Availability and rates are confirmed on request: pick a room and send us a request, with no online payment."
     },
     "empty": {
       "title": "Rooms coming soon",
       "body": "We're finishing the accommodation catalogue. Write to us in the meantime — we'll be glad to find you a place."
     },
     "card": {
-      "from": "from",
-      "perNight": "/ night",
+      "onRequest": "Rates on request",
       "guests": "{count, plural, one {# guest} other {# guests}}",
       "beds": "{count, plural, one {# bed} other {# beds}}",
       "accessible": "Accessible",
@@ -238,6 +286,49 @@
       "title": "Request received, thank you!",
       "body": "We've saved your request for {room} from {checkIn} to {checkOut}. We'll get back to you soon by email to confirm availability and details.",
       "again": "Send another request"
+    }
+  },
+  "territorio": {
+    "eyebrow": "The area",
+    "title": "The Picentini Mountains around us",
+    "body": "Acerno sits inside the Picentini Mountains Regional Park: trails, woods, waterfalls, horse riding and local food within a backpack's reach. The chart marks the routes to set out on.",
+    "mapLabel": "Illustrated chart of the surroundings of Acerno",
+    "acerno": "Acerno · the Hub",
+    "items": {
+      "sentieri": "Trails and trekking",
+      "cascate": "The waterfalls",
+      "parco": "Park woods",
+      "gusto": "Food and wine"
+    }
+  },
+  "faq": {
+    "eyebrow": "Practical info",
+    "title": "Frequently asked questions",
+    "items": {
+      "orari": {
+        "q": "What are the check-in and check-out times?",
+        "a": "Check-in is from 3pm to 8pm, check-out by 10am. For arrivals outside these hours, tell us in your request message and we'll arrange it."
+      },
+      "gruppi": {
+        "q": "Do you host groups and school trips?",
+        "a": "Yes, they're most welcome: our 3-4 bed dorms are made for it and the dining hall seats about 50. For groups it's best to write a little in advance so we can tailor everything."
+      },
+      "accessibilita": {
+        "q": "Is the building accessible?",
+        "a": "Accessibility is part of our mission: some accommodations are designed for reduced mobility. Tell us your needs in the request and we'll confirm the best solution."
+      },
+      "animali": {
+        "q": "Can I bring my pet?",
+        "a": "Well-behaved animals are welcome in some accommodations: mention it in your request and we'll assign you the right room."
+      },
+      "pasti": {
+        "q": "Can I eat at the hostel?",
+        "a": "The dining hall (~50 seats) serves meals on reservation, ideal for groups and school trips. The village also offers trattorias and Picentini food and wine."
+      },
+      "tariffe": {
+        "q": "How much does a night cost?",
+        "a": "We are a non-profit third-sector organisation: rates are fair and shared on request, based on season, group and accommodation. Send a request or write to us and we'll reply with a quote."
+      }
     }
   },
   "intro": {

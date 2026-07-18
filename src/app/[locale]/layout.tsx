@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { Fraunces, Mulish } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { routing, type Locale } from "@/i18n/routing";
+import { SITE_URL, pageAlternates } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MapCursorTrail } from "@/components/map-cursor-trail";
@@ -35,8 +37,17 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
   return {
+    metadataBase: new URL(SITE_URL),
     title: t("title"),
     description: t("description"),
+    alternates: pageAlternates("", locale as Locale),
+    openGraph: {
+      type: "website",
+      siteName: SITE.name,
+      title: t("title"),
+      description: t("description"),
+      images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+    },
   };
 }
 

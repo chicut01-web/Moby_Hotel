@@ -9,6 +9,12 @@ import {
 } from "@/components/admin/request-actions";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+
+// Area riservata: fuori dai motori di ricerca.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 type AdminRequest = {
   id: string;

@@ -1,7 +1,25 @@
 {
   "metadata": {
     "title": "Hub for European Youth · Acerno",
-    "description": "Ospitalità autentica in un convento francescano del XVII secolo nel cuore dei Monti Picentini. Camerate e camere private attorno al chiostro, ad Acerno (SA)."
+    "description": "Ospitalità autentica in un convento francescano del XVII secolo nel cuore dei Monti Picentini. Camerate e camere private attorno al chiostro, ad Acerno (SA).",
+    "pages": {
+      "convento": {
+        "title": "Il Convento di Sant'Antonio · Hub for European Youth",
+        "description": "Quattro secoli di storia: il chiostro porticato, gli affreschi riaffiorati e gli spazi del complesso francescano di Acerno, oggi luogo di ospitalità."
+      },
+      "camere": {
+        "title": "Camere e camerate · Hub for European Youth",
+        "description": "Camerate per gruppi e camere private attorno al chiostro: soffitti a volta, cotto e luce calma. Disponibilità e tariffe su richiesta."
+      },
+      "contatti": {
+        "title": "Contatti e come arrivare · Hub for European Youth",
+        "description": "Siamo nel centro di Acerno, sui Monti Picentini in provincia di Salerno. Come raggiungerci e come scriverci."
+      },
+      "prenota": {
+        "title": "Richiedi una prenotazione · Hub for European Youth",
+        "description": "Scegli date e sistemazione: salviamo la tua richiesta e ti ricontattiamo per confermare. Nessun pagamento online."
+      }
+    }
   },
   "nav": {
     "home": "Home",
@@ -110,6 +128,37 @@
       "body2": "Danneggiato dal terremoto del 1980, è stato recuperato e trasformato in Ostello della Gioventù. Durante i restauri sono affiorati affreschi sei-settecenteschi, oggi parte del fascino del luogo.",
       "body3": "La chiesa è esclusa dalla gestione: l'ospitalità vive negli spazi del convento, tra cotto, volte e silenzi."
     },
+    "timeline": {
+      "eyebrow": "La linea del tempo",
+      "title": "Quattro secoli in cinque tappe",
+      "items": {
+        "fondazione": {
+          "era": "XVII secolo",
+          "title": "La fondazione",
+          "body": "Nel centro di Acerno nasce il complesso francescano dedicato a Sant'Antonio: impianto monastico a corte, il chiostro porticato con il pozzo, la chiesa a navata unica."
+        },
+        "vita": {
+          "era": "Sei-Settecento",
+          "title": "La vita del convento",
+          "body": "Secoli di vita monastica attorno al chiostro: le volte si affrescano, gli ambienti si stratificano tra preghiera, lavoro e accoglienza di viandanti."
+        },
+        "terremoto": {
+          "era": "1980",
+          "title": "Il terremoto",
+          "body": "Il sisma dell'Irpinia ferisce il complesso. Il convento si svuota, ma il paese non lo dimentica."
+        },
+        "recupero": {
+          "era": "Anni '90–2000",
+          "title": "Il recupero",
+          "body": "I restauri restituiscono gli spazi e fanno riaffiorare gli affreschi sei-settecenteschi. Il convento rinasce come Ostello della Gioventù."
+        },
+        "oggi": {
+          "era": "Oggi",
+          "title": "L'Hub",
+          "body": "Con Moby Dick ETS il complesso diventa l'Hub for European Youth: ospitalità sostenibile, sociale e accessibile, di nuovo una casa per chi cammina."
+        }
+      }
+    },
     "spaces": {
       "title": "Gli spazi",
       "intro": "Tre livelli che raccontano la vita del convento.",
@@ -146,15 +195,14 @@
       "subtitle": "Camerate per gruppi e camere private, tutte affacciate o vicine al chiostro. Soffitti a volta, cotto, luce calma."
     },
     "intro": {
-      "body": "I prezzi sono indicativi e per notte. La disponibilità si conferma su richiesta: scegli la sistemazione e inviaci una richiesta, senza pagamenti online."
+      "body": "La disponibilità e le tariffe si confermano su richiesta: scegli la sistemazione e inviaci una richiesta, senza pagamenti online."
     },
     "empty": {
       "title": "Camere in arrivo",
       "body": "Stiamo completando il catalogo delle sistemazioni. Scrivici intanto: saremo felici di trovarti un posto."
     },
     "card": {
-      "from": "da",
-      "perNight": "/ notte",
+      "onRequest": "Tariffe su richiesta",
       "guests": "{count, plural, one {# ospite} other {# ospiti}}",
       "beds": "{count, plural, one {# letto} other {# letti}}",
       "accessible": "Accessibile",
@@ -238,6 +286,49 @@
       "title": "Richiesta ricevuta, grazie!",
       "body": "Abbiamo salvato la tua richiesta per {room} dal {checkIn} al {checkOut}. Ti ricontattiamo presto via email per confermare disponibilità e dettagli.",
       "again": "Invia un'altra richiesta"
+    }
+  },
+  "territorio": {
+    "eyebrow": "Il territorio",
+    "title": "I Monti Picentini attorno a noi",
+    "body": "Acerno è dentro il Parco Regionale dei Monti Picentini: sentieri, boschi, cascate, escursioni a cavallo ed enogastronomia a portata di zaino. La carta segna le rotte da cui partire.",
+    "mapLabel": "Carta illustrata dei dintorni di Acerno",
+    "acerno": "Acerno · l'Hub",
+    "items": {
+      "sentieri": "Sentieri e trekking",
+      "cascate": "Le cascate",
+      "parco": "Boschi del Parco",
+      "gusto": "Enogastronomia"
+    }
+  },
+  "faq": {
+    "eyebrow": "Info pratiche",
+    "title": "Domande frequenti",
+    "items": {
+      "orari": {
+        "q": "Quali sono gli orari di check-in e check-out?",
+        "a": "Il check-in è dalle 15:00 alle 20:00, il check-out entro le 10:00. Per arrivi fuori orario scrivici nel messaggio della richiesta: ci organizziamo."
+      },
+      "gruppi": {
+        "q": "Accogliete gruppi e scolaresche?",
+        "a": "Sì, sono i benvenuti: le camerate da 3-4 letti nascono per questo e la sala mensa ospita circa 50 persone. Per i gruppi conviene scriverci con un po' di anticipo, così prepariamo tutto su misura."
+      },
+      "accessibilita": {
+        "q": "La struttura è accessibile?",
+        "a": "L'accessibilità è parte della nostra missione: ci sono sistemazioni pensate per chi ha esigenze di mobilità. Raccontaci le tue necessità nella richiesta e ti confermiamo la soluzione più adatta."
+      },
+      "animali": {
+        "q": "Posso portare il mio animale?",
+        "a": "Gli animali ben educati sono i benvenuti in alcune sistemazioni: segnalacelo nella richiesta così ti assegniamo la camera giusta."
+      },
+      "pasti": {
+        "q": "È possibile mangiare all'ostello?",
+        "a": "La sala mensa (~50 posti) serve i pasti su prenotazione, ideale per gruppi e scolaresche. In paese trovi comunque trattorie ed enogastronomia dei Picentini."
+      },
+      "tariffe": {
+        "q": "Quanto costa una notte?",
+        "a": "Siamo un ente del Terzo Settore: le tariffe sono etiche e si comunicano su richiesta, in base a periodo, gruppo e sistemazione. Invia la richiesta o scrivici: rispondiamo con il preventivo."
+      }
     }
   },
   "intro": {

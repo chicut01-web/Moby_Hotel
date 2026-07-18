@@ -8,6 +8,25 @@ import { Reveal } from "@/components/reveal";
 import { TiltCard } from "@/components/tilt-card";
 import { getActiveRooms } from "@/lib/rooms";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "metadata.pages.camere",
+  });
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: pageAlternates("/camere", locale),
+  };
+}
 
 // ISR: le camere arrivano dal DB, la pagina si rigenera senza rebuild.
 export const revalidate = 300;
