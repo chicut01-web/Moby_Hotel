@@ -66,16 +66,16 @@ export function SiteFooter() {
             </h2>
             <p className="text-sm text-muted-foreground">{SITE.address}</p>
             <a
-              href={`tel:${SITE.phoneHref}`}
-              className="w-fit text-sm text-muted-foreground transition-colors hover:text-cotto"
-            >
-              {SITE.phone}
-            </a>
-            <a
               href={`mailto:${SITE.email}`}
               className="w-fit text-sm text-muted-foreground transition-colors hover:text-cotto"
             >
               {SITE.email}
+            </a>
+            <a
+              href={`mailto:${SITE.pec}`}
+              className="w-fit text-sm text-muted-foreground transition-colors hover:text-cotto"
+            >
+              PEC: {SITE.pec}
             </a>
           </div>
         </div>

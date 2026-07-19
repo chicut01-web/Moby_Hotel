@@ -222,10 +222,19 @@
     },
     "info": {
       "addressLabel": "Where we are",
-      "phoneLabel": "Phone",
+      "pecLabel": "Certified email (PEC)",
       "emailLabel": "Email",
       "hoursLabel": "Reception",
       "hours": "Every day, 8:00 am – 8:00 pm"
+    },
+    "org": {
+      "title": "The organisation",
+      "body": "The venue is run by Moby Dick ETS, a non-profit third-sector organisation based in Salerno.",
+      "operationalLabel": "Operational office",
+      "legalLabel": "Registered office",
+      "pecLabel": "Certified email (PEC)",
+      "hoursLabel": "Office hours",
+      "hours": "Monday – Friday, 9:00 am – 7:00 pm"
     },
     "how": {
       "title": "Getting here",
@@ -233,7 +242,8 @@
     },
     "map": {
       "label": "Map",
-      "placeholder": "Map of Acerno (SA) — placeholder",
+      "iframeTitle": "Google map of the Convent of Sant'Antonio in Acerno",
+      "directions": "Directions on Google Maps",
       "photoAlt": "The convent façade with its entrance portal, in the centre of Acerno"
     }
   },
@@ -287,6 +297,11 @@
       "body": "We've saved your request for {room} from {checkIn} to {checkOut}. We'll get back to you soon by email to confirm availability and details.",
       "again": "Send another request"
     }
+  },
+  "notFound": {
+    "title": "Off the charts",
+    "body": "The page you were looking for isn't on this map. Head back to harbour and set out again.",
+    "cta": "Back to home"
   },
   "territorio": {
     "eyebrow": "The area",

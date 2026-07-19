@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MailCheck, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { InkReveal } from "@/components/ink-reveal";
 import { TerritoryMap } from "@/components/territory-map";
-import { SITE } from "@/lib/site";
+import { MAPS_DIRECTIONS_URL, MAPS_EMBED_URL, SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/seo";
@@ -46,16 +47,16 @@ export default async function ContattiPage({
       href: undefined,
     },
     {
-      Icon: Phone,
-      label: t("info.phoneLabel"),
-      value: SITE.phone,
-      href: `tel:${SITE.phoneHref}`,
-    },
-    {
       Icon: Mail,
       label: t("info.emailLabel"),
       value: SITE.email,
       href: `mailto:${SITE.email}`,
+    },
+    {
+      Icon: MailCheck,
+      label: t("info.pecLabel"),
+      value: SITE.pec,
+      href: `mailto:${SITE.pec}`,
     },
     {
       Icon: Clock,
@@ -123,6 +124,80 @@ export default async function ContattiPage({
               </span>
             </div>
           </div>
+        </Container>
+      </section>
+
+      {/* L'ente gestore + mappa Google con indicazioni */}
+      <section className="pb-16 sm:pb-20">
+        <Container className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+          <Reveal className="h-full">
+            <div className="h-full rounded-2xl border border-border/70 bg-card p-7">
+              <h2 className="text-2xl">{t("org.title")}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {t("org.body")}
+              </p>
+              <dl className="mt-6 space-y-4 text-sm text-foreground">
+                <div>
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                    {t("org.operationalLabel")}
+                  </dt>
+                  <dd className="mt-0.5">{SITE.orgOperational}</dd>
+                </div>
+                <div>
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                    {t("org.legalLabel")}
+                  </dt>
+                  <dd className="mt-0.5">{SITE.orgLegal}</dd>
+                </div>
+                <div>
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                    {t("org.pecLabel")}
+                  </dt>
+                  <dd className="mt-0.5">
+                    <a
+                      href={`mailto:${SITE.pec}`}
+                      className="transition-colors hover:text-cotto"
+                    >
+                      {SITE.pec}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                    {t("org.hoursLabel")}
+                  </dt>
+                  <dd className="mt-0.5">{t("org.hours")}</dd>
+                </div>
+              </dl>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="overflow-hidden rounded-3xl border border-border/70 shadow-[0_24px_50px_-32px_var(--inchiostro)]">
+              <iframe
+                src={MAPS_EMBED_URL}
+                title={t("map.iframeTitle")}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                className="aspect-[4/3] w-full border-0"
+              />
+            </div>
+            <Button
+              asChild
+              variant="outline"
+              className="mt-4 rounded-full border-border/80"
+            >
+              <a
+                href={MAPS_DIRECTIONS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MapPin className="size-4" aria-hidden="true" />
+                {t("map.directions")}
+              </a>
+            </Button>
+          </Reveal>
         </Container>
       </section>
 

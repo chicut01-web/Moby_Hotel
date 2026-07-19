@@ -222,10 +222,19 @@
     },
     "info": {
       "addressLabel": "Dove siamo",
-      "phoneLabel": "Telefono",
+      "pecLabel": "PEC",
       "emailLabel": "Email",
       "hoursLabel": "Reception",
       "hours": "Tutti i giorni, 8:00 – 20:00"
+    },
+    "org": {
+      "title": "L'ente gestore",
+      "body": "La struttura è gestita da Moby Dick ETS, ente del Terzo Settore con sede a Salerno.",
+      "operationalLabel": "Sede operativa",
+      "legalLabel": "Sede legale",
+      "pecLabel": "PEC",
+      "hoursLabel": "Orari uffici",
+      "hours": "Lunedì – Venerdì, 9:00 – 19:00"
     },
     "how": {
       "title": "Come arrivare",
@@ -233,7 +242,8 @@
     },
     "map": {
       "label": "Mappa",
-      "placeholder": "Mappa di Acerno (SA) — segnaposto",
+      "iframeTitle": "Mappa Google del Convento di Sant'Antonio ad Acerno",
+      "directions": "Indicazioni su Google Maps",
       "photoAlt": "La facciata del convento con il portale d'ingresso, nel centro di Acerno"
     }
   },
@@ -287,6 +297,11 @@
       "body": "Abbiamo salvato la tua richiesta per {room} dal {checkIn} al {checkOut}. Ti ricontattiamo presto via email per confermare disponibilità e dettagli.",
       "again": "Invia un'altra richiesta"
     }
+  },
+  "notFound": {
+    "title": "Rotta smarrita",
+    "body": "La pagina che cercavi non è su questa carta. Torna al porto e riparti da lì.",
+    "cta": "Torna alla home"
   },
   "territorio": {
     "eyebrow": "Il territorio",

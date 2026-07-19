@@ -110,14 +110,14 @@ export default async function PrenotaPage({
                 </div>
                 <div>
                   <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
-                    {tc("info.phoneLabel")}
+                    {tc("info.pecLabel")}
                   </dt>
                   <dd className="mt-0.5">
                     <a
-                      href={`tel:${SITE.phoneHref}`}
+                      href={`mailto:${SITE.pec}`}
                       className="transition-colors hover:text-cotto"
                     >
-                      {SITE.phone}
+                      {SITE.pec}
                     </a>
                   </dd>
                 </div>
