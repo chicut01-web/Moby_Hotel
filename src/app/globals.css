@@ -137,6 +137,13 @@
   }
   html {
     @apply font-sans;
+    /* NIENTE scroll-behavior: smooth globale: rende animato anche il
+       ritorno in cima che Next fa al cambio rotta, e da una pagina
+       lunga il viaggio dura oltre un secondo — sembra che la pagina
+       non si carichi. Lo scorrimento morbido resta solo per i salti
+       verso un'ancora esplicita. */
+  }
+  html:has(:target) {
     scroll-behavior: smooth;
   }
   h1, h2, h3, h4 {

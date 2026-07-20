@@ -101,9 +101,12 @@ export function Lightbox({
             if (e.target === overlayRef.current) onClose();
           }}
         >
-          {/* Sfondo semi-trasparente calce */}
+          {/* Sfondo calce quasi pieno. NIENTE backdrop-blur: sfocare
+              l'intero sfondo (dove le animazioni ambient non si fermano
+              mai) va rifatto a ogni frame e costava un terzo dei
+              fotogrammi dell'apertura — misurati 44fps contro 61. */}
           <motion.div
-            className="absolute inset-0 bg-calce/90 backdrop-blur-sm"
+            className="absolute inset-0 bg-calce/95"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -4,11 +4,12 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePathname } from "@/i18n/navigation";
 
 /**
- * Passaggio tra le pagine: la pagina uscente si congeda (dissolve e
- * scorre) e solo dopo entra la nuova — `AnimatePresence mode="wait"`,
- * cosa impossibile con le sole animazioni CSS, dove il nodo vecchio
- * sparisce all'istante. Con prefers-reduced-motion niente wrapper
- * animato.
+ * Passaggio tra le pagine: la pagina uscente dissolve mentre la nuova
+ * entra (`mode="popLayout"`, sovrapposte). NON `mode="wait"`: quello
+ * rimanda il montaggio del contenuto nuovo alla fine dell'uscita, e
+ * l'attesa si legge come "la pagina non si carica". Le transizioni
+ * restano brevi per lo stesso motivo. Con prefers-reduced-motion
+ * nessun wrapper animato.
  */
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -17,13 +18,13 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   if (reduced) return <>{children}</>;
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="popLayout" initial={false}>
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -6 }}
-        transition={{ type: "spring", stiffness: 130, damping: 20, mass: 0.7 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.div>
