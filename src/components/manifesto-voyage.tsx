@@ -1,4 +1,14 @@
+"use client";
+
+import { useRef } from "react";
 import { useTranslations } from "next-intl";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { OceanWaves } from "@/components/ocean-waves";
 import { Clouds } from "@/components/clouds";
 import { InkReveal } from "@/components/ink-reveal";
@@ -20,27 +30,85 @@ const LEGS = [
 const ROUTE_D =
   "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500 C 2610 530 2780 545 2940 525";
 
+/** Molla condivisa della traversata: plana, non scatta. */
+const SAIL_SPRING = { stiffness: 90, damping: 26, restDelta: 0.001 };
+
 /**
- * Il manifesto come traversata: la sezione si "aggancia" e lo scroll
- * verticale diventa navigazione orizzontale lungo una carta nautica.
- * Le tre dichiarazioni sono tre bordi della rotta, tipografia enorme
- * senza card; il veliero resta a sinistra del viewport e il mondo gli
- * scorre incontro, la rotta tratteggiata si inchiostra col progresso.
- * Tutta la coreografia è CSS scroll-driven (`.manifesto-*` in
- * globals.css): senza supporto — o con prefers-reduced-motion — la
- * sezione degrada in un racconto verticale statico.
+ * Il manifesto come traversata: la sezione si "aggancia" (sticky CSS) e
+ * lo scroll verticale diventa navigazione orizzontale lungo una carta
+ * nautica. Lo scrub è guidato da Motion (useScroll + useSpring): gira in
+ * ogni browser — Firefox compreso — e tutta la scena plana con inerzia.
+ * Binario, inchiostro della rotta e barchetta completano all'82% e
+ * sostano sul terzo porto; lo sfondo di costa scorre a metà velocità
+ * (parallasse). Heave/pitch della barca restano keyframes CSS
+ * time-based. Con prefers-reduced-motion: racconto verticale statico.
  */
 export function ManifestoVoyage() {
   const t = useTranslations("home.manifesto");
+  const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const p = useSpring(scrollYProgress, SAIL_SPRING);
+
+  const trackX = useTransform(p, [0, 0.82, 1], ["0vw", "-200vw", "-200vw"]);
+  const farX = useTransform(p, [0, 0.82, 1], ["0vw", "-100vw", "-100vw"]);
+  const inkLength = useTransform(p, [0, 0.82], [0, 1]);
+  const boatDistance = useTransform(p, [0, 0.82], ["0%", "100%"]);
+
+  if (reduced) {
+    return (
+      <section aria-labelledby="manifesto-heading" className="py-16 sm:py-24">
+        <div className="text-center">
+          <p className="eyebrow">{t("eyebrow")}</p>
+          <h2 id="manifesto-heading" className="sr-only">
+            {t("title")}
+          </h2>
+        </div>
+        <div className="mx-auto mt-4 max-w-3xl">
+          {LEGS.map(({ key, num, accent, ring }) => (
+            <article key={key} className="px-6 py-14">
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "inline-flex size-11 items-center justify-center rounded-full border bg-card/70 font-serif text-sm",
+                  ring,
+                  accent,
+                )}
+              >
+                {num}
+              </span>
+              <h3 className="mt-6 text-3xl leading-tight sm:text-4xl">
+                {t(`cards.${key}.title`)}
+              </h3>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-salvia">
+                {t(`cards.${key}.body`)}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section aria-labelledby="manifesto-heading" className="manifesto-voyage">
+    <section
+      ref={sectionRef}
+      aria-labelledby="manifesto-heading"
+      className="manifesto-voyage"
+    >
       <div className="manifesto-pin bg-gradient-to-b from-salvia-soft/40 via-calce to-calce">
         <Clouds />
 
-        {/* Strato lontano: costa a inchiostro che scorre a metà velocità
-            del binario (stessa timeline --voyage) = profondità */}
-        <div aria-hidden="true" className="manifesto-far">
+        {/* Strato lontano: costa a inchiostro a metà velocità = profondità */}
+        <motion.div
+          aria-hidden="true"
+          className="manifesto-far"
+          style={{ x: farX }}
+        >
           <svg
             viewBox="0 0 2000 800"
             preserveAspectRatio="none"
@@ -64,7 +132,7 @@ export function ManifestoVoyage() {
               opacity="0.12"
             />
           </svg>
-        </div>
+        </motion.div>
 
         <div className="manifesto-eyebrow relative z-10 pt-10 text-center">
           <p className="eyebrow">{t("eyebrow")}</p>
@@ -73,7 +141,7 @@ export function ManifestoVoyage() {
           </h2>
         </div>
 
-        <div className="manifesto-track">
+        <motion.div className="manifesto-track" style={{ x: trackX }}>
           {/* Carta nautica: guida tratteggiata + tratto che si inchiostra */}
           <svg
             aria-hidden="true"
@@ -91,15 +159,14 @@ export function ManifestoVoyage() {
               strokeDasharray="0.006 0.005"
               vectorEffect="non-scaling-stroke"
             />
-            <path
-              className="manifesto-route-ink"
+            <motion.path
               d={ROUTE_D}
-              pathLength={1}
               stroke="var(--salvia)"
               strokeOpacity="0.45"
               strokeWidth="2.5"
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
+              style={{ pathLength: inkLength }}
             />
             {/* Porti di scalo sulla rotta */}
             <g stroke="var(--inchiostro)" strokeOpacity="0.35">
@@ -107,10 +174,14 @@ export function ManifestoVoyage() {
               <circle cx="1860" cy="280" r="7" fill="var(--salvia)" strokeWidth="6" strokeOpacity="0.12" />
               <circle cx="2940" cy="525" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
             </g>
-            {/* La barchetta naviga la rotta stessa (offset-path sul path,
-                in user units SVG): si solleva (heave) e beccheggia
-                (pitch) su periodi diversi che si sfasano da soli. */}
-            <g className="manifesto-boat-rider" fill="none">
+            {/* La barchetta naviga la rotta stessa (offset-path in CSS,
+                offset-distance guidata dalla molla): si solleva (heave)
+                e beccheggia (pitch) su periodi diversi che si sfasano. */}
+            <motion.g
+              className="manifesto-boat-rider"
+              fill="none"
+              style={{ offsetDistance: boatDistance }}
+            >
               <g transform="scale(1.5 1.75) translate(-24 -33)">
                 <g className="manifesto-boat-heave">
                   <g className="manifesto-boat-pitch" fill="var(--inchiostro)">
@@ -122,7 +193,7 @@ export function ManifestoVoyage() {
                   </g>
                 </g>
               </g>
-            </g>
+            </motion.g>
           </svg>
 
           {LEGS.map(({ key, num, accent, ring }) => (
@@ -152,7 +223,7 @@ export function ManifestoVoyage() {
               </div>
             </article>
           ))}
-        </div>
+        </motion.div>
 
         <OceanWaves className="h-24" />
       </div>

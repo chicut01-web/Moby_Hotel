@@ -7,6 +7,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { CompassRose } from "@/components/compass-rose";
+import { MapMarker } from "@/components/map-marker";
 import { cn } from "@/lib/utils";
 
 /**
@@ -105,9 +106,9 @@ export function TerritoryMap() {
           className="absolute -translate-x-1/2 -translate-y-1/2 text-center"
           style={{ left: `${x}%`, top: `${y}%` }}
         >
-          <span
+          <MapMarker
             className={cn(
-              "relative mx-auto flex size-9 items-center justify-center rounded-full border bg-card shadow-sm sm:size-11",
+              "mx-auto size-9 items-center justify-center rounded-full border bg-card shadow-sm sm:size-11",
               accent,
             )}
           >
@@ -115,8 +116,8 @@ export function TerritoryMap() {
               aria-hidden="true"
               className="absolute inset-0 animate-ping rounded-full border border-current opacity-40 [animation-duration:2.8s] motion-reduce:hidden"
             />
-            <Icon className="size-4 sm:size-5" aria-hidden="true" />
-          </span>
+            <Icon className="m-auto size-4 sm:size-5" aria-hidden="true" />
+          </MapMarker>
           <span className="mt-1.5 block max-w-24 text-[0.6rem] font-semibold uppercase leading-tight tracking-[0.12em] text-inchiostro/80 sm:max-w-none sm:text-[0.65rem]">
             {t(`items.${key}`)}
           </span>

@@ -574,56 +574,61 @@
     }
   }
 
-  /* Linea del tempo del convento: la rotta verticale si inchiostra
-     mentre la sezione attraversa il viewport. */
-  .timeline-ink {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-  }
-  @supports (animation-timeline: view()) {
-    .timeline-ink {
-      animation: timeline-draw linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 80%;
-    }
-  }
-  @keyframes timeline-draw {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
   /* Manifesto "traversata": la sezione si aggancia (sticky) e lo scroll
      verticale scorre un binario orizzontale di 300vw con le tre
-     dichiarazioni. La rotta si inchiostra sullo stesso progresso; il
-     veliero è fermo nel viewport e il mondo gli scorre incontro.
-     Layout di base = racconto verticale statico; l'esperienza pinnata
-     esiste solo dove le scroll-driven animations sono supportate. */
-  /* NIENTE overflow:hidden qui: renderebbe la sezione uno scroll
+     dichiarazioni. Lo SCRUB (binario, inchiostro della rotta, barchetta,
+     parallasse di costa) è guidato da Motion in manifesto-voyage.tsx —
+     useScroll + useSpring, cross-browser — quindi qui resta solo il
+     layout pinnato; con prefers-reduced-motion il componente rende un
+     racconto verticale statico che non usa queste classi. */
+  /* NIENTE overflow:hidden sulla sezione: la renderebbe uno scroll
      container e lo sticky del pin si aggancerebbe a lei, non al
      viewport. Il clipping del binario da 300vw lo fa il pin. */
   .manifesto-voyage {
-    view-timeline-name: --voyage;
     position: relative;
+    height: 400vh;
   }
   .manifesto-pin {
-    position: relative;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    /* Su mobile la barra indirizzi cambia l'altezza reale: dvh la segue */
+    height: 100dvh;
+    overflow: hidden;
+  }
+  /* Sfondo di costa mosso da Motion a metà velocità: parallasse vera */
+  .manifesto-far {
+    position: absolute;
+    inset: 0;
+    width: 200vw;
+    will-change: transform;
+  }
+  .manifesto-eyebrow {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
   }
   .manifesto-track {
     position: relative;
-  }
-  .manifesto-track > svg {
-    display: none;
-  }
-  .manifesto-boat-rider,
-  .manifesto-far {
-    display: none;
+    display: flex;
+    width: 300vw;
+    height: 100%;
+    will-change: transform;
   }
   .manifesto-leg {
     position: relative;
     display: flex;
+    flex: 0 0 100vw;
     align-items: center;
-    padding: 4.5rem clamp(1.5rem, 8vw, 7rem);
+    padding: 0 clamp(1.5rem, 8vw, 7rem);
+  }
+  /* Ritmo asimmetrico: partenza a sinistra, largo al centro, approdo
+     spinto a destra */
+  .manifesto-leg:nth-of-type(2) {
+    justify-content: center;
+  }
+  .manifesto-leg:nth-of-type(3) {
+    justify-content: flex-end;
   }
   .manifesto-num {
     position: absolute;
@@ -638,130 +643,29 @@
       color-mix(in oklab, var(--inchiostro) 14%, transparent);
     user-select: none;
   }
-  @supports (animation-timeline: view()) {
-    .manifesto-voyage {
-      height: 400vh;
-    }
-    .manifesto-pin {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      /* Su mobile la barra indirizzi cambia l'altezza reale: dvh la segue */
-      height: 100dvh;
-      overflow: hidden;
-    }
-    /* Sfondo di costa a metà velocità del binario: parallasse vera */
-    .manifesto-far {
-      display: block;
-      position: absolute;
-      inset: 0;
-      width: 200vw;
-      animation: voyage-drift-far linear both;
-      animation-timeline: --voyage;
-      animation-range: contain 0% contain 100%;
-      will-change: transform;
-    }
-    .manifesto-eyebrow {
-      position: absolute;
-      inset-inline: 0;
-      top: 0;
-    }
-    .manifesto-track {
-      display: flex;
-      width: 300vw;
-      height: 100%;
-      animation: voyage-sail linear both;
-      animation-timeline: --voyage;
-      animation-range: contain 0% contain 100%;
-      will-change: transform;
-    }
-    .manifesto-track > svg {
-      display: block;
-    }
-    .manifesto-leg {
-      flex: 0 0 100vw;
-      padding-block: 0;
-    }
-    /* Ritmo asimmetrico: partenza a sinistra, largo al centro, approdo
-       spinto a destra */
-    .manifesto-leg:nth-of-type(2) {
-      justify-content: center;
-    }
-    .manifesto-leg:nth-of-type(3) {
-      justify-content: flex-end;
-    }
-    .manifesto-route-ink {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      animation: voyage-ink linear both;
-      animation-timeline: --voyage;
-      animation-range: contain 0% contain 100%;
-    }
-    /* La barchetta cavalca la rotta: offset-path con la stessa ROUTE_D
-       del componente (user units del viewBox), che termina al largo
-       della terza scritta dove stanno anche il terzo porto e la fine
-       dell'inchiostro. Solo dove anche il motion path è supportato;
-       altrove resta nascosta. */
-    @supports (offset-path: path("M 0 0 H 10")) {
-      .manifesto-boat-rider {
-        display: inline;
-        offset-path: path(
-          "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500 C 2610 530 2780 545 2940 525"
-        );
-        offset-rotate: auto;
-        animation: voyage-ride linear both;
-        animation-timeline: --voyage;
-        animation-range: contain 0% contain 100%;
-      }
-      /* Mare mosso credibile: sollevamento e beccheggio su periodi
-         diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena. */
-      .manifesto-boat-heave {
-        animation: boat-heave 5.6s ease-in-out infinite;
-      }
-      .manifesto-boat-pitch {
-        transform-box: fill-box;
-        transform-origin: 50% 85%;
-        animation: boat-pitch 4.1s ease-in-out infinite;
-      }
-    }
+  /* La barchetta cavalca la rotta: offset-path con la stessa ROUTE_D
+     del componente (user units del viewBox); la offset-distance la
+     guida Motion. Dove il motion path non è supportato resta nascosta. */
+  .manifesto-boat-rider {
+    display: none;
   }
-  /* Plateau finale: traversata, inchiostro e barca completano all'82%
-     dello scrub e si resta in sosta sul terzo porto per il tratto
-     rimanente, così l'approdo ha il suo tempo. */
-  @keyframes voyage-sail {
-    0% {
-      transform: translateX(0);
+  @supports (offset-path: path("M 0 0 H 10")) {
+    .manifesto-boat-rider {
+      display: inline;
+      offset-path: path(
+        "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500 C 2610 530 2780 545 2940 525"
+      );
+      offset-rotate: auto;
     }
-    82%,
-    100% {
-      transform: translateX(-200vw);
+    /* Mare mosso credibile: sollevamento e beccheggio su periodi
+       diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena. */
+    .manifesto-boat-heave {
+      animation: boat-heave 5.6s ease-in-out infinite;
     }
-  }
-  @keyframes voyage-ink {
-    0% {
-      stroke-dashoffset: 1;
-    }
-    82%,
-    100% {
-      stroke-dashoffset: 0;
-    }
-  }
-  @keyframes voyage-ride {
-    0% {
-      offset-distance: 0%;
-    }
-    82%,
-    100% {
-      offset-distance: 100%;
-    }
-  }
-  @keyframes voyage-drift-far {
-    0% {
-      transform: translateX(0);
-    }
-    82%,
-    100% {
-      transform: translateX(-100vw);
+    .manifesto-boat-pitch {
+      transform-box: fill-box;
+      transform-origin: 50% 85%;
+      animation: boat-pitch 4.1s ease-in-out infinite;
     }
   }
   @keyframes boat-heave {
@@ -831,38 +735,13 @@
     .fish-jumper {
       opacity: 0;
     }
-    /* Linea del tempo: inchiostro già completo, niente scrub */
-    .timeline-ink {
+    /* Traversata e linea del tempo: con reduced-motion i componenti
+       (manifesto-voyage.tsx, history-timeline.tsx) rendono già la
+       versione statica via useReducedMotion — niente da neutralizzare
+       qui. */
+    .manifesto-boat-heave,
+    .manifesto-boat-pitch {
       animation: none;
-      stroke-dashoffset: 0;
-    }
-    /* La traversata torna racconto verticale statico */
-    .manifesto-voyage {
-      height: auto;
-    }
-    .manifesto-pin {
-      position: relative;
-      height: auto;
-      overflow: visible;
-    }
-    .manifesto-eyebrow {
-      position: static;
-    }
-    .manifesto-track {
-      display: block;
-      width: auto;
-      height: auto;
-      animation: none;
-      transform: none;
-    }
-    .manifesto-track > svg,
-    .manifesto-far {
-      display: none;
-    }
-    .manifesto-leg {
-      flex: none;
-      justify-content: flex-start;
-      padding-block: 4.5rem;
     }
   }
 }
