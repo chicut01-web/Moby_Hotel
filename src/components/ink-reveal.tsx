@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType } from "react";
+import { type ElementType } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /**
  * Titolo che "si scrive" a inchiostro, parola per parola, quando entra in
- * viewport. Generalizza l'effetto ink-in già usato nell'hero (keyframe
- * definita in globals.css). L'attivazione avviene una sola volta.
- * Con prefers-reduced-motion il CSS mostra tutto subito.
+ * viewport: ogni parola sale a fuoco (blur + salita) su una molla, in
+ * cascata. Una sola volta. Con prefers-reduced-motion il testo è già
+ * tutto lì, senza animazione.
  *
  * `as` sceglie il tag (default h2); `startDelay` ritarda la cascata iniziale;
  * `stagger` è il ritardo tra una parola e l'altra (ms).
@@ -27,45 +28,33 @@ export function InkReveal({
   stagger?: number;
   wordClassName?: string;
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setActive(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -5% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
+  const reduced = useReducedMotion();
   const Tag = (as ?? "h2") as ElementType;
   const words = text.split(" ");
 
+  if (reduced) return <Tag className={cn(className)}>{text}</Tag>;
+
   return (
-    <Tag ref={ref} className={cn(className)}>
+    <Tag className={cn(className)}>
       {words.map((word, i) => (
-        // Lo spazio sta FUORI dallo span: dentro un inline-block il
-        // whitespace finale viene troncato e le parole si attaccano.
+        // Lo spazio sta FUORI dallo span animato: dentro un inline-block
+        // il whitespace finale viene troncato e le parole si attaccano.
         <span key={`${word}-${i}`}>
-          <span
-            className={cn("ink-word", wordClassName)}
-            style={{
-              animationDelay: active
-                ? `${startDelay + i * stagger}ms`
-                : undefined,
-              animationPlayState: active ? "running" : "paused",
+          <motion.span
+            className={cn("inline-block", wordClassName)}
+            initial={{ opacity: 0, y: 14, filter: "blur(7px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -5% 0px" }}
+            transition={{
+              type: "spring",
+              stiffness: 140,
+              damping: 20,
+              mass: 0.7,
+              delay: (startDelay + i * stagger) / 1000,
             }}
           >
             {word}
-          </span>{" "}
+          </motion.span>{" "}
         </span>
       ))}
     </Tag>

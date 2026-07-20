@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /**
- * Rivela il contenuto quando entra in viewport (fade + slide dal basso).
- * `delay` in ms per lo stagger. Con prefers-reduced-motion il CSS mostra
- * tutto subito (.reveal è neutralizzata), qui aggiungiamo solo la classe.
+ * Rivela il contenuto quando entra in viewport (fade + salita a molla),
+ * una volta sola. `delay` in ms per lo stagger. Con prefers-reduced-motion
+ * il contenuto è mostrato subito, senza wrapper animato.
  */
 export function Reveal({
   children,
@@ -17,31 +17,25 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("revealed");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  if (reduced) return <div className={cn(className)}>{children}</div>;
 
   return (
-    <div
-      ref={ref}
-      className={cn("reveal", className)}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    <motion.div
+      className={cn(className)}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15, margin: "0px 0px -8% 0px" }}
+      transition={{
+        type: "spring",
+        stiffness: 120,
+        damping: 20,
+        mass: 0.8,
+        delay: delay / 1000,
+      }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
