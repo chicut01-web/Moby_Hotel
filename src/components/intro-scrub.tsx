@@ -72,39 +72,54 @@ export function IntroScrub() {
     let raf = 0;
     let progress = 0;
     let current = -1; // tempo-video inseguitore; -1 = da inizializzare
+    let lastTick = 0;
 
-    // Il video insegue lo scroll con un filo di smorzamento: quanto
-    // basta ad ammorbidire gli scatti della rotella senza arrancare
-    // dietro al dito. CATCH_UP è la frazione di distanza recuperata a
-    // ogni frame — più basso è più morbido (0.16 risultava lento),
-    // più alto è più secco (1 = aggancio rigido). Su spostamenti ampi
-    // recupera quasi tutto subito, così uno scroll deciso non accumula
-    // ritardo.
-    const CATCH_UP = 0.45;
-    const CATCH_UP_FAST = 0.8;
-    const FAST_THRESHOLD = 0.35; // secondi di video
+    // Morbidezza su base TEMPO, non per-frame: la stessa identica
+    // sensazione a 60, 120 o 144Hz. TAU è la costante di tempo dello
+    // smorzamento esponenziale — l'unico numero da girare: più alto =
+    // più morbido e pigro, più basso = più secco (90ms ≈ il video si
+    // posa in circa un quarto di secondo).
+    const TAU_MS = 90;
 
-    const tick = () => {
+    const tick = (now: number) => {
       const d = video.duration;
       if (Number.isFinite(d) && d > 0) {
-        const target = progress * (d - 0.05);
+        let target = progress * (d - 0.05);
+
+        // MAI chiedere fotogrammi non ancora scaricati: il target resta
+        // dentro il buffer con un margine largo (0.25s) — un seek che
+        // atterra proprio sul bordo resta pendente in attesa del chunk
+        // successivo e il recupero procede a gradoni invece che fluido.
+        // Se la rete è indietro, il video si posa sull'ultimo fotogramma
+        // sicuro e riprende da solo appena il buffer cresce (il loop
+        // resta acceso).
+        const buf = video.buffered;
+        const bufferedEnd = buf.length ? buf.end(buf.length - 1) : 0;
+        const waitingOnBuffer = target > bufferedEnd - 0.25;
+        if (waitingOnBuffer) target = Math.max(0, bufferedEnd - 0.25);
+
         if (current < 0) current = video.currentTime;
-        const delta = target - current;
-        current +=
-          delta * (Math.abs(delta) > FAST_THRESHOLD ? CATCH_UP_FAST : CATCH_UP);
-        // Sotto un fotogramma non riposizioniamo: seek inutili in meno.
-        if (Math.abs(video.currentTime - current) > 0.02) {
+        const dt = lastTick ? Math.min(now - lastTick, 100) : 16.7;
+        current += (target - current) * (1 - Math.exp(-dt / TAU_MS));
+
+        // Niente seek accavallati (il decoder sta ancora lavorando) e
+        // niente riposizionamenti sotto la soglia di un fotogramma.
+        if (!video.seeking && Math.abs(video.currentTime - current) > 0.02) {
           video.currentTime = current;
         }
-        // Finché non ha raggiunto il target il loop continua; poi si
-        // spegne e riparte al prossimo scroll.
-        if (Math.abs(target - current) > 0.008) {
+
+        // Il loop resta acceso finché non ha raggiunto il punto voluto
+        // o finché sta aspettando rete; poi si spegne e riparte al
+        // prossimo scroll.
+        if (Math.abs(target - current) > 0.008 || waitingOnBuffer) {
+          lastTick = now;
           raf = requestAnimationFrame(tick);
           return;
         }
         current = target;
-        video.currentTime = target;
+        if (!video.seeking) video.currentTime = target;
       }
+      lastTick = 0;
       raf = 0;
     };
 

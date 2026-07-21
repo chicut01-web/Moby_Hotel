@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 export interface LightboxImage {
   src: string;
@@ -37,6 +38,9 @@ export function Lightbox({
   const [current, setCurrent] = useState(initial);
   const [prevInitial, setPrevInitial] = useState(initial);
   const [direction, setDirection] = useState(0);
+  // src dell'alta risoluzione già caricata: finché non arriva resta
+  // visibile il layer con la stessa risorsa della miniatura.
+  const [hiResSrc, setHiResSrc] = useState<string | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
@@ -119,18 +123,36 @@ export function Lightbox({
               key={img.src}
               layoutId={morphing ? `${layoutIdPrefix}-${img.src}` : undefined}
               className="relative z-10 h-[85vh] w-[90vw]"
+              style={{ willChange: "transform" }}
               custom={direction}
               initial={morphing ? false : { opacity: 0, x: direction * 40 }}
               animate={{ opacity: 1, x: 0 }}
               exit={morphing ? { opacity: 0 } : { opacity: 0, x: direction * -40 }}
               transition={morphing ? MORPH : { duration: 0.22 }}
             >
+              {/* Base: la STESSA risorsa della miniatura (sizes identiche
+                  alla griglia → stessa URL, già in cache HTTP). Il morph
+                  ha pixel veri dal primo frame anche a cache fredda,
+                  mentre l'alta risoluzione arriva dalla rete. */}
+              <Image
+                src={img.src}
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="rounded-2xl object-contain shadow-[0_30px_80px_-30px_var(--inchiostro)]"
+              />
+              {/* Alta risoluzione: entra in dissolvenza quando è pronta */}
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
                 sizes="90vw"
-                className="rounded-2xl object-contain shadow-[0_30px_80px_-30px_var(--inchiostro)]"
+                onLoad={() => setHiResSrc(img.src)}
+                className={cn(
+                  "rounded-2xl object-contain transition-opacity duration-300",
+                  hiResSrc === img.src ? "opacity-100" : "opacity-0",
+                )}
               />
             </motion.div>
           </AnimatePresence>
