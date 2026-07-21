@@ -10,30 +10,27 @@ const STEPS = ["monti", "chiostro", "porta"] as const;
 /* Media query come external store: funzioni stabili a livello modulo,
    così useSyncExternalStore non risottoscrive a ogni render. */
 const REDUCED_QUERY = "(prefers-reduced-motion: reduce)";
-const MOBILE_QUERY = "(max-width: 768px)";
-
-function makeSubscribe(query: string) {
-  return (onChange: () => void) => {
-    const mq = window.matchMedia(query);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  };
-}
-const subscribeReduced = makeSubscribe(REDUCED_QUERY);
-const subscribeMobile = makeSubscribe(MOBILE_QUERY);
+const subscribeReduced = (onChange: () => void) => {
+  const mq = window.matchMedia(REDUCED_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+};
 const getReduced = () => window.matchMedia(REDUCED_QUERY).matches;
-const getMobile = () => window.matchMedia(MOBILE_QUERY).matches;
 const getServerSnapshot = () => false;
 
 /**
  * Il volo sul convento come apertura della home, governato dallo scroll:
- * la sezione si aggancia e lo scroll manda avanti e indietro il video
- * (convento-intro-scrub.mp4, GOP corto perché il seek atterri entro
- * pochi fotogrammi), con un filo di smorzamento che ammorbidisce gli
- * scatti della rotella; tre scritte si alternano sul filmato. Con
- * prefers-reduced-motion niente scrub: poster fermo e la scritta di
- * benvenuto.
+ * la sezione si aggancia e lo scroll manda avanti e indietro il video,
+ * con un filo di smorzamento che ammorbidisce gli scatti della rotella;
+ * tre scritte si alternano sul filmato. Con prefers-reduced-motion
+ * niente scrub: poster fermo e la scritta di benvenuto.
+ *
+ * Un file solo per tutti (1080p, CRF 28, 3.9MB): a parità di peso la
+ * risoluzione piena batte una versione ridotta per mobile — misurata
+ * somiglianza 0.984 al master, differenza non percepibile — e sparisce
+ * il ramo per dispositivo.
  */
+const VIDEO_SRC = "/videos/convento-intro-scrub.mp4";
 export function IntroScrub() {
   const t = useTranslations("intro");
   const sectionRef = useRef<HTMLElement>(null);
@@ -45,15 +42,6 @@ export function IntroScrub() {
     getReduced,
     getServerSnapshot,
   );
-  const mobile = useSyncExternalStore(
-    subscribeMobile,
-    getMobile,
-    getServerSnapshot,
-  );
-  const src = mobile
-    ? "/videos/convento-intro-scrub-540.mp4"
-    : "/videos/convento-intro-scrub.mp4";
-
   /**
    * Il video compare solo quando ha davvero dei fotogrammi da mostrare
    * (`loadeddata`); prima resta il poster di fondo. Scaricarlo tutto in
@@ -73,7 +61,7 @@ export function IntroScrub() {
     const onLoaded = () => setReady(true);
     video.addEventListener("loadeddata", onLoaded);
     return () => video.removeEventListener("loadeddata", onLoaded);
-  }, [reduced, src]);
+  }, [reduced]);
 
   useEffect(() => {
     if (reduced) return;
@@ -175,7 +163,7 @@ export function IntroScrub() {
       >
         <video
           ref={videoRef}
-          src={src}
+          src={VIDEO_SRC}
           poster="/videos/convento-intro-poster.jpg"
           muted
           playsInline
