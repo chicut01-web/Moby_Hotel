@@ -59,24 +59,29 @@ export function IntroScrub() {
     let progress = 0;
     let current = -1; // tempo-video inseguitore; -1 = da inizializzare
 
-    // Il video insegue lo scroll con una coda morbida (lerp): il loop
-    // rAF si spegne da solo quando ha raggiunto il target e riparte al
-    // prossimo evento di scroll.
+    // Il video segue lo scroll quasi di pari passo: un inseguimento
+    // troppo lento (era 0.16, ~200ms di ritardo) si legge come lag, non
+    // come morbidezza. Qui il recupero è rapido e diventa immediato
+    // quando la distanza è grande (scroll deciso), lasciando appena un
+    // velo di smorzamento sui micro-movimenti della rotella.
     const tick = () => {
       const d = video.duration;
       if (Number.isFinite(d) && d > 0) {
         const target = progress * (d - 0.05);
         if (current < 0) current = video.currentTime;
-        current += (target - current) * 0.16;
+        const delta = target - current;
+        const ease = Math.abs(delta) > 0.35 ? 0.8 : 0.45;
+        current += delta * ease;
         // Sotto ~mezzo frame non riposizioniamo: meno seek, più fluido.
         if (Math.abs(video.currentTime - current) > 0.02) {
           video.currentTime = current;
         }
-        if (Math.abs(target - current) > 0.01) {
+        if (Math.abs(target - current) > 0.008) {
           raf = requestAnimationFrame(tick);
           return;
         }
         current = target;
+        video.currentTime = target;
       }
       raf = 0;
     };
