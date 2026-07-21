@@ -28,8 +28,8 @@ const getServerSnapshot = () => false;
 /**
  * Il volo sul convento come apertura della home, governato dallo scroll:
  * la sezione si aggancia e lo scroll manda avanti e indietro il video
- * (codifica all-keyframe in convento-intro-scrub.mp4, così il seek è
- * fluido), mentre tre scritte si alternano sul filmato. Con
+ * (convento-intro-scrub.mp4, GOP corto perché il seek atterri entro
+ * pochi fotogrammi), mentre tre scritte si alternano sul filmato. Con
  * prefers-reduced-motion niente scrub: poster fermo e la scritta di
  * benvenuto.
  */
@@ -57,33 +57,22 @@ export function IntroScrub() {
 
     let raf = 0;
     let progress = 0;
-    let current = -1; // tempo-video inseguitore; -1 = da inizializzare
 
-    // Il video segue lo scroll quasi di pari passo: un inseguimento
-    // troppo lento (era 0.16, ~200ms di ritardo) si legge come lag, non
-    // come morbidezza. Qui il recupero è rapido e diventa immediato
-    // quando la distanza è grande (scroll deciso), lasciando appena un
-    // velo di smorzamento sui micro-movimenti della rotella.
-    const tick = () => {
+    // Il video è agganciato allo scroll, senza inseguimento: il
+    // fotogramma corrisponde alla posizione, punto. Un'interpolazione
+    // morbida (provata a 0.16 e poi a 0.45) si sente come ritardo, non
+    // come fluidità — meglio il controllo diretto. Il seek gira una
+    // volta per frame via rAF, non a ogni evento di scroll.
+    const seek = () => {
+      raf = 0;
       const d = video.duration;
       if (Number.isFinite(d) && d > 0) {
         const target = progress * (d - 0.05);
-        if (current < 0) current = video.currentTime;
-        const delta = target - current;
-        const ease = Math.abs(delta) > 0.35 ? 0.8 : 0.45;
-        current += delta * ease;
-        // Sotto ~mezzo frame non riposizioniamo: meno seek, più fluido.
-        if (Math.abs(video.currentTime - current) > 0.02) {
-          video.currentTime = current;
+        // Sotto un fotogramma non riposizioniamo: seek inutili in meno.
+        if (Math.abs(video.currentTime - target) > 0.02) {
+          video.currentTime = target;
         }
-        if (Math.abs(target - current) > 0.008) {
-          raf = requestAnimationFrame(tick);
-          return;
-        }
-        current = target;
-        video.currentTime = target;
       }
-      raf = 0;
     };
 
     const onScroll = () => {
@@ -94,7 +83,7 @@ export function IntroScrub() {
       // Ultimo 10%: la home emerge dal volo (overlay calce via --exit).
       const exit = progress > 0.9 ? (progress - 0.9) / 0.1 : 0;
       section.style.setProperty("--exit", exit.toFixed(3));
-      if (!raf) raf = requestAnimationFrame(tick);
+      if (!raf) raf = requestAnimationFrame(seek);
     };
 
     // Prima lettura al frame successivo: niente setState sincrono
