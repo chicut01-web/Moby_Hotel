@@ -39,6 +39,7 @@ export function IntroScrub() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stage, setStage] = useState(0);
+  const [ready, setReady] = useState(false);
   const reduced = useSyncExternalStore(
     subscribeReduced,
     getReduced,
@@ -49,6 +50,30 @@ export function IntroScrub() {
     getMobile,
     getServerSnapshot,
   );
+  const src = mobile
+    ? "/videos/convento-intro-scrub-540.mp4"
+    : "/videos/convento-intro-scrub.mp4";
+
+  /**
+   * Il video compare solo quando ha davvero dei fotogrammi da mostrare
+   * (`loadeddata`); prima resta il poster di fondo. Scaricarlo tutto in
+   * memoria come blob sembrava la mossa giusta — seek sempre immediati —
+   * ma è tutto-o-niente: su una connessione lenta lo scroll non muove
+   * nulla finché non è finito. Meglio il caricamento progressivo, con un
+   * file abbastanza leggero da riempirsi in fretta.
+   */
+  useEffect(() => {
+    if (reduced) return;
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.readyState >= 2) {
+      setReady(true);
+      return;
+    }
+    const onLoaded = () => setReady(true);
+    video.addEventListener("loadeddata", onLoaded);
+    return () => video.removeEventListener("loadeddata", onLoaded);
+  }, [reduced, src]);
 
   useEffect(() => {
     if (reduced) return;
@@ -141,19 +166,26 @@ export function IntroScrub() {
 
   return (
     <section ref={sectionRef} className="intro-scrub relative">
-      <div className="sticky top-0 h-dvh overflow-hidden">
+      <div
+        className="sticky top-0 h-dvh overflow-hidden bg-inchiostro bg-cover bg-center"
+        // Il poster fa da fondo permanente: se il video non è ancora
+        // pronto — o viene rimontato tornando sulla home — la scena
+        // resta comunque quella giusta, mai uno schermo vuoto.
+        style={{ backgroundImage: "url(/videos/convento-intro-poster.jpg)" }}
+      >
         <video
           ref={videoRef}
-          src={
-            mobile
-              ? "/videos/convento-intro-scrub-540.mp4"
-              : "/videos/convento-intro-scrub.mp4"
-          }
+          src={src}
           poster="/videos/convento-intro-poster.jpg"
           muted
           playsInline
-          preload={mobile ? "metadata" : "auto"}
-          className="h-full w-full object-cover"
+          // Scarica subito e in sequenza: così il buffer cresce da solo
+          // invece di frammentarsi in una range request per ogni seek.
+          preload="auto"
+          className={cn(
+            "h-full w-full object-cover transition-opacity duration-300",
+            ready ? "opacity-100" : "opacity-0",
+          )}
         />
         <div
           aria-hidden="true"
