@@ -29,7 +29,8 @@ const getServerSnapshot = () => false;
  * Il volo sul convento come apertura della home, governato dallo scroll:
  * la sezione si aggancia e lo scroll manda avanti e indietro il video
  * (convento-intro-scrub.mp4, GOP corto perché il seek atterri entro
- * pochi fotogrammi), mentre tre scritte si alternano sul filmato. Con
+ * pochi fotogrammi), con un filo di smorzamento che ammorbidisce gli
+ * scatti della rotella; tre scritte si alternano sul filmato. Con
  * prefers-reduced-motion niente scrub: poster fermo e la scritta di
  * benvenuto.
  */
@@ -57,22 +58,41 @@ export function IntroScrub() {
 
     let raf = 0;
     let progress = 0;
+    let current = -1; // tempo-video inseguitore; -1 = da inizializzare
 
-    // Il video è agganciato allo scroll, senza inseguimento: il
-    // fotogramma corrisponde alla posizione, punto. Un'interpolazione
-    // morbida (provata a 0.16 e poi a 0.45) si sente come ritardo, non
-    // come fluidità — meglio il controllo diretto. Il seek gira una
-    // volta per frame via rAF, non a ogni evento di scroll.
-    const seek = () => {
-      raf = 0;
+    // Il video insegue lo scroll con un filo di smorzamento: quanto
+    // basta ad ammorbidire gli scatti della rotella senza arrancare
+    // dietro al dito. CATCH_UP è la frazione di distanza recuperata a
+    // ogni frame — più basso è più morbido (0.16 risultava lento),
+    // più alto è più secco (1 = aggancio rigido). Su spostamenti ampi
+    // recupera quasi tutto subito, così uno scroll deciso non accumula
+    // ritardo.
+    const CATCH_UP = 0.45;
+    const CATCH_UP_FAST = 0.8;
+    const FAST_THRESHOLD = 0.35; // secondi di video
+
+    const tick = () => {
       const d = video.duration;
       if (Number.isFinite(d) && d > 0) {
         const target = progress * (d - 0.05);
+        if (current < 0) current = video.currentTime;
+        const delta = target - current;
+        current +=
+          delta * (Math.abs(delta) > FAST_THRESHOLD ? CATCH_UP_FAST : CATCH_UP);
         // Sotto un fotogramma non riposizioniamo: seek inutili in meno.
-        if (Math.abs(video.currentTime - target) > 0.02) {
-          video.currentTime = target;
+        if (Math.abs(video.currentTime - current) > 0.02) {
+          video.currentTime = current;
         }
+        // Finché non ha raggiunto il target il loop continua; poi si
+        // spegne e riparte al prossimo scroll.
+        if (Math.abs(target - current) > 0.008) {
+          raf = requestAnimationFrame(tick);
+          return;
+        }
+        current = target;
+        video.currentTime = target;
       }
+      raf = 0;
     };
 
     const onScroll = () => {
@@ -83,7 +103,7 @@ export function IntroScrub() {
       // Ultimo 10%: la home emerge dal volo (overlay calce via --exit).
       const exit = progress > 0.9 ? (progress - 0.9) / 0.1 : 0;
       section.style.setProperty("--exit", exit.toFixed(3));
-      if (!raf) raf = requestAnimationFrame(seek);
+      if (!raf) raf = requestAnimationFrame(tick);
     };
 
     // Prima lettura al frame successivo: niente setState sincrono
