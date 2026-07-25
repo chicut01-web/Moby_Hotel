@@ -28,7 +28,6 @@
     "contatti": "Contatti",
     "prenota": "Richiedi prenotazione",
     "openMenu": "Apri il menu",
-    "closeMenu": "Chiudi il menu",
     "skipToContent": "Vai al contenuto"
   },
   "language": {
@@ -178,8 +177,7 @@
     "plan": {
       "eyebrow": "Pianta",
       "title": "L'impianto a corte",
-      "body": "Le piante architettoniche mostrano l'organizzazione monastica: gli ambienti si dispongono attorno al chiostro, secondo la logica della corte.",
-      "alt": "Pianta architettonica del convento con il chiostro centrale"
+      "body": "Le piante architettoniche mostrano l'organizzazione monastica: gli ambienti si dispongono attorno al chiostro, secondo la logica della corte."
     },
     "gallery": {
       "affreschiAlt": "Affreschi sei-settecenteschi riaffiorati nella chiesa del convento",
@@ -373,7 +371,6 @@
       "decline": "Rifiuta",
       "requestedOn": "Richiesta del",
       "guests": "{count, plural, one {# ospite} other {# ospiti}}",
-      "night": "notti",
       "noRoom": "Camera rimossa",
       "status": {
         "pending": "In attesa",

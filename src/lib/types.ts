@@ -14,7 +14,3 @@ export interface Room {
   images: string[];
   is_active: boolean;
 }
-
-export interface BookingStatus {
-  status: "pending" | "confirmed" | "declined";
-}

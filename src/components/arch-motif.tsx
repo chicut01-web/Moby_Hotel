@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-
 /**
  * Colonnato di archi: silhouette del porticato del chiostro.
  * Elemento grafico ricorrente, usato come firma visiva al posto delle foto.
@@ -48,47 +46,5 @@ export function ArchColonnade({
         vectorEffect="non-scaling-stroke"
       />
     </svg>
-  );
-}
-
-type Tone = "salvia" | "cotto" | "pietra";
-
-const toneClasses: Record<Tone, string> = {
-  salvia: "from-salvia-soft to-calce text-salvia",
-  cotto: "from-cotto/10 to-calce text-cotto",
-  pietra: "from-pietra-soft to-calce text-pietra",
-};
-
-/**
- * Pannello "ad arco" tinta calce: sfondo materico + colonnato, usato come
- * segnaposto immagine (camere, hero) finché non ci sono le foto reali.
- */
-export function ArchPlaceholder({
-  label,
-  tone = "salvia",
-  className,
-}: {
-  label?: string;
-  tone?: Tone;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        "relative flex h-full w-full items-end justify-center overflow-hidden bg-gradient-to-b",
-        toneClasses[tone],
-        className,
-      )}
-    >
-      <ArchColonnade
-        count={6}
-        className="w-[118%] max-w-none translate-y-px opacity-55"
-      />
-      {label ? (
-        <span className="absolute left-5 top-5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-current opacity-80">
-          {label}
-        </span>
-      ) : null}
-    </div>
   );
 }

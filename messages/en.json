@@ -28,7 +28,6 @@
     "contatti": "Contact",
     "prenota": "Request a booking",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu",
     "skipToContent": "Skip to content"
   },
   "language": {
@@ -178,8 +177,7 @@
     "plan": {
       "eyebrow": "Floor plan",
       "title": "The courtyard layout",
-      "body": "The architectural plans show the monastic layout: the rooms are arranged around the cloister, following the logic of the courtyard.",
-      "alt": "Architectural plan of the convent with the central cloister"
+      "body": "The architectural plans show the monastic layout: the rooms are arranged around the cloister, following the logic of the courtyard."
     },
     "gallery": {
       "affreschiAlt": "17th–18th-century frescoes resurfaced in the convent church",
@@ -373,7 +371,6 @@
       "decline": "Decline",
       "requestedOn": "Requested on",
       "guests": "{count, plural, one {# guest} other {# guests}}",
-      "night": "nights",
       "noRoom": "Room removed",
       "status": {
         "pending": "Pending",

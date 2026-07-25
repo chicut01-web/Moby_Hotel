@@ -668,12 +668,6 @@
     .btn-shine::after {
       display: none;
     }
-    .page-enter {
-      animation: none;
-    }
-    .lightbox-overlay {
-      animation: none;
-    }
     .ink-word {
       animation: none;
       opacity: 1;
