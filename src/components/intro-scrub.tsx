@@ -80,31 +80,62 @@ export function IntroScrub() {
     // più morbido e pigro, più basso = più secco (90ms ≈ il video si
     // posa in circa un quarto di secondo).
     const TAU_MS = 90;
+    // Quanto restare indietro dal bordo del buffer: un seek che atterra
+    // esattamente sull'ultimo fotogramma scaricato resta appeso in
+    // attesa del chunk dopo.
+    const SAFE_MARGIN = 0.25;
+
+    /**
+     * Fine del tratto scaricato **di seguito dall'inizio**, non della
+     * porzione più avanzata. È la distinzione che conta: ogni seek apre
+     * una richiesta a intervalli e spezza il buffer in isole tipo
+     * `[0-1.2][3.5-4.2]`. Leggere la fine dell'ultima isola (4.2) fa
+     * credere disponibile anche il buco in mezzo: il video ci si infila,
+     * il seek non si completa mai e l'immagine resta congelata. Con
+     * `preload="auto"` il download procede in ordine, quindi il tratto
+     * che parte da zero è l'unico di cui fidarsi.
+     */
+    const contiguousEnd = () => {
+      const b = video.buffered;
+      for (let i = 0; i < b.length; i++) {
+        if (b.start(i) <= 0.1) return b.end(i);
+      }
+      return 0;
+    };
+
+    // Un solo seek per volta: assegnare `currentTime` mentre il decoder
+    // sta ancora lavorando annulla il seek precedente, e a 60fps significa
+    // annullarlo per sempre — immagine ferma mentre `seeking` resta vero.
+    // Il prossimo parte quando il decoder ha finito, verso il target di
+    // quel momento: si autoregola alla velocità reale della macchina.
+    let seekPending = false;
+    const onSeeked = () => {
+      seekPending = false;
+    };
+    video.addEventListener("seeked", onSeeked);
 
     const tick = (now: number) => {
       const d = video.duration;
       if (Number.isFinite(d) && d > 0) {
+        // Rete di sicurezza se `seeked` sfugge (succede su alcuni
+        // browser quando il seek finisce dove eravamo già).
+        if (seekPending && !video.seeking) seekPending = false;
+
         let target = progress * (d - 0.05);
 
-        // MAI chiedere fotogrammi non ancora scaricati: il target resta
-        // dentro il buffer con un margine largo (0.25s) — un seek che
-        // atterra proprio sul bordo resta pendente in attesa del chunk
-        // successivo e il recupero procede a gradoni invece che fluido.
-        // Se la rete è indietro, il video si posa sull'ultimo fotogramma
-        // sicuro e riprende da solo appena il buffer cresce (il loop
-        // resta acceso).
-        const buf = video.buffered;
-        const bufferedEnd = buf.length ? buf.end(buf.length - 1) : 0;
-        const waitingOnBuffer = target > bufferedEnd - 0.25;
-        if (waitingOnBuffer) target = Math.max(0, bufferedEnd - 0.25);
+        // MAI chiedere fotogrammi non ancora scaricati. Se la rete è
+        // indietro il video si posa sull'ultimo fotogramma sicuro e
+        // riprende da solo appena il buffer cresce (il loop resta acceso).
+        const safeEnd = Math.max(0, contiguousEnd() - SAFE_MARGIN);
+        const waitingOnBuffer = target > safeEnd;
+        if (waitingOnBuffer) target = safeEnd;
 
         if (current < 0) current = video.currentTime;
         const dt = lastTick ? Math.min(now - lastTick, 100) : 16.7;
         current += (target - current) * (1 - Math.exp(-dt / TAU_MS));
 
-        // Niente seek accavallati (il decoder sta ancora lavorando) e
-        // niente riposizionamenti sotto la soglia di un fotogramma.
-        if (!video.seeking && Math.abs(video.currentTime - current) > 0.02) {
+        if (!seekPending && Math.abs(video.currentTime - current) > 0.02) {
+          seekPending = true;
           video.currentTime = current;
         }
 
@@ -117,7 +148,10 @@ export function IntroScrub() {
           return;
         }
         current = target;
-        if (!video.seeking) video.currentTime = target;
+        if (!seekPending) {
+          seekPending = true;
+          video.currentTime = target;
+        }
       }
       lastTick = 0;
       raf = 0;
@@ -143,6 +177,7 @@ export function IntroScrub() {
       cancelAnimationFrame(first);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      video.removeEventListener("seeked", onSeeked);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [reduced]);
