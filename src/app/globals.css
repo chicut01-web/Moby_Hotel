@@ -5,6 +5,14 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
+  Dito invece di mouse. Vale il tipo di puntatore, non la larghezza: una
+  finestra desktop stretta non merita comandi da 44px, un tablet grande sì.
+  Serve a portare i bersagli di tocco alla soglia dei 44px senza cambiare
+  la densità del desktop.
+*/
+@custom-variant coarse (@media (pointer: coarse));
+
+/*
   Hub for European Youth — design tokens.
   Concept: "Corda & Cielo" — carta nautica alla luce del giorno: tela di vela
   chiara, corda/canapa, blu cielo, inchiostro navy. Il tramonto resta come
@@ -142,6 +150,11 @@
        lunga il viaggio dura oltre un secondo — sembra che la pagina
        non si carichi. Lo scorrimento morbido resta solo per i salti
        verso un'ancora esplicita. */
+
+    /* Via il rettangolo grigio che iOS e Android disegnano al tocco:
+       il riscontro lo danno già gli stati :active e :focus-visible,
+       che seguono la forma vera del comando invece del suo riquadro. */
+    -webkit-tap-highlight-color: transparent;
   }
   html:has(:target) {
     scroll-behavior: smooth;
@@ -223,6 +236,22 @@
   .drift-cloud {
     animation: drift-cloud linear infinite;
     will-change: transform;
+  }
+
+  /*
+    Con `<Button asChild><Magnetic><Link>` le classi del bottone finiscono
+    sullo span di Magnetic: il link dentro resta alto quanto il suo testo
+    (20px su 48), e il padding del bottone non naviga. Questo ::after
+    riporta l'area cliccabile a coincidere con quella visibile, lasciando
+    il link nel flusso a dettare le dimensioni. Sta qui e non fra le
+    utility perché Tailwind non genera varianti arbitrarie con
+    pseudo-elemento su un figlio — la classe c'era nel markup ma la regola
+    non veniva mai emessa.
+  */
+  .magnetic-hit > a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
   }
 
   /* Card "illuminata dalla lanterna" al passaggio del mouse */

@@ -102,7 +102,7 @@ export default async function PrenotaPage({
                   <dd className="mt-0.5">
                     <a
                       href={`mailto:${SITE.email}`}
-                      className="transition-colors hover:text-cotto"
+                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
                     >
                       {SITE.email}
                     </a>
@@ -115,7 +115,7 @@ export default async function PrenotaPage({
                   <dd className="mt-0.5">
                     <a
                       href={`mailto:${SITE.pec}`}
-                      className="transition-colors hover:text-cotto"
+                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
                     >
                       {SITE.pec}
                     </a>

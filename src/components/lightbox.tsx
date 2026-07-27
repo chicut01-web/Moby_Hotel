@@ -13,6 +13,10 @@ export interface LightboxImage {
 /** Molla del morph griglia ↔ schermo pieno: apre deciso, si posa morbido. */
 const MORPH = { type: "spring" as const, stiffness: 260, damping: 30 };
 
+/** Soglie dello swipe: px trascinati, oppure px/s di slancio al rilascio. */
+const SWIPE_DISTANCE = 70;
+const SWIPE_VELOCITY = 380;
+
 /**
  * Overlay lightbox per gallerie: l'immagine cliccata **cresce dalla
  * miniatura** fino a schermo pieno e ci ritorna alla chiusura (Motion
@@ -42,6 +46,10 @@ export function Lightbox({
   // visibile il layer con la stessa risorsa della miniatura.
   const [hiResSrc, setHiResSrc] = useState<string | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  // Istante dell'ultimo trascinamento: al rilascio il browser emette
+  // comunque un click, e senza questa guardia lo swipe chiude il
+  // lightbox invece di cambiare foto.
+  const draggedAt = useRef(0);
   const reduced = useReducedMotion();
 
   // Sync indice iniziale durante il render (pattern React "derived state"):
@@ -101,6 +109,9 @@ export function Lightbox({
           aria-label={img.alt}
           className="fixed inset-0 z-[80] flex items-center justify-center"
           onClick={(e) => {
+            // Un trascinamento appena concluso lascia dietro un click:
+            // ignoralo, o sfogliare col dito chiuderebbe la galleria.
+            if (Date.now() - draggedAt.current < 250) return;
             // Chiudi solo se si clicca il fondo (non l'immagine).
             if (e.target === overlayRef.current) onClose();
           }}
@@ -117,45 +128,68 @@ export function Lightbox({
             transition={{ duration: 0.25 }}
           />
 
-          {/* Immagine: cresce dalla miniatura (layoutId condiviso) */}
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={img.src}
-              layoutId={morphing ? `${layoutIdPrefix}-${img.src}` : undefined}
-              className="relative z-10 h-[85vh] w-[90vw]"
-              style={{ willChange: "transform" }}
-              custom={direction}
-              initial={morphing ? false : { opacity: 0, x: direction * 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={morphing ? { opacity: 0 } : { opacity: 0, x: direction * -40 }}
-              transition={morphing ? MORPH : { duration: 0.22 }}
-            >
-              {/* Base: la STESSA risorsa della miniatura (sizes identiche
-                  alla griglia → stessa URL, già in cache HTTP). Il morph
-                  ha pixel veri dal primo frame anche a cache fredda,
-                  mentre l'alta risoluzione arriva dalla rete. */}
-              <Image
-                src={img.src}
-                alt=""
-                aria-hidden="true"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="rounded-2xl object-contain shadow-[0_30px_80px_-30px_var(--inchiostro)]"
-              />
-              {/* Alta risoluzione: entra in dissolvenza quando è pronta */}
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="90vw"
-                onLoad={() => setHiResSrc(img.src)}
-                className={cn(
-                  "rounded-2xl object-contain transition-opacity duration-300",
-                  hiResSrc === img.src ? "opacity-100" : "opacity-0",
-                )}
-              />
-            </motion.div>
-          </AnimatePresence>
+          {/* Trascinamento per sfogliare: il gesto sta su un contenitore a
+              parte, non sull'elemento che fa il morph. Mettere `drag` e
+              `layoutId` sullo stesso nodo li fa scrivere entrambi sulla
+              transform, e la crescita dalla miniatura ne esce storta. */}
+          <motion.div
+            className="relative z-10 h-[85vh] w-[90vw]"
+            drag={reduced || images.length < 2 ? false : "x"}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.18}
+            dragMomentum={false}
+            onDragEnd={(_, info) => {
+              draggedAt.current = Date.now();
+              // Serve la distanza o lo slancio: uno scatto corto e veloce
+              // vale quanto un trascinamento lungo e lento.
+              const passa =
+                Math.abs(info.offset.x) > SWIPE_DISTANCE ||
+                Math.abs(info.velocity.x) > SWIPE_VELOCITY;
+              if (passa) go(info.offset.x < 0 ? 1 : -1);
+            }}
+          >
+            {/* Immagine: cresce dalla miniatura (layoutId condiviso) */}
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={img.src}
+                layoutId={morphing ? `${layoutIdPrefix}-${img.src}` : undefined}
+                className="absolute inset-0"
+                style={{ willChange: "transform" }}
+                custom={direction}
+                initial={morphing ? false : { opacity: 0, x: direction * 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={morphing ? { opacity: 0 } : { opacity: 0, x: direction * -40 }}
+                transition={morphing ? MORPH : { duration: 0.22 }}
+              >
+                {/* Base: la STESSA risorsa della miniatura (sizes identiche
+                    alla griglia → stessa URL, già in cache HTTP). Il morph
+                    ha pixel veri dal primo frame anche a cache fredda,
+                    mentre l'alta risoluzione arriva dalla rete. */}
+                <Image
+                  src={img.src}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  draggable={false}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="rounded-2xl object-contain shadow-[0_30px_80px_-30px_var(--inchiostro)]"
+                />
+                {/* Alta risoluzione: entra in dissolvenza quando è pronta */}
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  draggable={false}
+                  sizes="90vw"
+                  onLoad={() => setHiResSrc(img.src)}
+                  className={cn(
+                    "rounded-2xl object-contain transition-opacity duration-300",
+                    hiResSrc === img.src ? "opacity-100" : "opacity-0",
+                  )}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
 
           {/* Caption */}
           {img.alt ? (
@@ -174,7 +208,7 @@ export function Lightbox({
           <button
             onClick={onClose}
             aria-label="Chiudi"
-            className="absolute right-4 top-4 z-10 size-10 rounded-full border border-border/60 bg-card/80 text-foreground backdrop-blur transition-colors hover:bg-card"
+            className="absolute right-4 top-4 z-10 size-10 coarse:size-12 rounded-full border border-border/60 bg-card/80 text-foreground backdrop-blur transition-colors hover:bg-card"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="mx-auto size-5">
               <path d="M 6 6 L 18 18 M 18 6 L 6 18" />
@@ -187,7 +221,7 @@ export function Lightbox({
               <button
                 onClick={() => go(-1)}
                 aria-label="Precedente"
-                className="absolute left-4 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border/60 bg-card/80 text-foreground backdrop-blur transition-colors hover:bg-card"
+                className="absolute left-4 top-1/2 z-10 size-10 coarse:size-12 -translate-y-1/2 rounded-full border border-border/60 bg-card/80 text-foreground backdrop-blur transition-colors hover:bg-card"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="mx-auto size-5">
                   <path d="M 15 6 L 9 12 L 15 18" />
@@ -196,7 +230,7 @@ export function Lightbox({
               <button
                 onClick={() => go(1)}
                 aria-label="Successiva"
-                className="absolute right-4 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border/60 bg-card/80 text-foreground backdrop-blur transition-colors hover:bg-card"
+                className="absolute right-4 top-1/2 z-10 size-10 coarse:size-12 -translate-y-1/2 rounded-full border border-border/60 bg-card/80 text-foreground backdrop-blur transition-colors hover:bg-card"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="mx-auto size-5">
                   <path d="M 9 6 L 15 12 L 9 18" />

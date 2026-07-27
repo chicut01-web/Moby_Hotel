@@ -25,12 +25,17 @@ const getServerSnapshot = () => false;
  * tre scritte si alternano sul filmato. Con prefers-reduced-motion
  * niente scrub: poster fermo e la scritta di benvenuto.
  *
- * Un file solo per tutti (1080p, CRF 28, 3.9MB): a parità di peso la
- * risoluzione piena batte una versione ridotta per mobile — misurata
- * somiglianza 0.984 al master, differenza non percepibile — e sparisce
- * il ramo per dispositivo.
+ * Due tagli dello stesso volo. Su un telefono in verticale `object-fit:
+ * cover` mostra solo il 26% della larghezza del 16:9: il resto viene
+ * scaricato e decodificato per essere buttato. La versione verticale è
+ * quella stessa fetta centrale, ritagliata in codifica invece che a
+ * schermo — inquadratura identica, 1.5MB invece di 4.3.
  */
-const VIDEO_SRC = "/videos/convento-intro-scrub.mp4";
+const VIDEO_WIDE = "/videos/convento-intro-scrub.mp4";
+const VIDEO_PORTRAIT = "/videos/convento-intro-scrub-mobile.mp4";
+/* Solo telefoni in verticale: sopra questa soglia, o ruotando, il 16:9 è
+   di nuovo l'inquadratura giusta. */
+const PORTRAIT_QUERY = "(max-width: 767px) and (orientation: portrait)";
 export function IntroScrub() {
   const t = useTranslations("intro");
   const sectionRef = useRef<HTMLElement>(null);
@@ -54,13 +59,37 @@ export function IntroScrub() {
     if (reduced) return;
     const video = videoRef.current;
     if (!video) return;
-    if (video.readyState >= 2) {
-      setReady(true);
-      return;
-    }
+
+    /* Sorgente scelta qui e non nel JSX: un `src` assegnato dal client non
+       può far litigare server e browser sull'HTML iniziale, e non servono
+       hook in più. Ricontrolla alla rotazione, perché il taglio verticale
+       disteso in orizzontale mostrerebbe un frammento ingrandito; il punto
+       del filmato viene ripreso dov'era. */
+    const mq = window.matchMedia(PORTRAIT_QUERY);
+    const applySource = () => {
+      const wanted = mq.matches ? VIDEO_PORTRAIT : VIDEO_WIDE;
+      if (video.getAttribute("src") === wanted) return;
+      const wasAt = video.currentTime;
+      video.src = wanted;
+      if (wasAt > 0) {
+        const restore = () => {
+          video.currentTime = wasAt;
+          video.removeEventListener("loadedmetadata", restore);
+        };
+        video.addEventListener("loadedmetadata", restore);
+      }
+    };
+    applySource();
+    mq.addEventListener("change", applySource);
+
     const onLoaded = () => setReady(true);
-    video.addEventListener("loadeddata", onLoaded);
-    return () => video.removeEventListener("loadeddata", onLoaded);
+    if (video.readyState >= 2) setReady(true);
+    else video.addEventListener("loadeddata", onLoaded);
+
+    return () => {
+      mq.removeEventListener("change", applySource);
+      video.removeEventListener("loadeddata", onLoaded);
+    };
   }, [reduced]);
 
   useEffect(() => {
@@ -213,7 +242,9 @@ export function IntroScrub() {
       >
         <video
           ref={videoRef}
-          src={VIDEO_SRC}
+          /* Niente `src` qui: lo assegna l'effect dopo aver visto quanto è
+             largo lo schermo. Se ci fosse, il browser inizierebbe a
+             scaricare il file sbagliato prima ancora del montaggio. */
           poster="/videos/convento-intro-poster.jpg"
           muted
           playsInline

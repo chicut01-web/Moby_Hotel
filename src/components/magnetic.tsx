@@ -12,6 +12,12 @@ const PULL_SPRING = { stiffness: 260, damping: 16, mass: 0.5 };
  * "magnetico"), con molla Motion: al rilascio scatta indietro invece di
  * tornare linearmente. Pensato per CTA e link d'azione. Solo puntatori
  * fini e senza prefers-reduced-motion.
+ *
+ * Usato con `<Button asChild>` è questo span a ricevere le classi del
+ * bottone: il link dentro resta alto quanto il suo testo, e il bordo del
+ * bottone — padding compreso — non navigava. Un `::after` steso su tutto
+ * lo span riporta l'area cliccabile a coincidere con quella visibile,
+ * lasciando il link nel flusso a dettare le dimensioni.
  */
 export function Magnetic({
   children,
@@ -53,7 +59,7 @@ export function Magnetic({
       ref={ref}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className={cn("inline-block", className)}
+      className={cn("magnetic-hit relative inline-block", className)}
       style={{ x, y, willChange: "transform" }}
     >
       {children}

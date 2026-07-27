@@ -33,7 +33,7 @@ function Brand({ onClick }: { onClick?: () => void }) {
     <Link
       href="/"
       onClick={onClick}
-      className="group flex flex-col leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm"
+      className="group flex flex-col justify-center leading-none coarse:min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm"
     >
       <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cotto">
         Hub for

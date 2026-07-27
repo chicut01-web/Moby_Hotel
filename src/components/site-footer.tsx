@@ -53,7 +53,7 @@ export function SiteFooter() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="w-fit text-sm text-muted-foreground transition-colors hover:text-cotto"
+                className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-cotto"
               >
                 {tn(item.key)}
               </Link>
@@ -67,13 +67,13 @@ export function SiteFooter() {
             <p className="text-sm text-muted-foreground">{SITE.address}</p>
             <a
               href={`mailto:${SITE.email}`}
-              className="w-fit text-sm text-muted-foreground transition-colors hover:text-cotto"
+              className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-cotto"
             >
               {SITE.email}
             </a>
             <a
               href={`mailto:${SITE.pec}`}
-              className="w-fit text-sm text-muted-foreground transition-colors hover:text-cotto"
+              className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-cotto"
             >
               PEC: {SITE.pec}
             </a>

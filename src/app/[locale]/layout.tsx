@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Fraunces, Mulish } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -30,6 +30,15 @@ const mulish = Mulish({
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+/**
+ * Su telefono la barra del browser si tinge di `themeColor`: senza,
+ * resta grigia sopra la calce del sito e si vede lo stacco.
+ */
+export const viewport: Viewport = {
+  themeColor: "#E5DDD0",
+  colorScheme: "light",
+};
 
 export async function generateMetadata({
   params,

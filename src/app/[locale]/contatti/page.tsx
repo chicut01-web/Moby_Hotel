@@ -88,7 +88,7 @@ export default async function ContattiPage({
                     {href ? (
                       <a
                         href={href}
-                        className="transition-colors hover:text-cotto"
+                        className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
                       >
                         {value}
                       </a>
@@ -156,7 +156,7 @@ export default async function ContattiPage({
                   <dd className="mt-0.5">
                     <a
                       href={`mailto:${SITE.pec}`}
-                      className="transition-colors hover:text-cotto"
+                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
                     >
                       {SITE.pec}
                     </a>
