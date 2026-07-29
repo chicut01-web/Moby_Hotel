@@ -70,13 +70,13 @@ export function ManifestoVoyage() {
    * 0.39×1.06 su telefono. Qualunque cosa viva dentro quell'SVG eredita
    * lo schiacciamento: la barca finiva larga un quarto del dovuto, una
    * scheggia verticale, con la prua puntata dove la linea visibile non
-   * andava (`offset-path` calcola la tangente nelle coordinate del
-   * disegno, non in quelle che si vedono).
+   * andava.
    *
-   * Qui il tracciato resta l'unica fonte di verità, ma punto e angolo
-   * vengono convertiti nello spazio reale — ognuno con la sua scala — e
-   * applicati a un elemento normale, che nessuno deforma. Stesso disegno
-   * su ogni schermo, prua sempre sulla linea.
+   * `getCTM()` dà la matrice completa dal tracciato ai pixel dell'SVG:
+   * ci sono dentro il viewBox **e** l'appiattimento che la rotta riceve
+   * su mobile. Punto e angolo escono da lì, quindi la barca segue la
+   * linea come la si vede, qualunque trasformazione le venga applicata —
+   * senza doverla replicare qui.
    */
   useEffect(() => {
     if (reduced) return;
@@ -86,31 +86,25 @@ export function ManifestoVoyage() {
     if (!svg || !guide || !boat) return;
 
     let lunghezza = guide.getTotalLength();
-    let sx = 1;
-    let sy = 1;
+    let ctm = guide.getCTM();
 
     const misura = () => {
-      const r = svg.getBoundingClientRect();
-      const vb = svg.viewBox.baseVal;
-      if (vb.width > 0 && vb.height > 0 && r.width > 0) {
-        sx = r.width / vb.width;
-        sy = r.height / vb.height;
-      }
       lunghezza = guide.getTotalLength();
+      ctm = guide.getCTM();
     };
 
     const posiziona = (v: number) => {
+      if (!ctm) return;
       // La barca completa la traversata all'82%, come binario e inchiostro.
       const avanzamento = Math.min(1, Math.max(0, v / 0.82));
       const d = lunghezza * avanzamento;
-      const qui = guide.getPointAtLength(d);
-      const poi = guide.getPointAtLength(Math.min(lunghezza, d + 2));
-      // L'angolo va calcolato DOPO aver applicato le due scale: è la
-      // pendenza che si vede, non quella del disegno.
+      const qui = guide.getPointAtLength(d).matrixTransform(ctm);
+      const poi = guide
+        .getPointAtLength(Math.min(lunghezza, d + 2))
+        .matrixTransform(ctm);
       const angolo =
-        (Math.atan2((poi.y - qui.y) * sy, (poi.x - qui.x) * sx) * 180) /
-        Math.PI;
-      boat.style.transform = `translate(${qui.x * sx}px, ${qui.y * sy}px) rotate(${angolo}deg)`;
+        (Math.atan2(poi.y - qui.y, poi.x - qui.x) * 180) / Math.PI;
+      boat.style.transform = `translate(${qui.x}px, ${qui.y}px) rotate(${angolo}deg)`;
     };
 
     misura();
@@ -221,30 +215,35 @@ export function ManifestoVoyage() {
             fill="none"
             className="pointer-events-none absolute inset-0 h-full w-full"
           >
-            <path
-              ref={guideRef}
-              d={ROUTE_D}
-              pathLength={1}
-              stroke="var(--inchiostro)"
-              strokeOpacity="0.16"
-              strokeWidth="2"
-              strokeDasharray="0.006 0.005"
-              vectorEffect="non-scaling-stroke"
-            />
-            <motion.path
-              d={ROUTE_D}
-              stroke="var(--salvia)"
-              strokeOpacity="0.45"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              style={{ pathLength: inkLength }}
-            />
-            {/* Porti di scalo sulla rotta */}
-            <g stroke="var(--inchiostro)" strokeOpacity="0.35">
-              <circle cx="640" cy="340" r="7" fill="var(--cotto)" strokeWidth="6" strokeOpacity="0.12" />
-              <circle cx="1860" cy="280" r="7" fill="var(--salvia)" strokeWidth="6" strokeOpacity="0.12" />
-              <circle cx="2940" cy="525" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
+            {/* Rotta, inchiostro e porti in un gruppo solo: su schermi
+                stretti riceve un appiattimento (globals.css) che li
+                sposta sotto il testo e addolcisce le pendenze. */}
+            <g className="manifesto-route">
+              <path
+                ref={guideRef}
+                d={ROUTE_D}
+                pathLength={1}
+                stroke="var(--inchiostro)"
+                strokeOpacity="0.16"
+                strokeWidth="2"
+                strokeDasharray="0.006 0.005"
+                vectorEffect="non-scaling-stroke"
+              />
+              <motion.path
+                d={ROUTE_D}
+                stroke="var(--salvia)"
+                strokeOpacity="0.45"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                style={{ pathLength: inkLength }}
+              />
+              {/* Porti di scalo sulla rotta */}
+              <g stroke="var(--inchiostro)" strokeOpacity="0.35">
+                <circle className="manifesto-port" cx="640" cy="340" r="7" fill="var(--cotto)" strokeWidth="6" strokeOpacity="0.12" />
+                <circle className="manifesto-port" cx="1860" cy="280" r="7" fill="var(--salvia)" strokeWidth="6" strokeOpacity="0.12" />
+                <circle className="manifesto-port" cx="2940" cy="525" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
+              </g>
             </g>
           </svg>
 

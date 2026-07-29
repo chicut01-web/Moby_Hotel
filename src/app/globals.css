@@ -642,6 +642,30 @@
       color-mix(in oklab, var(--inchiostro) 14%, transparent);
     user-select: none;
   }
+  /* Su schermi stretti la stessa rotta diventa illeggibile: 3000 unità
+     compresse in ~1170px triplicano ogni pendenza, e la curva pensata
+     come rotta di mare si alza a cappio sopra il titolo. Qui viene
+     appiattita (scaleY 0.267) e abbassata sotto il testo, restando UN
+     SOLO tracciato — niente seconda stringa da tenere allineata. La
+     barchetta la segue da sola: legge la matrice completa con getCTM(),
+     che questa trasformazione la contiene già. */
+  @media (max-width: 767px) {
+    .manifesto-route {
+      transform-box: view-box;
+      transform-origin: 0 0;
+      transform: translate(0, 531px) scaleY(0.267);
+    }
+    /* I porti: l'appiattimento della rotta compensa quasi esattamente
+       lo stiramento dell'SVG (ne escono ovali 1.385, contro 1.42 del
+       desktop), quindi la forma va già bene da sé. Vanno solo ingranditi,
+       perché a questa scala orizzontale sarebbero puntini da 5px. */
+    .manifesto-port {
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: scale(2.2);
+    }
+  }
+
   /* La barchetta sta FUORI dall'SVG della carta nautica: quello è
      stirato in modo non uniforme (3000×800 su 300vw×100dvh) e le
      schiacciava lo scafo, molto su schermi stretti. Posizione e
