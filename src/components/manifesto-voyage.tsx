@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import {
   motion,
@@ -22,10 +22,10 @@ const LEGS = [
 
 /**
  * Rotta che serpeggia lungo i tre "porti" della traversata (0–3000 × 0–800).
- * Termina al largo della terza scritta (2940,525), ESATTAMENTE dove la
- * barchetta in offset-path va a riposare: lì stanno anche il terzo porto
- * e la fine dell'inchiostro. Stessa stringa dell'offset-path in
- * globals.css (.manifesto-boat-rider): tenerle sincronizzate.
+ * Termina al largo della terza scritta (2940,525), dove vanno a riposare
+ * anche il terzo porto, la fine dell'inchiostro e la barchetta.
+ * Unica fonte di verità: guida tratteggiata, tratto inchiostrato e
+ * navigazione della barca leggono tutti da qui.
  */
 const ROUTE_D =
   "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500 C 2610 530 2780 545 2940 525";
@@ -47,6 +47,9 @@ export function ManifestoVoyage() {
   const t = useTranslations("home.manifesto");
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const guideRef = useRef<SVGPathElement>(null);
+  const boatRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -57,7 +60,74 @@ export function ManifestoVoyage() {
   const trackX = useTransform(p, [0, 0.82, 1], ["0vw", "-200vw", "-200vw"]);
   const farX = useTransform(p, [0, 0.82, 1], ["0vw", "-100vw", "-100vw"]);
   const inkLength = useTransform(p, [0, 0.82], [0, 1]);
-  const boatDistance = useTransform(p, [0, 0.82], ["0%", "100%"]);
+
+  /**
+   * La barchetta naviga la rotta, ma **fuori** dall'SVG.
+   *
+   * La carta nautica è disegnata in 3000×800 e stirata sul binario con
+   * `preserveAspectRatio="none"`: le due scale sono diverse, e su schermi
+   * stretti diversissime — misurate 1.47×1.04 su desktop contro
+   * 0.39×1.06 su telefono. Qualunque cosa viva dentro quell'SVG eredita
+   * lo schiacciamento: la barca finiva larga un quarto del dovuto, una
+   * scheggia verticale, con la prua puntata dove la linea visibile non
+   * andava (`offset-path` calcola la tangente nelle coordinate del
+   * disegno, non in quelle che si vedono).
+   *
+   * Qui il tracciato resta l'unica fonte di verità, ma punto e angolo
+   * vengono convertiti nello spazio reale — ognuno con la sua scala — e
+   * applicati a un elemento normale, che nessuno deforma. Stesso disegno
+   * su ogni schermo, prua sempre sulla linea.
+   */
+  useEffect(() => {
+    if (reduced) return;
+    const svg = svgRef.current;
+    const guide = guideRef.current;
+    const boat = boatRef.current;
+    if (!svg || !guide || !boat) return;
+
+    let lunghezza = guide.getTotalLength();
+    let sx = 1;
+    let sy = 1;
+
+    const misura = () => {
+      const r = svg.getBoundingClientRect();
+      const vb = svg.viewBox.baseVal;
+      if (vb.width > 0 && vb.height > 0 && r.width > 0) {
+        sx = r.width / vb.width;
+        sy = r.height / vb.height;
+      }
+      lunghezza = guide.getTotalLength();
+    };
+
+    const posiziona = (v: number) => {
+      // La barca completa la traversata all'82%, come binario e inchiostro.
+      const avanzamento = Math.min(1, Math.max(0, v / 0.82));
+      const d = lunghezza * avanzamento;
+      const qui = guide.getPointAtLength(d);
+      const poi = guide.getPointAtLength(Math.min(lunghezza, d + 2));
+      // L'angolo va calcolato DOPO aver applicato le due scale: è la
+      // pendenza che si vede, non quella del disegno.
+      const angolo =
+        (Math.atan2((poi.y - qui.y) * sy, (poi.x - qui.x) * sx) * 180) /
+        Math.PI;
+      boat.style.transform = `translate(${qui.x * sx}px, ${qui.y * sy}px) rotate(${angolo}deg)`;
+    };
+
+    misura();
+    posiziona(p.get());
+
+    const ro = new ResizeObserver(() => {
+      misura();
+      posiziona(p.get());
+    });
+    ro.observe(svg);
+    const stop = p.on("change", posiziona);
+
+    return () => {
+      stop();
+      ro.disconnect();
+    };
+  }, [p, reduced]);
 
   if (reduced) {
     return (
@@ -144,6 +214,7 @@ export function ManifestoVoyage() {
         <motion.div className="manifesto-track" style={{ x: trackX }}>
           {/* Carta nautica: guida tratteggiata + tratto che si inchiostra */}
           <svg
+            ref={svgRef}
             aria-hidden="true"
             viewBox="0 0 3000 800"
             preserveAspectRatio="none"
@@ -151,6 +222,7 @@ export function ManifestoVoyage() {
             className="pointer-events-none absolute inset-0 h-full w-full"
           >
             <path
+              ref={guideRef}
               d={ROUTE_D}
               pathLength={1}
               stroke="var(--inchiostro)"
@@ -174,27 +246,25 @@ export function ManifestoVoyage() {
               <circle cx="1860" cy="280" r="7" fill="var(--salvia)" strokeWidth="6" strokeOpacity="0.12" />
               <circle cx="2940" cy="525" r="7" fill="var(--tramonto)" strokeWidth="6" strokeOpacity="0.12" />
             </g>
-            {/* La barchetta naviga la rotta stessa (offset-path in CSS,
-                offset-distance guidata dalla molla): si solleva (heave)
-                e beccheggia (pitch) su periodi diversi che si sfasano. */}
-            <motion.g
-              className="manifesto-boat-rider"
-              fill="none"
-              style={{ offsetDistance: boatDistance }}
-            >
-              <g transform="scale(1.5 1.75) translate(-24 -33)">
-                <g className="manifesto-boat-heave">
-                  <g className="manifesto-boat-pitch" fill="var(--inchiostro)">
-                    <path d="M 6 30 L 42 30 L 36 37 L 12 37 Z" opacity="0.85" />
-                    <path d="M 24 6 L 24 30" stroke="var(--inchiostro)" strokeWidth="1.6" />
-                    <path d="M 26 8 Q 38 18 26 28 Z" opacity="0.65" />
-                    <path d="M 22 11 Q 12 19 22 28 Z" opacity="0.5" />
-                    <path d="M 24 6 L 30 8 L 24 10 Z" />
-                  </g>
-                </g>
-              </g>
-            </motion.g>
           </svg>
+
+          {/* La barchetta: posizione e rotta arrivano dal tracciato qui
+              sopra, ma il disegno vive fuori dall'SVG per non ereditarne
+              lo schiacciamento. Si solleva (heave) e beccheggia (pitch)
+              su periodi diversi, che si sfasano da soli. */}
+          <div ref={boatRef} aria-hidden="true" className="manifesto-boat">
+            <div className="manifesto-boat-heave">
+              <div className="manifesto-boat-pitch">
+                <svg viewBox="0 0 48 44" fill="currentColor" className="manifesto-boat-svg">
+                  <path d="M 6 30 L 42 30 L 36 37 L 12 37 Z" opacity="0.85" />
+                  <path d="M 24 6 L 24 30" stroke="currentColor" strokeWidth="1.6" />
+                  <path d="M 26 8 Q 38 18 26 28 Z" opacity="0.65" />
+                  <path d="M 22 11 Q 12 19 22 28 Z" opacity="0.5" />
+                  <path d="M 24 6 L 30 8 L 24 10 Z" />
+                </svg>
+              </div>
+            </div>
+          </div>
 
           {LEGS.map(({ key, num, accent, ring }) => (
             <article key={key} className="manifesto-leg">

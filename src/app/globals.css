@@ -642,30 +642,38 @@
       color-mix(in oklab, var(--inchiostro) 14%, transparent);
     user-select: none;
   }
-  /* La barchetta cavalca la rotta: offset-path con la stessa ROUTE_D
-     del componente (user units del viewBox); la offset-distance la
-     guida Motion. Dove il motion path non è supportato resta nascosta. */
-  .manifesto-boat-rider {
-    display: none;
+  /* La barchetta sta FUORI dall'SVG della carta nautica: quello è
+     stirato in modo non uniforme (3000×800 su 300vw×100dvh) e le
+     schiacciava lo scafo, molto su schermi stretti. Posizione e
+     rotazione le calcola il componente convertendo il punto del
+     tracciato con le due scale reali; qui resta solo il disegno. */
+  .manifesto-boat {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    color: var(--inchiostro);
+    pointer-events: none;
+    /* Il transform lo scrive il componente a ogni frame. */
+    will-change: transform;
   }
-  @supports (offset-path: path("M 0 0 H 10")) {
-    .manifesto-boat-rider {
-      display: inline;
-      offset-path: path(
-        "M -40 560 C 260 420 420 300 640 340 C 860 380 980 560 1240 560 C 1500 560 1600 300 1860 280 C 2120 260 2300 460 2480 500 C 2610 530 2780 545 2940 525"
-      );
-      offset-rotate: auto;
-    }
-    /* Mare mosso credibile: sollevamento e beccheggio su periodi
-       diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena. */
-    .manifesto-boat-heave {
-      animation: boat-heave 5.6s ease-in-out infinite;
-    }
-    .manifesto-boat-pitch {
-      transform-box: fill-box;
-      transform-origin: 50% 85%;
-      animation: boat-pitch 4.1s ease-in-out infinite;
-    }
+  .manifesto-boat-svg {
+    display: block;
+    /* Tarata per restituire su desktop lo stesso peso visivo di prima
+       (~110px di scafo), senza però portarsi dietro lo stiramento. */
+    width: clamp(3rem, 7.2vw, 7rem);
+    height: auto;
+    /* Centrata sul punto della rotta, non appesa per l'angolo. */
+    translate: -50% -50%;
+  }
+  /* Mare mosso credibile: sollevamento e beccheggio su periodi
+     diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena. */
+  .manifesto-boat-heave {
+    animation: boat-heave 5.6s ease-in-out infinite;
+  }
+  .manifesto-boat-pitch {
+    transform-origin: 50% 85%;
+    animation: boat-pitch 4.1s ease-in-out infinite;
   }
   @keyframes boat-heave {
     0%,
