@@ -8,6 +8,7 @@ import { SITE_URL, pageAlternates } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PageFade } from "@/components/page-fade";
 import { MapCursorTrail } from "@/components/map-cursor-trail";
 import { ScrollRouteProgress } from "@/components/scroll-route-progress";
 import { StructuredData } from "@/components/structured-data";
@@ -83,7 +84,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <SiteHeader />
           <main id="contenuto" className="flex-1">
-            {children}
+            <PageFade>{children}</PageFade>
           </main>
           <SiteFooter />
           <MapCursorTrail />

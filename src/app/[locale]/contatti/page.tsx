@@ -7,6 +7,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { InkReveal } from "@/components/ink-reveal";
 import { TerritoryMap } from "@/components/territory-map";
+import { ConsentMap } from "@/components/consent-map";
 import { MAPS_DIRECTIONS_URL, MAPS_EMBED_URL, SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -174,13 +175,9 @@ export default async function ContattiPage({
 
           <Reveal delay={120}>
             <div className="overflow-hidden rounded-3xl border border-border/70 shadow-[0_24px_50px_-32px_var(--inchiostro)]">
-              <iframe
+              <ConsentMap
                 src={MAPS_EMBED_URL}
                 title={t("map.iframeTitle")}
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-                className="aspect-[4/3] w-full border-0"
               />
             </div>
             <Button

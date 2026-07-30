@@ -84,10 +84,18 @@ export function SiteFooter() {
           <p>
             {t("org")}. {t("mission")}
           </p>
-          <p>
-            © {year} {SITE.org}. {t("rights")}
-            <span className="ml-2 opacity-70">{t("provisional")}</span>
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <Link
+              href="/privacy"
+              className="coarse:inline-flex coarse:min-h-11 coarse:items-center underline underline-offset-4 transition-colors hover:text-cotto"
+            >
+              {t("privacy")}
+            </Link>
+            <p>
+              © {year} {SITE.org}. {t("rights")}
+              <span className="ml-2 opacity-70">{t("provisional")}</span>
+            </p>
+          </div>
         </div>
       </Container>
     </footer>

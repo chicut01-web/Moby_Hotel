@@ -18,6 +18,10 @@
       "prenota": {
         "title": "Richiedi una prenotazione · Hub for European Youth",
         "description": "Scegli date e sistemazione: salviamo la tua richiesta e ti ricontattiamo per confermare. Nessun pagamento online."
+      },
+      "privacy": {
+        "title": "Informativa privacy e cookie",
+        "description": "Quali dati raccoglie il sito dell'Hub for European Youth, perché, per quanto tempo e con quali strumenti."
       }
     }
   },
@@ -242,7 +246,10 @@
       "label": "Mappa",
       "iframeTitle": "Mappa Google del Convento di Sant'Antonio ad Acerno",
       "directions": "Indicazioni su Google Maps",
-      "photoAlt": "La facciata del convento con il portale d'ingresso, nel centro di Acerno"
+      "photoAlt": "La facciata del convento con il portale d'ingresso, nel centro di Acerno",
+      "consentTitle": "Mappa di Google",
+      "consentBody": "Aprendo la mappa il tuo browser si collega a Google, che può usare cookie propri. Se preferisci non farlo, usa il pulsante delle indicazioni qui sotto.",
+      "consentButton": "Carica la mappa"
     }
   },
   "prenota": {
@@ -390,6 +397,62 @@
     "org": "Gestito da Moby Dick ETS — Ente del Terzo Settore",
     "mission": "Turismo sostenibile, sociale e accessibile per il territorio salernitano.",
     "rights": "Tutti i diritti riservati.",
-    "provisional": "Nome della struttura provvisorio."
+    "provisional": "Nome della struttura provvisorio.",
+    "privacy": "Privacy"
+  },
+  "privacy": {
+    "title": "Informativa privacy e cookie",
+    "eyebrow": "Trattamento dei dati",
+    "intro": "Questa pagina spiega quali dati raccoglie il sito, perché, e con quali strumenti. È scritta sul funzionamento reale del sito: se qualcosa cambia, cambia anche questa pagina.",
+    "updated": "Ultimo aggiornamento: luglio 2026",
+    "controller": {
+      "title": "Chi tratta i dati",
+      "body": "Il titolare del trattamento è Moby Dick ETS, Ente del Terzo Settore, che gestisce l'Hub for European Youth nel Convento di Sant'Antonio ad Acerno (SA).",
+      "legal": "Sede legale",
+      "operational": "Sede operativa",
+      "contact": "Per qualsiasi richiesta sui tuoi dati scrivi a"
+    },
+    "collected": {
+      "title": "Quali dati raccogliamo",
+      "body": "Il sito raccoglie dati in un solo punto: il modulo di richiesta prenotazione. Non ci sono account, né profilazione, né pubblicità.",
+      "formTitle": "Dal modulo di richiesta",
+      "formItems": [
+        "Nome e cognome, per sapere con chi stiamo parlando",
+        "Indirizzo email, per risponderti",
+        "Numero di telefono, facoltativo, se preferisci essere ricontattato al telefono",
+        "Date di arrivo e partenza e numero di ospiti, per verificare la disponibilità",
+        "Un messaggio libero, facoltativo, se vuoi segnalarci qualcosa"
+      ],
+      "note": "Non chiediamo dati di pagamento: sul sito non si paga nulla. Non chiediamo documenti né dati particolari; se ce li scrivi nel messaggio libero, li trattiamo solo per rispondere alla tua richiesta."
+    },
+    "purpose": {
+      "title": "Perché li trattiamo",
+      "body": "Per una cosa sola: leggere la tua richiesta, verificare la disponibilità e risponderti. La base giuridica è l'esecuzione di misure precontrattuali richieste da te, cioè il fatto che sei tu a scriverci per chiedere ospitalità.",
+      "noMarketing": "Non usiamo i tuoi dati per inviarti comunicazioni commerciali e non li cediamo a terzi per finalità di marketing."
+    },
+    "retention": {
+      "title": "Per quanto tempo",
+      "body": "Conserviamo le richieste per il tempo necessario a gestirle e, se il soggiorno si conclude, per gli obblighi amministrativi e fiscali previsti dalla legge. Puoi chiederci la cancellazione in qualsiasi momento scrivendo agli indirizzi qui sopra."
+    },
+    "processors": {
+      "title": "Chi altro vede i dati",
+      "body": "Ci appoggiamo a fornitori tecnici che trattano i dati per nostro conto, come responsabili del trattamento:",
+      "items": [
+        "Supabase — conserva le richieste di prenotazione nel database",
+        "Resend — recapita le email di conferma a te e la notifica a noi",
+        "Vercel — ospita il sito e ne misura le visite in forma aggregata, senza cookie e senza identificarti"
+      ],
+      "note": "Alcuni di questi fornitori possono trattare i dati anche fuori dall'Unione Europea, sulla base delle garanzie previste dalla normativa."
+    },
+    "cookies": {
+      "title": "Cookie",
+      "body": "Il sito non usa cookie di profilazione e non ne installa per misurare le visite: le statistiche di Vercel sono aggregate e non ricorrono a cookie.",
+      "mapsTitle": "La mappa di Google",
+      "mapsBody": "Nella pagina Contatti c'è una mappa di Google. Non viene caricata da sola: resta un'anteprima finché non sei tu a toccarla. Solo a quel punto il sito si collega a Google, che può usare cookie propri secondo le sue regole. Se non la apri, Google non riceve nulla."
+    },
+    "rights": {
+      "title": "I tuoi diritti",
+      "body": "Puoi chiederci in qualsiasi momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento o opporti allo stesso, e ricevere copia dei dati che ci hai fornito. Ti rispondiamo agli stessi indirizzi indicati sopra. Se ritieni che il trattamento non sia corretto puoi rivolgerti al Garante per la protezione dei dati personali."
+    }
   }
 }

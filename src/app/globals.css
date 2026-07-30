@@ -159,6 +159,23 @@
   html:has(:target) {
     scroll-behavior: smooth;
   }
+
+  /* Dissolvenza tra le pagine. Breve di proposito: un'attesa lunga si
+     legge come "la pagina non carica". L'animazione CSS finisce e non
+     lascia nulla attaccato all'elemento — a differenza del contenitore
+     Motion di prima, che teneva opacita e will-change permanenti e in
+     WebKit impediva al pin sticky dell'intro di essere dipinto. */
+  .page-enter {
+    animation: page-enter 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes page-enter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-enter { animation: none; }
+  }
+
   h1, h2, h3, h4 {
     @apply font-serif;
     font-weight: 460;

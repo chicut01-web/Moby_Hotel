@@ -18,6 +18,10 @@
       "prenota": {
         "title": "Request a booking · Hub for European Youth",
         "description": "Pick your dates and room: we save your request and get back to you to confirm. No online payment."
+      },
+      "privacy": {
+        "title": "Privacy and cookie notice",
+        "description": "What the Hub for European Youth website collects, why, for how long and with which tools."
       }
     }
   },
@@ -242,7 +246,10 @@
       "label": "Map",
       "iframeTitle": "Google map of the Convent of Sant'Antonio in Acerno",
       "directions": "Directions on Google Maps",
-      "photoAlt": "The convent façade with its entrance portal, in the centre of Acerno"
+      "photoAlt": "The convent façade with its entrance portal, in the centre of Acerno",
+      "consentTitle": "Google map",
+      "consentBody": "Opening the map connects your browser to Google, which may use its own cookies. If you would rather not, use the directions button below.",
+      "consentButton": "Load the map"
     }
   },
   "prenota": {
@@ -390,6 +397,62 @@
     "org": "Run by Moby Dick ETS — non-profit social enterprise",
     "mission": "Sustainable, social and accessible tourism for the Salerno region.",
     "rights": "All rights reserved.",
-    "provisional": "Provisional venue name."
+    "provisional": "Provisional venue name.",
+    "privacy": "Privacy"
+  },
+  "privacy": {
+    "title": "Privacy and cookie notice",
+    "eyebrow": "Data protection",
+    "intro": "This page explains what the site collects, why, and with which tools. It describes how the site actually works: if that changes, this page changes too.",
+    "updated": "Last updated: July 2026",
+    "controller": {
+      "title": "Who handles your data",
+      "body": "The data controller is Moby Dick ETS, a non-profit organisation, which runs the Hub for European Youth in the Convent of Sant'Antonio in Acerno, Salerno.",
+      "legal": "Registered office",
+      "operational": "Operating office",
+      "contact": "For anything concerning your data, write to"
+    },
+    "collected": {
+      "title": "What we collect",
+      "body": "The site collects data in one place only: the booking request form. There are no accounts, no profiling and no advertising.",
+      "formTitle": "From the request form",
+      "formItems": [
+        "Your name, so we know who we are talking to",
+        "Your email address, so we can reply",
+        "A phone number, optional, if you would rather be called",
+        "Arrival and departure dates and number of guests, to check availability",
+        "A free message, optional, if there is something we should know"
+      ],
+      "note": "We never ask for payment details: nothing is paid on this site. We do not ask for documents or sensitive data; if you write them in the free message, we use them only to answer your request."
+    },
+    "purpose": {
+      "title": "Why we process it",
+      "body": "For one reason only: to read your request, check availability and reply. The legal basis is the performance of pre-contractual steps taken at your request — that is, the fact that you wrote to us asking to stay.",
+      "noMarketing": "We do not use your data to send you marketing, and we do not pass it to third parties for marketing purposes."
+    },
+    "retention": {
+      "title": "How long we keep it",
+      "body": "We keep requests for as long as it takes to handle them and, if a stay goes ahead, for the administrative and tax periods required by law. You can ask us to delete them at any time at the addresses above."
+    },
+    "processors": {
+      "title": "Who else sees it",
+      "body": "We rely on technical suppliers who process data on our behalf, as data processors:",
+      "items": [
+        "Supabase — stores booking requests in the database",
+        "Resend — delivers the confirmation email to you and the notification to us",
+        "Vercel — hosts the site and measures visits in aggregate, with no cookies and without identifying you"
+      ],
+      "note": "Some of these suppliers may process data outside the European Union, under the safeguards provided by law."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "body": "The site uses no profiling cookies, and sets none to measure visits: Vercel's statistics are aggregated and cookie-free.",
+      "mapsTitle": "The Google map",
+      "mapsBody": "The Contact page includes a Google map. It does not load on its own: it stays a preview until you tap it. Only then does the site connect to Google, which may use its own cookies under its own rules. If you never open it, Google receives nothing."
+    },
+    "rights": {
+      "title": "Your rights",
+      "body": "At any time you can ask us to access, correct or delete your data, to restrict or object to its processing, and to receive a copy of what you gave us. We answer at the same addresses above. If you believe your data is not handled properly, you can contact the Italian Data Protection Authority."
+    }
   }
 }

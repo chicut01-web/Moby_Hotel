@@ -12,9 +12,12 @@ const SAFETY_MS = 1200;
  * viewport: ogni parola sale a fuoco (blur + salita) su una molla, in
  * cascata. Una sola volta.
  *
- * Come <Reveal/>: osservatore esplicito + timeout di sicurezza, perché
- * `whileInView` non scatta in modo affidabile per nodi montati durante
- * una navigazione client-side e lascerebbe titoli invisibili.
+ * Come <Reveal/>: il titolo nasce **leggibile** nel markup del server e si
+ * nasconde solo dopo, e solo se sta fuori schermo. Uno stato iniziale
+ * nascosto finirebbe nell'HTML, lasciando i titoli sfocati e invisibili
+ * per tutta l'attesa dell'idratazione — e per sempre senza JavaScript.
+ * Osservatore esplicito + timeout di sicurezza, perché `whileInView` non
+ * scatta in modo affidabile per nodi montati già dentro il viewport.
  *
  * `as` sceglie il tag (default h2); `startDelay` ritarda la cascata iniziale;
  * `stagger` è il ritardo tra una parola e l'altra (ms).
@@ -36,16 +39,23 @@ export function InkReveal({
 }) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
+  const [nascosto, setNascosto] = useState(false);
+  const [mostra, setMostra] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Titolo già in vista: resta com'è, niente cascata a posteriori.
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) return;
+
+    setNascosto(true);
     let done = false;
     const show = () => {
       if (done) return;
       done = true;
-      setShown(true);
+      setMostra(true);
     };
 
     const io = new IntersectionObserver(
@@ -68,6 +78,7 @@ export function InkReveal({
 
   const Tag = (as ?? "h2") as ElementType;
   const words = text.split(" ");
+  const inAttesa = nascosto && !mostra;
 
   if (reduced) return <Tag className={cn(className)}>{text}</Tag>;
 
@@ -79,17 +90,23 @@ export function InkReveal({
         <span key={`${word}-${i}`}>
           <motion.span
             className={cn("inline-block", wordClassName)}
-            initial={{ opacity: 0, y: 14, filter: "blur(7px)" }}
+            initial={false}
             animate={
-              shown ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
+              inAttesa
+                ? { opacity: 0, y: 14, filter: "blur(7px)" }
+                : { opacity: 1, y: 0, filter: "blur(0px)" }
             }
-            transition={{
-              type: "spring",
-              stiffness: 140,
-              damping: 20,
-              mass: 0.7,
-              delay: (startDelay + i * stagger) / 1000,
-            }}
+            transition={
+              inAttesa
+                ? { duration: 0 }
+                : {
+                    type: "spring",
+                    stiffness: 140,
+                    damping: 20,
+                    mass: 0.7,
+                    delay: (startDelay + i * stagger) / 1000,
+                  }
+            }
           >
             {word}
           </motion.span>{" "}
