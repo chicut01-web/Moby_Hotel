@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ElementType } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { paginaGiaDipinta } from "@/lib/after-hydration";
 import { cn } from "@/lib/utils";
 
 /** Rete di sicurezza: oltre questa soglia il titolo compare comunque. */
@@ -12,10 +13,12 @@ const SAFETY_MS = 1200;
  * viewport: ogni parola sale a fuoco (blur + salita) su una molla, in
  * cascata. Una sola volta.
  *
- * Come <Reveal/>: il titolo nasce **leggibile** nel markup del server e si
- * nasconde solo dopo, e solo se sta fuori schermo. Uno stato iniziale
- * nascosto finirebbe nell'HTML, lasciando i titoli sfocati e invisibili
- * per tutta l'attesa dell'idratazione — e per sempre senza JavaScript.
+ * Come <Reveal/>: al primo caricamento il titolo nasce **leggibile** nel
+ * markup del server, perché uno stato iniziale nascosto finirebbe
+ * nell'HTML e lascerebbe i titoli sfocati per tutta l'attesa
+ * dell'idratazione — e per sempre senza JavaScript. Cambiando pagina
+ * invece lo script c'è già, quindi si parte nascosti e la cascata si
+ * vede: è [[paginaGiaDipinta]] a separare i due casi.
  * Osservatore esplicito + timeout di sicurezza, perché `whileInView` non
  * scatta in modo affidabile per nodi montati già dentro il viewport.
  *
@@ -39,16 +42,20 @@ export function InkReveal({
 }) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const [nascosto, setNascosto] = useState(false);
+  const [nascosto, setNascosto] = useState(paginaGiaDipinta);
   const [mostra, setMostra] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Titolo già in vista: resta com'è, niente cascata a posteriori.
     const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) return;
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      // In vista: al primo caricamento era già scritto; cambiando pagina
+      // è partito nascosto e ora si scrive parola per parola.
+      setMostra(true);
+      return;
+    }
 
     setNascosto(true);
     let done = false;

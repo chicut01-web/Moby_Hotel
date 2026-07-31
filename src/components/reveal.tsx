@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { paginaGiaDipinta } from "@/lib/after-hydration";
 import { cn } from "@/lib/utils";
 
 /**
@@ -15,9 +16,15 @@ import { cn } from "@/lib/utils";
  * dell'idratazione (misurati 3.6s a 1.5 Mbps), e per sempre se lo script
  * non arrivava.
  *
- * Quindi il markup nasce visibile (`initial={false}`) e si nasconde solo
- * dopo, e solo se l'elemento è **fuori schermo**: lì nascondere non si
- * vede, e chi è già in vista resta dov'è invece di rifare l'ingresso.
+ * Quindi al primo caricamento il markup nasce visibile (`initial={false}`)
+ * e si nasconde solo dopo, e solo se l'elemento è **fuori schermo**: lì
+ * nascondere non si vede.
+ *
+ * Cambiando pagina vale il contrario: lo script è già in funzione, il
+ * contenuto lo costruisce lui, e partire nascosti non lascia nessuno
+ * davanti a una pagina bianca — è anzi ciò che fa comparire le scritte.
+ * [[paginaGiaDipinta]] separa i due casi.
+ *
  * L'osservatore è esplicito perché `whileInView` non scatta quando il
  * nodo viene montato già dentro il viewport, con una rete di sicurezza
  * a tempo per i casi in cui non notifichi affatto.
@@ -35,16 +42,23 @@ export function Reveal({
 }) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const [nascosto, setNascosto] = useState(false);
+  // Navigando si parte nascosti fin dal primo fotogramma: nascondere
+  // dopo aver già dipinto darebbe uno sfarfallio.
+  const [nascosto, setNascosto] = useState(paginaGiaDipinta);
   const [mostra, setMostra] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Già sotto gli occhi: niente da rivelare, si resta visibili.
     const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) return;
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      // Sotto gli occhi: al primo caricamento era già visibile e non c'è
+      // nulla da fare; arrivandoci da un'altra pagina è partito nascosto
+      // ed è il momento di farlo entrare.
+      setMostra(true);
+      return;
+    }
 
     setNascosto(true);
     let done = false;
