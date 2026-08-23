@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
@@ -76,17 +77,17 @@ export default async function PrenotaPage({
           <BookingForm rooms={rooms} preselectedRoomId={room} />
 
           <aside className="lg:pt-2">
-            {/* Video ambientale: corridoio voltato (decorativo) */}
+            {/* Corridoio voltato (decorativo). Era un filmato costruito:
+                sostituito con lo scatto reale, che pesa 600KB in meno e
+                mostra il corridoio che si percorre davvero. */}
             <div className="relative mb-6 hidden aspect-[3/4] overflow-hidden rounded-t-[7rem] rounded-b-2xl ring-1 ring-border/70 lg:block">
-              <video
-                className="absolute inset-0 h-full w-full object-cover"
-                src="/images/corridoio.mp4"
-                poster="/images/corridoio-poster.jpg"
-                autoPlay
-                muted
-                loop
-                playsInline
+              <Image
+                src="/images/corridoio.jpg"
+                alt=""
                 aria-hidden="true"
+                fill
+                sizes="(min-width: 1024px) 30vw, 0px"
+                className="object-cover"
               />
             </div>
             <div className="rounded-2xl border border-border/70 bg-card p-7">

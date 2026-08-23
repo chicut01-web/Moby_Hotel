@@ -69,15 +69,19 @@ export default async function ConventoPage({
         </Container>
       </section>
 
-      {/* Gallery: affreschi + volte (con lightbox) */}
+      {/* Gallery: chiostro + volte (con lightbox).
+          Non c'è una foto degli affreschi: stanno nella chiesa, che resta
+          fuori dalla gestione e non è stata fotografata. Al loro posto il
+          chiostro col pozzo, che è il cuore visivo del complesso — meglio
+          un soggetto vero che un'immagine costruita spacciata per scatto. */}
       <section className="pb-4">
         <Container>
           <GalleryWithLightbox
             items={[
               {
-                src: "/images/affreschi.jpg",
-                alt: t("gallery.affreschiAlt"),
-                caption: t("gallery.affreschiCaption"),
+                src: "/images/chiostro-pozzo.jpg",
+                alt: t("gallery.chiostroAlt"),
+                caption: t("gallery.chiostroCaption"),
               },
               {
                 src: "/images/volte.jpg",

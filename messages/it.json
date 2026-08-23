@@ -184,10 +184,10 @@
       "body": "Le piante architettoniche mostrano l'organizzazione monastica: gli ambienti si dispongono attorno al chiostro, secondo la logica della corte."
     },
     "gallery": {
-      "affreschiAlt": "Affreschi sei-settecenteschi riaffiorati nella chiesa del convento",
-      "affreschiCaption": "Gli affreschi riaffiorati durante i restauri",
       "volteAlt": "Volte a crociera del porticato viste dal basso",
-      "volteCaption": "Le volte a crociera del porticato"
+      "volteCaption": "Le volte a crociera del porticato",
+      "chiostroAlt": "Il chiostro porticato con la vera da pozzo in pietra al centro",
+      "chiostroCaption": "Il chiostro e il pozzo al centro del complesso"
     }
   },
   "camere": {

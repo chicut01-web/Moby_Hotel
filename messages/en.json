@@ -184,10 +184,10 @@
       "body": "The architectural plans show the monastic layout: the rooms are arranged around the cloister, following the logic of the courtyard."
     },
     "gallery": {
-      "affreschiAlt": "17th–18th-century frescoes resurfaced in the convent church",
-      "affreschiCaption": "The frescoes that resurfaced during restoration",
       "volteAlt": "Cross vaults of the portico seen from below",
-      "volteCaption": "The cross vaults of the portico"
+      "volteCaption": "The cross vaults of the portico",
+      "chiostroAlt": "The arcaded cloister with its carved stone wellhead at the centre",
+      "chiostroCaption": "The cloister and the well at the heart of the complex"
     }
   },
   "camere": {

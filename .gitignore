@@ -51,3 +51,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /.zcode/
+
+# Scatti originali della struttura (50 file, 130MB): restano fuori dal
+# repo. Le versioni web ottimizzate stanno in public/images/.
+/DEF/
