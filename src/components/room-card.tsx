@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { roomCoverImage } from "@/lib/room-images";
+import { ArchColonnade } from "@/components/arch-motif";
 import { MapTrailArrow } from "@/components/map-trail-arrow";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
@@ -20,13 +21,28 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
   return (
     <article className="lantern-card group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card">
       <div className="relative aspect-[5/4] overflow-hidden">
-        <Image
-          src={cover}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-110"
-        />
+        {cover ? (
+          <Image
+            src={cover}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-110"
+          />
+        ) : (
+          /* Camera non ancora fotografata: il colonnato al posto di uno
+             scatto che non la rappresenta. Decorativo, quindi senza testo
+             alternativo — il nome della camera è già nel titolo qui sotto. */
+          <div
+            aria-hidden="true"
+            className="flex h-full w-full items-end justify-center bg-gradient-to-b from-salvia-soft/50 to-calce"
+          >
+            <ArchColonnade
+              count={5}
+              className="w-[112%] max-w-none translate-y-px text-salvia/45"
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-6">
