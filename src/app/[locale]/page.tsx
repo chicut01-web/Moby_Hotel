@@ -50,6 +50,7 @@ function InkWords({
   );
 }
 import { getActiveRooms } from "@/lib/rooms";
+import { roomCoverImage } from "@/lib/room-images";
 import type { Locale } from "@/i18n/routing";
 
 // ISR: le camere arrivano dal DB, la pagina si rigenera senza rebuild.
@@ -69,7 +70,21 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const rooms = (await getActiveRooms()).slice(0, 3);
+
+  /**
+   * In vetrina prima le camere che hanno una fotografia.
+   * L'elenco completo è ordinato per prezzo, e le camerate — le più
+   * economiche — finivano in home proprio mentre sono le uniche senza
+   * scatto: tre riquadri di cui due col solo motivo ad archi. Il
+   * segnaposto va bene in /camere, dove si sfoglia tutto; qui è la prima
+   * impressione. Chi non ha foto scala in fondo alla coda, non sparisce:
+   * se un giorno le camerate saranno fotografate, tornano da sole, e se
+   * le foto mancassero del tutto la home mostrerebbe comunque tre camere.
+   */
+  const tutte = await getActiveRooms();
+  const conFoto = tutte.filter((r) => roomCoverImage(r));
+  const senzaFoto = tutte.filter((r) => !roomCoverImage(r));
+  const rooms = [...conFoto, ...senzaFoto].slice(0, 3);
 
   return (
     <>
