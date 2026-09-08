@@ -79,7 +79,17 @@ export function IntroScrub() {
         video.addEventListener("loadedmetadata", restore);
       }
     };
-    applySource();
+
+    /* Il `src` non parte al montaggio ma dopo `load`. Con `preload="auto"`
+       il filmato è il 95% dei byte della pagina, e partendo subito si
+       prendeva la banda mentre l'immagine dell'hero doveva ancora
+       arrivare: su 4G lento questo da solo portava l'LCP a 5,2s. Ora la
+       pagina finisce di dipingersi e poi il video riempie il buffer.
+       Chi scrolla nell'istante zero vede il poster per qualche decimo in
+       più — lo scrub sa già stare fermo finché non ci sono fotogrammi. */
+    const avvia = () => applySource();
+    if (document.readyState === "complete") avvia();
+    else window.addEventListener("load", avvia, { once: true });
     mq.addEventListener("change", applySource);
 
     const onLoaded = () => setReady(true);
@@ -87,6 +97,7 @@ export function IntroScrub() {
     else video.addEventListener("loadeddata", onLoaded);
 
     return () => {
+      window.removeEventListener("load", avvia);
       mq.removeEventListener("change", applySource);
       video.removeEventListener("loadeddata", onLoaded);
     };
@@ -233,19 +244,21 @@ export function IntroScrub() {
 
   return (
     <section ref={sectionRef} className="intro-scrub relative">
-      <div
-        className="sticky top-0 h-dvh overflow-hidden bg-inchiostro bg-cover bg-center"
-        // Il poster fa da fondo permanente: se il video non è ancora
-        // pronto — o viene rimontato tornando sulla home — la scena
-        // resta comunque quella giusta, mai uno schermo vuoto.
-        style={{ backgroundImage: "url(/videos/convento-intro-poster.jpg)" }}
-      >
+      {/* Il poster fa da fondo permanente: se il video non è ancora pronto
+          — o viene rimontato tornando sulla home — la scena resta comunque
+          quella giusta, mai uno schermo vuoto. Sta in CSS e non più in uno
+          style inline perché così il telefono in verticale scarica il
+          taglio verticale (80KB) invece del 16:9 (216KB), di cui vedrebbe
+          comunque solo la fetta centrale. */}
+      <div className="intro-scrub-stage sticky top-0 h-dvh overflow-hidden bg-inchiostro bg-cover bg-center">
         <video
           ref={videoRef}
           /* Niente `src` qui: lo assegna l'effect dopo aver visto quanto è
              largo lo schermo. Se ci fosse, il browser inizierebbe a
-             scaricare il file sbagliato prima ancora del montaggio. */
-          poster="/videos/convento-intro-poster.jpg"
+             scaricare il file sbagliato prima ancora del montaggio.
+             Niente nemmeno `poster`: il video resta a opacità 0 fino a
+             `loadeddata`, quindi quell'immagine non si vedeva mai — era
+             solo un download in più, a carico di ogni visitatore. */
           muted
           playsInline
           // Scarica subito e in sequenza: così il buffer cresce da solo

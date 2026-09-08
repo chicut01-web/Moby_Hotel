@@ -1,0 +1,41 @@
+# Cosa NON caricare su Vercel.
+#
+# Senza questo file la CLI ripiega sul .gitignore, che però tiene fuori dal
+# repo i master video proprio perché sono pesanti: con `vercel deploy` da
+# locale finivano comunque nel deployment (76MB di file che nessuna pagina
+# richiede). Da qui in poi restano dove devono stare, sul disco e basta.
+#
+# Attenzione: appena questo file esiste, il .gitignore non viene più letto
+# per il caricamento. Tutto ciò che deve restare fuori va elencato qui.
+
+# Master video dell'intro: sul sito vanno solo i due tagli per lo scrubbing.
+public/videos/convento-intro-1080p.mp4
+public/videos/convento-intro-4k.mp4
+public/videos/convento-intro-kling-4k.mp4
+
+# Originali fotografici della struttura (HEIC/MOV e scatti a piena risoluzione).
+ACERNO
+DEF
+
+# Dipendenze e build: Vercel se li ricostruisce da sé.
+node_modules
+.next
+out
+build
+coverage
+
+# Segreti e stato locale.
+.env
+.env.*
+.vercel
+.git
+
+# Rumore di sistema.
+.DS_Store
+*.pem
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.zcode

@@ -553,6 +553,19 @@
   .intro-scrub {
     height: 320vh;
   }
+  /* Fondo della scena: resta sotto il video finché non ha fotogrammi.
+     Il telefono in verticale mostra del 16:9 solo la fetta centrale, e
+     scaricare gli altri tre quarti per buttarli costava 216KB su una
+     pagina che ne pesa poco più di 300. Qui prende il taglio verticale,
+     lo stesso primo fotogramma del filmato che vedrà subito dopo. */
+  .intro-scrub-stage {
+    background-image: url("/videos/convento-intro-poster.jpg");
+  }
+  @media (max-width: 767px) and (orientation: portrait) {
+    .intro-scrub-stage {
+      background-image: url("/videos/convento-intro-poster-mobile.jpg");
+    }
+  }
   .intro-scrub-step {
     position: absolute;
     inset-inline: 0;
