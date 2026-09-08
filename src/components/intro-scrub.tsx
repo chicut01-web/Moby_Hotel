@@ -80,16 +80,35 @@ export function IntroScrub() {
       }
     };
 
-    /* Il `src` non parte al montaggio ma dopo `load`. Con `preload="auto"`
-       il filmato è il 95% dei byte della pagina, e partendo subito si
-       prendeva la banda mentre l'immagine dell'hero doveva ancora
-       arrivare: su 4G lento questo da solo portava l'LCP a 5,2s. Ora la
-       pagina finisce di dipingersi e poi il video riempie il buffer.
-       Chi scrolla nell'istante zero vede il poster per qualche decimo in
-       più — lo scrub sa già stare fermo finché non ci sono fotogrammi. */
-    const avvia = () => applySource();
+    /* Il `src` non parte al montaggio. Con `preload="auto"` il filmato è
+       il 95% dei byte della pagina, e partendo subito si prendeva la
+       banda mentre l'immagine dell'hero doveva ancora arrivare: su 4G
+       lento questo da solo portava l'LCP a 5,2s.
+       Ma aspettare `load` e basta significava fermi 2,6 secondi, e chi
+       apre il sito e scorre subito vedeva l'intro non partire. Quindi
+       parte al PRIMO di due segnali: la pagina ha finito di caricare,
+       oppure la mano si muove. Chi scorre ha già detto cosa vuole, e per
+       lui il video parte lì; chi guarda e basta lascia la banda
+       all'immagine — ed è anche il caso che misura Lighthouse, che non
+       scorre mai. `wheel` e `touchstart` arrivano un attimo prima che la
+       pagina si muova davvero, così il download parte col gesto. */
+    const segnali = ["wheel", "touchstart", "scroll", "keydown"] as const;
+    let avviato = false;
+    const smettiDiAspettare = () => {
+      segnali.forEach((s) => window.removeEventListener(s, avvia));
+      window.removeEventListener("load", avvia);
+    };
+    function avvia() {
+      if (avviato) return;
+      avviato = true;
+      smettiDiAspettare();
+      applySource();
+    }
+    segnali.forEach((s) =>
+      window.addEventListener(s, avvia, { passive: true }),
+    );
     if (document.readyState === "complete") avvia();
-    else window.addEventListener("load", avvia, { once: true });
+    else window.addEventListener("load", avvia);
     mq.addEventListener("change", applySource);
 
     const onLoaded = () => setReady(true);
@@ -97,7 +116,7 @@ export function IntroScrub() {
     else video.addEventListener("loadeddata", onLoaded);
 
     return () => {
-      window.removeEventListener("load", avvia);
+      smettiDiAspettare();
       mq.removeEventListener("change", applySource);
       video.removeEventListener("loadeddata", onLoaded);
     };
