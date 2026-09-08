@@ -208,6 +208,15 @@ export function IntroScrub() {
       if (!raf) raf = requestAnimationFrame(tick);
     };
 
+    /* `tick` si spegne se il video non ha ancora una durata, e a
+       riaccenderlo è solo un altro evento di scroll. Da quando la
+       sorgente parte dopo `load`, chi scorre nei primi istanti spegne il
+       loop mentre il filmato è ancora per strada: poi si ferma, nessuno
+       scrolla più, e l'intro resta sul poster anche a video pronto.
+       Quando la durata arriva il loop va riacceso da qui. */
+    const onPronto = () => onScroll();
+    video.addEventListener("loadedmetadata", onPronto);
+
     // Prima lettura al frame successivo: niente setState sincrono
     // nel corpo dell'effect.
     const first = requestAnimationFrame(onScroll);
@@ -217,6 +226,7 @@ export function IntroScrub() {
       cancelAnimationFrame(first);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      video.removeEventListener("loadedmetadata", onPronto);
       video.removeEventListener("seeked", onSeeked);
       if (raf) cancelAnimationFrame(raf);
     };
