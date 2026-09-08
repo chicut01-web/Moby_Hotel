@@ -92,6 +92,15 @@ export function IntroScrub() {
        all'immagine — ed è anche il caso che misura Lighthouse, che non
        scorre mai. `wheel` e `touchstart` arrivano un attimo prima che la
        pagina si muova davvero, così il download parte col gesto. */
+    /* Il rinvio vale solo sul telefono, ed è una questione di aritmetica.
+       Il taglio verticale pesa 1,5MB su una pagina che ne pesa 1,7: lì il
+       video è quasi tutto il peso, si prende la banda dell'immagine
+       dell'hero e da solo portava l'LCP a 5,2s — rimandarlo ha spostato
+       il punteggio da 77 a 86. Il 16:9 pesa 4,4MB, ma su desktop la banda
+       abbonda: il punteggio era 99 prima e 99 dopo. Lì il rinvio non
+       comprava niente e costava soltanto l'attesa prima che il volo
+       parta, che è la cosa che si vede. Quindi su schermo largo la
+       sorgente parte al montaggio, come è sempre stato. */
     const segnali = ["wheel", "touchstart", "scroll", "keydown"] as const;
     let avviato = false;
     const smettiDiAspettare = () => {
@@ -104,18 +113,23 @@ export function IntroScrub() {
       smettiDiAspettare();
       applySource();
     }
-    segnali.forEach((s) =>
-      window.addEventListener(s, avvia, { passive: true }),
-    );
-    if (document.readyState === "complete") avvia();
-    else window.addEventListener("load", avvia);
-    /* I segnali qui sopra esistono solo da quando React ha idratato, e su
-       una prima visita lenta l'idratazione può arrivare tardi: chi ha
-       scorso nel frattempo avrebbe comunque aspettato `load`. Ma se la
-       pagina non è più in cima, quel gesto c'è già stato — vale come se
-       l'avessimo sentito. Copre anche il ritorno indietro su una pagina
-       ripristinata a metà. */
-    if (window.scrollY > 0) avvia();
+
+    if (!mq.matches) {
+      avvia();
+    } else {
+      segnali.forEach((s) =>
+        window.addEventListener(s, avvia, { passive: true }),
+      );
+      if (document.readyState === "complete") avvia();
+      else window.addEventListener("load", avvia);
+      /* I segnali esistono solo da quando React ha idratato, e su una
+         prima visita lenta l'idratazione può arrivare tardi: chi ha
+         scorso nel frattempo avrebbe comunque aspettato `load`. Ma se la
+         pagina non è più in cima, quel gesto c'è già stato — vale come se
+         l'avessimo sentito. Copre anche il ritorno indietro su una pagina
+         ripristinata a metà. */
+      if (window.scrollY > 0) avvia();
+    }
     mq.addEventListener("change", applySource);
 
     const onLoaded = () => setReady(true);
