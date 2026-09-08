@@ -109,6 +109,13 @@ export function IntroScrub() {
     );
     if (document.readyState === "complete") avvia();
     else window.addEventListener("load", avvia);
+    /* I segnali qui sopra esistono solo da quando React ha idratato, e su
+       una prima visita lenta l'idratazione può arrivare tardi: chi ha
+       scorso nel frattempo avrebbe comunque aspettato `load`. Ma se la
+       pagina non è più in cima, quel gesto c'è già stato — vale come se
+       l'avessimo sentito. Copre anche il ritorno indietro su una pagina
+       ripristinata a metà. */
+    if (window.scrollY > 0) avvia();
     mq.addEventListener("change", applySource);
 
     const onLoaded = () => setReady(true);
