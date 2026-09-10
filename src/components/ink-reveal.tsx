@@ -49,6 +49,15 @@ export function InkReveal({
     const el = ref.current;
     if (!el) return;
 
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      // In vista: al primo caricamento era già scritto; cambiando pagina
+      // è partito nascosto e ora si scrive parola per parola.
+      setMostra(true);
+      return;
+    }
+
+    setNascosto(true);
     let done = false;
     const show = () => {
       if (done) return;
@@ -58,13 +67,9 @@ export function InkReveal({
 
     const io = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0];
-        if (!entry) return;
-        if (entry.isIntersecting) {
+        if (entries.some((e) => e.isIntersecting)) {
           show();
           io.disconnect();
-        } else {
-          setNascosto(true);
         }
       },
       { threshold: 0.2, rootMargin: "0px 0px -5% 0px" },
@@ -92,12 +97,11 @@ export function InkReveal({
         <span key={`${word}-${i}`}>
           <motion.span
             className={cn("inline-block", wordClassName)}
-            style={{ willChange: "transform, opacity" }}
             initial={false}
             animate={
               inAttesa
-                ? { opacity: 0, y: 14 }
-                : { opacity: 1, y: 0 }
+                ? { opacity: 0, y: 14, filter: "blur(7px)" }
+                : { opacity: 1, y: 0, filter: "blur(0px)" }
             }
             transition={
               inAttesa

@@ -51,6 +51,16 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
 
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      // Sotto gli occhi: al primo caricamento era già visibile e non c'è
+      // nulla da fare; arrivandoci da un'altra pagina è partito nascosto
+      // ed è il momento di farlo entrare.
+      setMostra(true);
+      return;
+    }
+
+    setNascosto(true);
     let done = false;
     const show = () => {
       if (done) return;
@@ -60,13 +70,9 @@ export function Reveal({
 
     const io = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0];
-        if (!entry) return;
-        if (entry.isIntersecting) {
+        if (entries.some((e) => e.isIntersecting)) {
           show();
           io.disconnect();
-        } else {
-          setNascosto(true);
         }
       },
       { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
