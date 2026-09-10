@@ -26,7 +26,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
             src={cover}
             alt={name}
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 360px"
             className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-110"
           />
         ) : (

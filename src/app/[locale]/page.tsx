@@ -150,7 +150,7 @@ export default async function HomePage({
                   alt={t("hero.imageAlt")}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 470px"
                   className="object-cover"
                 />
               </div>
