@@ -300,7 +300,23 @@ export function IntroScrub() {
           style inline perché così il telefono in verticale scarica il
           taglio verticale (80KB) invece del 16:9 (216KB), di cui vedrebbe
           comunque solo la fetta centrale. */}
-      <div className="intro-scrub-stage sticky top-0 h-dvh overflow-hidden bg-inchiostro bg-cover bg-center">
+      <div className="intro-scrub-stage sticky top-0 h-dvh overflow-hidden bg-inchiostro">
+        <picture className="pointer-events-none absolute inset-0 h-full w-full">
+          <source
+            media="(max-width: 767px) and (orientation: portrait)"
+            srcSet="/videos/convento-intro-poster-mobile.jpg"
+          />
+          <img
+            src="/videos/convento-intro-poster.jpg"
+            alt=""
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        </picture>
         <video
           ref={videoRef}
           /* Niente `src` qui: lo assegna l'effect dopo aver visto quanto è
@@ -316,7 +332,7 @@ export function IntroScrub() {
           preload="auto"
           aria-label="Video introduttivo del convento"
           className={cn(
-            "h-full w-full object-cover transition-opacity duration-300",
+            "relative h-full w-full object-cover transition-opacity duration-300",
             ready ? "opacity-100" : "opacity-0",
           )}
         >
