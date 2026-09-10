@@ -89,7 +89,7 @@
   --calce-deep: #E9DEC6;                 /* Sabbia più profonda (footer, sezioni) */
   --pietra: #5B7186;                     /* Grigio-cielo (testo secondario) */
   --pietra-soft: #EADFC8;                /* Corda chiara (pannelli, decori) */
-  --cotto: #4D93B8;                      /* Corda/canapa scura (accento primario) */
+  --cotto: #1E6285;                      /* Corda/canapa scura (accento primario) */
   --cotto-foreground: #FFF8EA;           /* Crema su corda */
   --salvia: #2E6FA3;                     /* Blu cielo profondo (link, accenti) */
   --salvia-soft: #D9EAF6;                /* Cielo pallido (sfondi badge) */
@@ -111,7 +111,7 @@
   --secondary: var(--salvia-soft);
   --secondary-foreground: var(--salvia-foreground);
   --muted: #EDE4D1;
-  --muted-foreground: #66727E;
+  --muted-foreground: #475664;
   --accent: var(--salvia-soft);
   --accent-foreground: var(--salvia-foreground);
   --destructive: #C24C33;

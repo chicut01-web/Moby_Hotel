@@ -93,7 +93,7 @@ export function SiteFooter() {
             </Link>
             <p>
               © {year} {SITE.org}. {t("rights")}
-              <span className="ml-2 opacity-70">{t("provisional")}</span>
+              <span className="ml-2 font-normal">({t("provisional")})</span>
             </p>
           </div>
         </div>

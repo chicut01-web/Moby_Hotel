@@ -314,11 +314,20 @@ export function IntroScrub() {
           // Scarica subito e in sequenza: così il buffer cresce da solo
           // invece di frammentarsi in una range request per ogni seek.
           preload="auto"
+          aria-label="Video introduttivo del convento"
           className={cn(
             "h-full w-full object-cover transition-opacity duration-300",
             ready ? "opacity-100" : "opacity-0",
           )}
-        />
+        >
+          <track
+            kind="captions"
+            src="/captions/empty.vtt"
+            srcLang="it"
+            label="Senza audio"
+            default
+          />
+        </video>
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-t from-inchiostro/50 via-transparent to-inchiostro/20"

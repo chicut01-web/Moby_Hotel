@@ -294,7 +294,7 @@ export default async function HomePage({
                 text={t("cta.title")}
                 className="text-3xl text-cotto-foreground sm:text-4xl"
               />
-              <p className="mt-4 leading-relaxed text-cotto-foreground/85">
+              <p className="mt-4 leading-relaxed text-cotto-foreground">
                 {t("cta.body")}
               </p>
               <Button

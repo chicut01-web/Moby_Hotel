@@ -93,7 +93,10 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
                riga di testo alta 22px da centrare col dito. */
             className="h-auto coarse:h-11 px-0 text-cotto hover:bg-transparent hover:text-cotto/80"
           >
-            <Link href={{ pathname: "/prenota", query: { room: room.id } }}>
+            <Link
+              href={{ pathname: "/prenota", query: { room: room.id } }}
+              aria-label={`${t("card.request")} - ${name}`}
+            >
               {t("card.request")}
               <MapTrailArrow className="ml-1" />
             </Link>
