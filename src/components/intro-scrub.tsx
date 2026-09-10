@@ -114,22 +114,12 @@ export function IntroScrub() {
       applySource();
     }
 
-    if (!mq.matches) {
-      avvia();
-    } else {
-      segnali.forEach((s) =>
-        window.addEventListener(s, avvia, { passive: true }),
-      );
-      if (document.readyState === "complete") avvia();
-      else window.addEventListener("load", avvia);
-      /* I segnali esistono solo da quando React ha idratato, e su una
-         prima visita lenta l'idratazione può arrivare tardi: chi ha
-         scorso nel frattempo avrebbe comunque aspettato `load`. Ma se la
-         pagina non è più in cima, quel gesto c'è già stato — vale come se
-         l'avessimo sentito. Copre anche il ritorno indietro su una pagina
-         ripristinata a metà. */
-      if (window.scrollY > 0) avvia();
-    }
+    segnali.forEach((s) =>
+      window.addEventListener(s, avvia, { passive: true }),
+    );
+    if (document.readyState === "complete") avvia();
+    else window.addEventListener("load", avvia, { once: true });
+    if (window.scrollY > 0) avvia();
     mq.addEventListener("change", applySource);
 
     const onLoaded = () => setReady(true);
@@ -257,13 +247,16 @@ export function IntroScrub() {
     const onPronto = () => onScroll();
     video.addEventListener("loadedmetadata", onPronto);
 
-    // Prima lettura al frame successivo: niente setState sincrono
-    // nel corpo dell'effect.
-    const first = requestAnimationFrame(onScroll);
+    // Prima lettura al frame successivo solo se la pagina non è in cima:
+    // a scroll 0 lo stage è già 0 e non serve forzare un reflow iniziale.
+    let first = 0;
+    if (window.scrollY > 0) {
+      first = requestAnimationFrame(onScroll);
+    }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
-      cancelAnimationFrame(first);
+      if (first) cancelAnimationFrame(first);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       video.removeEventListener("loadedmetadata", onPronto);
