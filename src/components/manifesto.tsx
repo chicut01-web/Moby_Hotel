@@ -28,8 +28,8 @@ export function Manifesto() {
       className="relative overflow-hidden bg-cielo pt-20 pb-48 sm:pt-28 sm:pb-52"
     >
       <ArchColonnade
-        count={8}
-        className="pointer-events-none absolute bottom-0 left-1/2 h-40 w-[48rem] max-w-none -translate-x-1/2 text-carta"
+        count={4}
+        className="pointer-events-none absolute bottom-0 left-1/2 h-36 w-80 max-w-none -translate-x-1/2 text-carta sm:h-40 sm:w-[26rem]"
       />
       <Container className="relative">
         <p className="eyebrow">{t("eyebrow")}</p>

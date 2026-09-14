@@ -7,6 +7,7 @@ import { RoomCard } from "@/components/room-card";
 import { Reveal } from "@/components/reveal";
 import { TiltCard } from "@/components/tilt-card";
 import { getActiveRooms } from "@/lib/rooms";
+import { roomCoverImage } from "@/lib/room-images";
 import type { Locale } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/seo";
@@ -40,7 +41,7 @@ export default async function CamerePage({
   setRequestLocale(locale);
   const t = await getTranslations("camere");
   const tn = await getTranslations("nav");
-  const rooms = await getActiveRooms();
+  const rooms = (await getActiveRooms()).filter((r) => Boolean(roomCoverImage(r)));
 
   return (
     <>

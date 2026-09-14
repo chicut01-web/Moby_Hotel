@@ -37,7 +37,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
             className="flex h-full w-full items-end justify-center bg-gradient-to-b from-cielo/50 to-carta"
           >
             <ArchColonnade
-              count={5}
+              count={4}
               className="w-[88%] text-blu/25"
             />
           </div>

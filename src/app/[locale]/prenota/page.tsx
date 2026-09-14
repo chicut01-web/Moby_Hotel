@@ -13,6 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getActiveRooms } from "@/lib/rooms";
+import { roomCoverImage } from "@/lib/room-images";
 import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -58,11 +59,13 @@ export default async function PrenotaPage({
   const tc = await getTranslations("contatti");
   const tf = await getTranslations("faq");
 
-  const rooms: BookingRoomOption[] = (await getActiveRooms()).map((r) => ({
-    id: r.id,
-    name: locale === "en" ? r.name_en : r.name_it,
-    capacity: r.capacity,
-  }));
+  const rooms: BookingRoomOption[] = (await getActiveRooms())
+    .filter((r) => Boolean(roomCoverImage(r)))
+    .map((r) => ({
+      id: r.id,
+      name: locale === "en" ? r.name_en : r.name_it,
+      capacity: r.capacity,
+    }));
 
   return (
     <>

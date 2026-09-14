@@ -74,9 +74,7 @@ export default async function HomePage({
    * le foto mancassero del tutto la home mostrerebbe comunque tre camere.
    */
   const tutte = await getActiveRooms();
-  const conFoto = tutte.filter((r) => roomCoverImage(r));
-  const senzaFoto = tutte.filter((r) => !roomCoverImage(r));
-  const rooms = [...conFoto, ...senzaFoto].slice(0, 3);
+  const rooms = tutte.filter((r) => Boolean(roomCoverImage(r))).slice(0, 3);
 
   return (
     <>
@@ -268,8 +266,8 @@ export default async function HomePage({
           <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-blu-scuro px-7 py-14 text-carta sm:px-14">
             <ArchColonnade
-              count={9}
-              className="pointer-events-none absolute bottom-0 right-6 h-28 w-[32rem] max-w-none text-carta/15"
+              count={4}
+              className="pointer-events-none absolute bottom-0 right-6 h-28 w-72 max-w-none text-carta/15 sm:w-80"
             />
             <div className="relative max-w-xl">
               <InkReveal

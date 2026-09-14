@@ -42,7 +42,7 @@ export function ConsentMap({
   return (
     <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-4 bg-gradient-to-b from-cielo/50 to-carta px-6 text-center">
       <ArchColonnade
-        count={5}
+        count={4}
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-blu-testo/25"
       />

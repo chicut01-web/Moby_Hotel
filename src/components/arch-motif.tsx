@@ -16,7 +16,7 @@ const BARRA_H = 48.3;
 
 export function ArchColonnade({
   className,
-  count = 5,
+  count = 4,
   base = true,
 }: {
   className?: string;

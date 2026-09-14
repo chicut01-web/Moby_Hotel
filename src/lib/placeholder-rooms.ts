@@ -20,7 +20,7 @@ export const PLACEHOLDER_ROOMS: Room[] = [
     price_per_night: 25,
     is_accessible: false,
     images: [],
-    is_active: true,
+    is_active: false,
   },
   {
     id: "ph-camerata-pellegrini",
@@ -36,7 +36,7 @@ export const PLACEHOLDER_ROOMS: Room[] = [
     price_per_night: 22,
     is_accessible: false,
     images: [],
-    is_active: true,
+    is_active: false,
   },
   {
     id: "ph-camera-pozzo",
