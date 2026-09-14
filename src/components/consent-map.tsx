@@ -40,16 +40,16 @@ export function ConsentMap({
   }
 
   return (
-    <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-4 bg-gradient-to-b from-salvia-soft/50 to-calce px-6 text-center">
+    <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-4 bg-gradient-to-b from-cielo/50 to-carta px-6 text-center">
       <ArchColonnade
         count={5}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-salvia/25"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-blu-testo/25"
       />
-      <MapPin className="size-6 text-cotto" aria-hidden="true" />
+      <MapPin className="size-6 text-blu-scuro" aria-hidden="true" />
       <div className="relative">
-        <p className="font-serif text-xl">{t("consentTitle")}</p>
-        <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-salvia">
+        <p className="text-xl font-bold">{t("consentTitle")}</p>
+        <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-blu-testo">
           {t("consentBody")}
         </p>
       </div>

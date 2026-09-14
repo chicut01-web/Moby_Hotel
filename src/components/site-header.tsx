@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Magnetic } from "@/components/magnetic";
+import { HeyLogo } from "@/components/hey-logo";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -28,19 +29,17 @@ function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
+/* Nell'intestazione il logo secondario — HEY! e payoff, senza la corona di
+   archi — che è quello indicato dal manuale per l'header dei siti web. */
 function Brand({ onClick }: { onClick?: () => void }) {
   return (
     <Link
       href="/"
       onClick={onClick}
-      className="group flex flex-col justify-center leading-none coarse:min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm"
+      aria-label="HEY! Hub for European Youth"
+      className="group flex items-center coarse:min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm"
     >
-      <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cotto">
-        Hub for
-      </span>
-      <span className="font-serif text-xl tracking-tight text-foreground">
-        European Youth
-      </span>
+      <HeyLogo variante="scritta" decorativo priority className="h-10 w-auto sm:h-11" />
     </Link>
   );
 }
@@ -51,7 +50,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-calce/85 backdrop-blur supports-[backdrop-filter]:bg-calce/70">
+    <header className="sticky top-0 z-40 border-b border-border/70 bg-carta/85 backdrop-blur supports-[backdrop-filter]:bg-carta/70">
       <a
         href="#contenuto"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
@@ -75,15 +74,13 @@ export function SiteHeader() {
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 isActive(pathname, item.href)
                   ? "text-foreground"
-                  : "text-pietra hover:text-foreground",
+                  : "text-blu-testo hover:text-foreground",
               )}
             >
               <span className="relative">
                 {t(item.key)}
                 {isActive(pathname, item.href) ? (
-                  <svg className="absolute -bottom-1.5 left-0 h-1 w-full text-cotto" viewBox="0 0 100 10" preserveAspectRatio="none">
-                    <path d="M0,5 Q25,0 50,5 T100,5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
+                  <span aria-hidden="true" className="absolute -bottom-1.5 left-0 h-0.5 w-full rounded-full bg-blu" />
                 ) : null}
               </span>
             </Link>
@@ -114,14 +111,9 @@ export function SiteHeader() {
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-80 bg-calce p-0">
+            <SheetContent side="right" className="w-80 bg-carta p-0">
               <SheetTitle className="border-b border-border/70 p-5">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cotto">
-                  Hub for
-                </span>
-                <span className="block font-serif text-xl">
-                  European Youth
-                </span>
+                <HeyLogo variante="scritta" className="h-11 w-auto" />
               </SheetTitle>
               <nav className="flex flex-col p-3" aria-label="Mobile">
                 {NAV.map((item) => (
@@ -132,7 +124,7 @@ export function SiteHeader() {
                         isActive(pathname, item.href) ? "page" : undefined
                       }
                       className={cn(
-                        "rounded-lg px-4 py-3 font-serif text-lg transition-colors",
+                        "rounded-lg px-4 py-3 text-lg font-semibold transition-colors",
                         isActive(pathname, item.href)
                           ? "bg-secondary text-secondary-foreground"
                           : "text-foreground hover:bg-muted",

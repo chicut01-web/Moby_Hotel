@@ -285,7 +285,7 @@ export function IntroScrub() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-inchiostro/50 via-transparent to-inchiostro/20"
+          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/50 via-transparent to-blu-scuro/20"
         />
         <p className="intro-scrub-step is-active">{t("steps.porta")}</p>
       </section>
@@ -300,7 +300,7 @@ export function IntroScrub() {
           style inline perché così il telefono in verticale scarica il
           taglio verticale (80KB) invece del 16:9 (216KB), di cui vedrebbe
           comunque solo la fetta centrale. */}
-      <div className="intro-scrub-stage sticky top-0 h-dvh overflow-hidden bg-inchiostro">
+      <div className="intro-scrub-stage sticky top-0 h-dvh overflow-hidden bg-blu-scuro">
         <picture className="pointer-events-none absolute inset-0 h-full w-full">
           <source
             media="(max-width: 767px) and (orientation: portrait)"
@@ -346,7 +346,7 @@ export function IntroScrub() {
         </video>
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-inchiostro/50 via-transparent to-inchiostro/20"
+          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/50 via-transparent to-blu-scuro/20"
         />
         {STEPS.map((key, i) => (
           <p
@@ -359,7 +359,7 @@ export function IntroScrub() {
         {/* Uscita: la home emerge dal volo, niente taglio netto */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-calce"
+          className="pointer-events-none absolute inset-0 bg-carta"
           style={{ opacity: "var(--exit, 0)" }}
         />
         <div

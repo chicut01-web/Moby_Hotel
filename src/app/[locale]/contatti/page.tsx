@@ -81,7 +81,7 @@ export default async function ContattiPage({
             <dl className="grid gap-px overflow-hidden rounded-2xl border border-border/70 bg-border/70 sm:grid-cols-2">
               {items.map(({ Icon, label, value, href }) => (
                 <div key={label} className="bg-card p-6">
-                  <dt className="flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                  <dt className="flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro">
                     <Icon className="size-4" aria-hidden="true" />
                     {label}
                   </dt>
@@ -89,7 +89,7 @@ export default async function ContattiPage({
                     {href ? (
                       <a
                         href={href}
-                        className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
+                        className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-blu-scuro"
                       >
                         {value}
                       </a>
@@ -118,9 +118,9 @@ export default async function ContattiPage({
               sizes="(max-width: 1024px) 100vw, 55vw"
               className="object-cover transition-[filter] duration-500 group-hover:brightness-110"
             />
-            <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-border/60 bg-calce/90 px-4 py-2 backdrop-blur">
-              <MapPin className="size-4 text-cotto" aria-hidden="true" />
-              <span className="font-serif text-lg text-foreground">
+            <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-border/60 bg-carta/90 px-4 py-2 backdrop-blur">
+              <MapPin className="size-4 text-blu-scuro" aria-hidden="true" />
+              <span className="text-lg font-semibold text-foreground">
                 {SITE.locality}
               </span>
             </div>
@@ -139,32 +139,32 @@ export default async function ContattiPage({
               </p>
               <dl className="mt-6 space-y-4 text-sm text-foreground">
                 <div>
-                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro">
                     {t("org.operationalLabel")}
                   </dt>
                   <dd className="mt-0.5">{SITE.orgOperational}</dd>
                 </div>
                 <div>
-                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro">
                     {t("org.legalLabel")}
                   </dt>
                   <dd className="mt-0.5">{SITE.orgLegal}</dd>
                 </div>
                 <div>
-                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro">
                     {t("org.pecLabel")}
                   </dt>
                   <dd className="mt-0.5">
                     <a
                       href={`mailto:${SITE.pec}`}
-                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
+                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-blu-scuro"
                     >
                       {SITE.pec}
                     </a>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro">
                     {t("org.hoursLabel")}
                   </dt>
                   <dd className="mt-0.5">{t("org.hours")}</dd>
@@ -174,7 +174,7 @@ export default async function ContattiPage({
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="overflow-hidden rounded-3xl border border-border/70 shadow-[0_24px_50px_-32px_var(--inchiostro)]">
+            <div className="overflow-hidden rounded-3xl border border-border/70 shadow-[0_24px_50px_-32px_var(--blu-scuro)]">
               <ConsentMap
                 src={MAPS_EMBED_URL}
                 title={t("map.iframeTitle")}

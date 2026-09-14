@@ -97,26 +97,26 @@ export default async function PrenotaPage({
               </p>
               <dl className="mt-6 space-y-3 text-sm">
                 <div>
-                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro">
                     {tc("info.emailLabel")}
                   </dt>
                   <dd className="mt-0.5">
                     <a
                       href={`mailto:${SITE.email}`}
-                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
+                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-blu-scuro"
                     >
                       {SITE.email}
                     </a>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cotto">
+                  <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro">
                     {tc("info.pecLabel")}
                   </dt>
                   <dd className="mt-0.5">
                     <a
                       href={`mailto:${SITE.pec}`}
-                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-cotto"
+                      className="inline-flex items-center coarse:min-h-11 transition-colors hover:text-blu-scuro"
                     >
                       {SITE.pec}
                     </a>
@@ -125,7 +125,7 @@ export default async function PrenotaPage({
               </dl>
               <ArchColonnade
                 count={4}
-                className="mt-7 h-10 w-36 text-salvia/50"
+                className="mt-7 h-10 w-36 text-blu-testo/50"
               />
             </div>
           </aside>
@@ -143,7 +143,7 @@ export default async function PrenotaPage({
             <Accordion type="single" collapsible className="mt-8">
               {FAQ_KEYS.map((key) => (
                 <AccordionItem key={key} value={key}>
-                  <AccordionTrigger className="text-left font-serif text-lg hover:text-cotto hover:no-underline">
+                  <AccordionTrigger className="text-left text-lg font-semibold hover:text-blu-testo hover:no-underline">
                     {tf(`items.${key}.q`)}
                   </AccordionTrigger>
                   <AccordionContent className="leading-relaxed text-muted-foreground">

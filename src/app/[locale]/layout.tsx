@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Fraunces, Mulish } from "next/font/google";
+import { Inter } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
@@ -9,19 +9,15 @@ import { SITE } from "@/lib/site";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PageFade } from "@/components/page-fade";
-import { MapCursorTrail } from "@/components/map-cursor-trail";
-import { ScrollRouteProgress } from "@/components/scroll-route-progress";
 import { StructuredData } from "@/components/structured-data";
 import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: "swap",
-});
-
-const mulish = Mulish({
+/**
+ * Inter per l'intero sito: lo stesso carattere dei manifesti e del payoff
+ * del logo HEY!. È variabile: un solo file porta tutti i pesi (da Regular 400 a Black 900).
+ */
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -33,10 +29,10 @@ export function generateStaticParams() {
 
 /**
  * Su telefono la barra del browser si tinge di `themeColor`: senza,
- * resta grigia sopra la calce del sito e si vede lo stacco.
+ * resta grigia sopra il bianco del sito e si vede lo stacco.
  */
 export const viewport: Viewport = {
-  themeColor: "#E5DDD0",
+  themeColor: "#ffffff",
   colorScheme: "light",
 };
 
@@ -78,17 +74,15 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${fraunces.variable} ${mulish.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
-      <body className="bg-calce-texture flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
           <SiteHeader />
           <main id="contenuto" className="flex-1">
             <PageFade>{children}</PageFade>
           </main>
           <SiteFooter />
-          <MapCursorTrail />
-          <ScrollRouteProgress />
         </NextIntlClientProvider>
         <StructuredData />
         <Analytics />

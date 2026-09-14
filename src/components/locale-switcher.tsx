@@ -30,7 +30,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background",
               isActive
                 ? "bg-secondary text-secondary-foreground"
-                : "text-pietra hover:text-foreground",
+                : "text-blu-testo hover:text-foreground",
             )}
           >
             <span className="sr-only">{t(loc)}</span>

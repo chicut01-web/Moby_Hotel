@@ -6,7 +6,6 @@ import {
   Waves,
   type LucideIcon,
 } from "lucide-react";
-import { CompassRose } from "@/components/compass-rose";
 import { MapMarker } from "@/components/map-marker";
 import { cn } from "@/lib/utils";
 
@@ -23,10 +22,10 @@ const POIS: ReadonlyArray<{
   y: number;
   accent: string;
 }> = [
-  { key: "sentieri", Icon: Footprints, x: 18, y: 22, accent: "text-cotto border-cotto/50" },
-  { key: "cascate", Icon: Waves, x: 76, y: 18, accent: "text-salvia border-salvia/50" },
-  { key: "parco", Icon: TreePine, x: 15, y: 68, accent: "text-salvia border-salvia/50" },
-  { key: "gusto", Icon: UtensilsCrossed, x: 78, y: 72, accent: "text-tramonto border-tramonto/50" },
+  { key: "sentieri", Icon: Footprints, x: 18, y: 22, accent: "text-blu-scuro border-blu-scuro/50" },
+  { key: "cascate", Icon: Waves, x: 76, y: 18, accent: "text-blu-testo border-blu-testo/50" },
+  { key: "parco", Icon: TreePine, x: 15, y: 68, accent: "text-blu-testo border-blu-testo/50" },
+  { key: "gusto", Icon: UtensilsCrossed, x: 78, y: 72, accent: "text-blu border-blu/50" },
 ];
 
 /** Rotte tratteggiate da Acerno (400,250) verso i POI, in unità viewBox. */
@@ -38,7 +37,7 @@ const ROUTES = [
 ];
 
 /**
- * Carta illustrata dei Picentini nello stile "carta nautica" del brand:
+ * Carta illustrata dei Picentini:
  * curve di livello a inchiostro, rotte tratteggiate da Acerno ai punti
  * di interesse, marker con etichette sempre visibili (niente
  * tooltip-only) e anello pulse decorativo (spento con reduced-motion).
@@ -60,7 +59,7 @@ export function TerritoryMap() {
         className="absolute inset-0 h-full w-full"
       >
         {/* Curve di livello e crinali, a inchiostro tenue */}
-        <g stroke="var(--inchiostro)" strokeOpacity="0.07" strokeWidth="1.5">
+        <g stroke="var(--blu-scuro)" strokeOpacity="0.07" strokeWidth="1.5">
           <path d="M 60 180 Q 140 120 230 150 T 380 130" />
           <path d="M 100 220 Q 180 170 270 195 T 420 175" />
           <path d="M 420 430 Q 520 385 620 415 T 780 395" />
@@ -69,7 +68,7 @@ export function TerritoryMap() {
           <path d="M 60 420 Q 130 390 210 410" />
         </g>
         {/* Vette stilizzate */}
-        <g stroke="var(--inchiostro)" strokeOpacity="0.18" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round">
+        <g stroke="var(--blu-scuro)" strokeOpacity="0.18" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round">
           <path d="M 250 82 L 268 56 L 286 82" />
           <path d="M 292 88 L 306 68 L 320 88" />
           <path d="M 660 300 L 676 276 L 692 300" />
@@ -77,7 +76,7 @@ export function TerritoryMap() {
         </g>
         {/* Rotte tratteggiate da Acerno ai punti di interesse */}
         <g
-          stroke="var(--salvia)"
+          stroke="var(--blu-testo)"
           strokeOpacity="0.4"
           strokeWidth="2"
           strokeLinecap="round"
@@ -94,8 +93,8 @@ export function TerritoryMap() {
         className="absolute -translate-x-1/2 -translate-y-1/2 text-center"
         style={{ left: "50%", top: "48%" }}
       >
-        <CompassRose className="mx-auto size-11 text-inchiostro/70 sm:size-14" />
-        <span className="mt-1 block text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-cotto sm:text-[0.65rem]">
+        <span aria-hidden="true" className="mx-auto block size-4 rounded-full bg-blu-scuro ring-8 ring-blu/20 sm:size-5" />
+        <span className="mt-1 block text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-blu-scuro sm:text-[0.65rem]">
           {t("acerno")}
         </span>
       </div>
@@ -118,7 +117,7 @@ export function TerritoryMap() {
             />
             <Icon className="m-auto size-4 sm:size-5" aria-hidden="true" />
           </MapMarker>
-          <span className="mt-1.5 block max-w-24 text-[0.6rem] font-semibold uppercase leading-tight tracking-[0.12em] text-inchiostro/80 sm:max-w-none sm:text-[0.65rem]">
+          <span className="mt-1.5 block max-w-24 text-[0.6rem] font-semibold uppercase leading-tight tracking-[0.12em] text-blu-scuro/80 sm:max-w-none sm:text-[0.65rem]">
             {t(`items.${key}`)}
           </span>
         </div>

@@ -14,9 +14,9 @@
 
 /*
   Hub for European Youth — design tokens.
-  Concept: "Corda & Cielo" — carta nautica alla luce del giorno: tela di vela
-  chiara, corda/canapa, blu cielo, inchiostro navy. Il tramonto resta come
-  accento raro.
+  Identità HEY! (manuale in style/): il blu del logo, il blu scuro, Inter
+  sia per i titoli (Black 900) che per il testo (Regular 400), e gli archi del
+  convento come segno grafico. Niente elementi marini.
 */
 
 @theme inline {
@@ -24,24 +24,17 @@
   --color-foreground: var(--foreground);
 
   --font-sans: var(--font-sans);
-  --font-serif: var(--font-serif);
-  --font-heading: var(--font-serif);
+  --font-heading: var(--font-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Palette materica (utilities: bg-calce, text-cotto, border-pietra/30, ...) */
-  --color-calce: var(--calce);
-  --color-calce-deep: var(--calce-deep);
-  --color-pietra: var(--pietra);
-  --color-pietra-soft: var(--pietra-soft);
-  --color-cotto: var(--cotto);
-  --color-cotto-foreground: var(--cotto-foreground);
-  --color-salvia: var(--salvia);
-  --color-salvia-soft: var(--salvia-soft);
-  --color-salvia-foreground: var(--salvia-foreground);
-  --color-ocra: var(--ocra);
-  --color-ocra-foreground: var(--ocra-foreground);
-  --color-inchiostro: var(--inchiostro);
-  --color-tramonto: var(--tramonto);
+  /* Palette HEY! (utilities: bg-blu, text-blu-scuro, border-cielo, ...) */
+  --color-blu: var(--blu);
+  --color-blu-scuro: var(--blu-scuro);
+  --color-blu-testo: var(--blu-testo);
+  --color-nero: var(--nero);
+  --color-cielo: var(--cielo);
+  --color-carta: var(--carta);
+  --color-grigio: var(--grigio);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -84,53 +77,56 @@
 :root {
   --radius: 0.5rem;
 
-  /* Palette "corda e cielo": vela, canapa, cielo, inchiostro navy */
-  --calce: #E5DDD0;                      /* Tela di vela / carta nautica chiara (sfondo) */
-  --calce-deep: #E9DEC6;                 /* Sabbia più profonda (footer, sezioni) */
-  --pietra: #5B7186;                     /* Grigio-cielo (testo secondario) */
-  --pietra-soft: #EADFC8;                /* Corda chiara (pannelli, decori) */
-  --cotto: #1E6285;                      /* Corda/canapa scura (accento primario) */
-  --cotto-foreground: #FFF8EA;           /* Crema su corda */
-  --salvia: #2E6FA3;                     /* Blu cielo profondo (link, accenti) */
-  --salvia-soft: #D9EAF6;                /* Cielo pallido (sfondi badge) */
-  --salvia-foreground: #1D4568;          /* Blu oceano su cielo pallido */
-  --ocra: #C9A86A;                       /* Corda dorata / ottone chiaro */
-  --ocra-foreground: #241903;            /* Testo scuro su ocra */
-  --inchiostro: #0F3D4C;                 /* Petrolio profondo del brand (testo primario) */
-  --tramonto: #D96B3F;                   /* Arancio tramonto (accento raro) */
+  /* Palette HEY! — dal manuale del logo (style/logo hey!defrgb.pdf).
+     I tre colori del manuale sono blu, blu scuro e nero; gli altri sono
+     derivati, e ognuno dice perché esiste. */
+  --blu: #448bab;          /* il blu del logo: titoli grandi, fondi, decori */
+  --blu-scuro: #214e6d;    /* testo, bottoni, titoli: 8,8:1 sul bianco */
+  --nero: #000000;         /* variante nera del logo */
+  /* Il blu del logo fa 3,8:1 sul bianco: basta per i titoli grandi, non
+     per il testo piccolo (AA chiede 4,5). Questo è lo stesso blu scurito
+     quanto basta per passare su tutti e tre i fondi del sito:
+     5,6 bianco · 5,0 grigio · 4,5 cielo. */
+  --blu-testo: #316f8b;
+  --cielo: #ddeaf0;        /* velatura del blu, come gli archi chiari del manuale */
+  --carta: #ffffff;
+  /* PROVVISORIO: il grigio chiaro per staccare le sezioni è ancora da
+     decidere. Cambiando solo questo valore si aggiorna tutto il sito. */
+  --grigio: #f1f3f4;
 
   /* Token semantici shadcn mappati sulla palette */
-  --background: var(--calce);
-  --foreground: var(--inchiostro);
-  --card: #F6F1E7;
-  --card-foreground: var(--inchiostro);
-  --popover: #F6F1E7;
-  --popover-foreground: var(--inchiostro);
-  --primary: var(--cotto);
-  --primary-foreground: var(--cotto-foreground);
-  --secondary: var(--salvia-soft);
-  --secondary-foreground: var(--salvia-foreground);
-  --muted: #EDE4D1;
-  --muted-foreground: #475664;
-  --accent: var(--salvia-soft);
-  --accent-foreground: var(--salvia-foreground);
-  --destructive: #C24C33;
-  --border: #D9C9A8;
-  --input: #E4D8BE;
-  --ring: var(--cotto);
-  --chart-1: var(--cotto);
-  --chart-2: var(--salvia);
-  --chart-3: var(--ocra);
-  --chart-4: var(--pietra);
-  --chart-5: var(--tramonto);
-  --sidebar: #F6F1E7;
-  --sidebar-foreground: var(--inchiostro);
-  --sidebar-primary: var(--cotto);
-  --sidebar-primary-foreground: var(--cotto-foreground);
-  --sidebar-accent: var(--salvia-soft);
-  --sidebar-accent-foreground: var(--salvia-foreground);
-  --sidebar-border: #D9C9A8;
-  --sidebar-ring: var(--cotto);
+  --background: var(--carta);
+  --foreground: var(--blu-scuro);
+  --card: var(--carta);
+  --card-foreground: var(--blu-scuro);
+  --popover: var(--carta);
+  --popover-foreground: var(--blu-scuro);
+  --primary: var(--blu-scuro);
+  --primary-foreground: var(--carta);
+  --secondary: var(--cielo);
+  --secondary-foreground: var(--blu-scuro);
+  --muted: var(--grigio);
+  /* Testo secondario: 6,7 bianco · 6,0 grigio · 5,4 cielo */
+  --muted-foreground: #4a5f6e;
+  --accent: var(--cielo);
+  --accent-foreground: var(--blu-scuro);
+  --destructive: #b3261e;
+  --border: #d5e2e8;
+  --input: #7a97a6;
+  --ring: var(--blu);
+  --chart-1: var(--blu-scuro);
+  --chart-2: var(--blu);
+  --chart-3: var(--blu-testo);
+  --chart-4: #4a5f6e;
+  --chart-5: var(--cielo);
+  --sidebar: var(--carta);
+  --sidebar-foreground: var(--blu-scuro);
+  --sidebar-primary: var(--blu-scuro);
+  --sidebar-primary-foreground: var(--carta);
+  --sidebar-accent: var(--cielo);
+  --sidebar-accent-foreground: var(--blu-scuro);
+  --sidebar-border: #d5e2e8;
+  --sidebar-ring: var(--blu);
 }
 
 @layer base {
@@ -139,6 +135,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-weight: 400;
     font-feature-settings: "ss01", "cv01";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -188,83 +185,31 @@
     }
   }
 
+  /* Titoli: Inter Black (peso 900) per i titoli come nei manifesti del brand */
   h1, h2, h3, h4 {
-    @apply font-serif;
-    font-weight: 460;
-    letter-spacing: -0.012em;
+    @apply font-heading;
+    font-weight: 900;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
   p {
     text-wrap: pretty;
   }
   ::selection {
-    background: var(--cotto);
-    color: var(--cotto-foreground);
+    background: var(--blu-scuro);
+    color: var(--carta);
   }
 }
 
 @layer utilities {
-  /* Filo d'inchiostro sottile usato come decoro editoriale */
+  /* Occhiello sopra i titoli */
   .eyebrow {
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     font-size: 0.72rem;
-    color: var(--cotto);
-  }
-  /* Texture tela di vela: cielo in alto, sabbia in basso, grana di carta */
-  .bg-calce-texture {
-    background-color: var(--calce);
-    background-image:
-      radial-gradient(ellipse at top, rgba(74, 147, 200, 0.08) 0%, transparent 60%),
-      radial-gradient(ellipse at bottom, rgba(168, 123, 66, 0.06) 0%, transparent 70%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  }
-
-  /* Animazione onde SVG */
-  @keyframes wave-move {
-    0% { transform: translate3d(-90px, 0, 0); }
-    100% { transform: translate3d(85px, 0, 0); }
-  }
-  
-  .animate-wave-slow {
-    animation: wave-move 22s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-  }
-  .animate-wave-medium {
-    animation: wave-move 14s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-    animation-delay: -3s;
-  }
-  .animate-wave-fast {
-    animation: wave-move 9s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-    animation-delay: -5s;
-  }
-
-  /* Animazione bolle marine */
-  @keyframes float-bubble {
-    0% { transform: translateY(105%) translateX(0) scale(1); opacity: 0; }
-    10% { opacity: 0.35; }
-    90% { opacity: 0.35; }
-    100% { transform: translateY(-30px) translateX(25px) scale(1.1); opacity: 0; }
-  }
-
-  .bubble-item {
-    animation: float-bubble 10s infinite linear;
-    animation-fill-mode: both;
-  }
-
-  /* Nubi lente che attraversano il cielo */
-  @keyframes drift-cloud {
-    from {
-      transform: translateX(-25vw) scale(1);
-    }
-    to {
-      transform: translateX(125vw) scale(1.08);
-    }
-  }
-  .drift-cloud {
-    animation: drift-cloud linear infinite;
-    will-change: transform;
+    color: var(--blu-testo);
   }
 
   /*
@@ -301,40 +246,19 @@
     transition: opacity 0.4s ease;
     background: radial-gradient(
       120% 90% at 50% 0%,
-      rgba(201, 168, 106, 0.18),
+      rgba(68, 139, 171, 0.16),
       transparent 62%
     );
   }
   .lantern-card:hover {
-    border-color: rgba(168, 123, 66, 0.6);
+    border-color: rgba(68, 139, 171, 0.55);
     box-shadow:
-      0 0 0 1px rgba(168, 123, 66, 0.22),
-      0 0 34px -6px rgba(168, 123, 66, 0.3),
-      0 22px 55px -24px rgba(34, 54, 74, 0.35);
+      0 0 0 1px rgba(68, 139, 171, 0.22),
+      0 0 34px -6px rgba(68, 139, 171, 0.28),
+      0 22px 55px -24px rgba(33, 78, 109, 0.3);
     transform: translateY(-3px);
   }
   .lantern-card:hover::after {
-    opacity: 1;
-  }
-
-  /* Rotta di mappa antica: trattini che marciano lungo il percorso */
-  @keyframes map-dash {
-    to {
-      stroke-dashoffset: -14;
-    }
-  }
-  .map-trail-dash {
-    stroke-dasharray: 3.5 3.5;
-    stroke-dashoffset: 0;
-  }
-  .group:hover .map-trail-dash {
-    animation: map-dash 0.7s linear infinite;
-  }
-  .map-trail-x {
-    opacity: 0;
-    transition: opacity 0.35s ease 0.15s;
-  }
-  .group:hover .map-trail-x {
     opacity: 1;
   }
 
@@ -353,44 +277,6 @@
     to {
       transform: translateY(-4%) scale(1.12);
     }
-  }
-
-  /* Gabbiani in traversata */
-  @keyframes fly-across {
-    from {
-      transform: translateX(-8vw);
-    }
-    to {
-      transform: translateX(108vw);
-    }
-  }
-  @keyframes seagull-bob {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-9px);
-    }
-  }
-  .seagull-track {
-    position: absolute;
-    left: 0;
-    animation: fly-across linear infinite;
-    will-change: transform;
-  }
-  .seagull-bob {
-    animation: seagull-bob 2.6s ease-in-out infinite;
-  }
-
-  /* Rosa dei venti che ruota piano */
-  @keyframes slow-spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  .animate-slow-spin {
-    animation: slow-spin 90s linear infinite;
   }
 
   /* Titolo che si "scrive" a inchiostro, parola per parola: usata dal
@@ -414,116 +300,6 @@
     animation: ink-in 0.7s ease forwards;
   }
 
-  /* Veliero che attraversa l'orizzonte */
-  @keyframes sail-across {
-    from {
-      transform: translateX(-10vw);
-    }
-    to {
-      transform: translateX(108vw);
-    }
-  }
-  @keyframes sail-roll {
-    0%,
-    100% {
-      transform: rotate(-2.5deg) translateY(0);
-    }
-    50% {
-      transform: rotate(2.5deg) translateY(-4px);
-    }
-  }
-  .sail-track {
-    position: absolute;
-    left: 0;
-    animation: sail-across 75s linear infinite;
-    will-change: transform;
-  }
-  .sail-roll {
-    animation: sail-roll 5s ease-in-out infinite;
-    transform-origin: 50% 90%;
-  }
-
-  /* Tentacoli del kraken che ondeggiano dietro l'onda del footer */
-  @keyframes kraken-sway {
-    0%,
-    100% {
-      transform: rotate(-5deg);
-    }
-    50% {
-      transform: rotate(6deg);
-    }
-  }
-  .kraken-tentacle {
-    transform-origin: 50% 100%;
-    animation: kraken-sway 7s ease-in-out infinite;
-  }
-
-  /* Fascio del faro che spazza l'orizzonte */
-  @keyframes beam-sweep {
-    0% {
-      transform: translateX(-70vw) skewX(-18deg);
-      opacity: 0;
-    }
-    6% {
-      opacity: 0.55;
-    }
-    40% {
-      opacity: 0.55;
-    }
-    52% {
-      transform: translateX(115vw) skewX(-18deg);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(115vw) skewX(-18deg);
-      opacity: 0;
-    }
-  }
-  .lighthouse-beam {
-    position: absolute;
-    top: -10%;
-    bottom: -10%;
-    width: 9rem;
-    pointer-events: none;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 248, 224, 0.5) 50%,
-      transparent
-    );
-    mix-blend-mode: soft-light;
-    animation: beam-sweep 11s ease-in-out infinite;
-    will-change: transform, opacity;
-  }
-
-  /* Pesciolino che salta ad arco fuori dall'onda */
-  @keyframes fish-arc {
-    0%,
-    77% {
-      transform: translateY(14px) rotate(38deg);
-      opacity: 0;
-    }
-    79% {
-      opacity: 0.75;
-    }
-    86% {
-      transform: translateY(-44px) rotate(0deg);
-      opacity: 0.75;
-    }
-    93% {
-      transform: translateY(14px) rotate(-38deg);
-      opacity: 0.75;
-    }
-    95%,
-    100% {
-      opacity: 0;
-    }
-  }
-  .fish-jumper {
-    animation: fish-arc 9s ease-in-out infinite;
-    will-change: transform, opacity;
-  }
-
   /* Riflesso "shine" che attraversa i bottoni primari */
   .btn-shine {
     position: relative;
@@ -536,7 +312,7 @@
     background: linear-gradient(
       115deg,
       transparent 32%,
-      rgba(255, 252, 240, 0.4) 50%,
+      rgba(255, 255, 255, 0.35) 50%,
       transparent 68%
     );
     transform: translateX(-130%);
@@ -562,11 +338,13 @@
     max-width: 52rem;
     padding-inline: 1.5rem;
     text-align: center;
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
+    font-weight: 900;
+    letter-spacing: -0.02em;
     font-size: clamp(1.7rem, 4.2vw, 3.4rem);
     line-height: 1.15;
     color: #f6f1e7;
-    text-shadow: 0 2px 28px rgba(15, 61, 76, 0.65);
+    text-shadow: 0 2px 28px rgba(33, 78, 109, 0.65);
     opacity: 0;
     translate: 0 1.2rem;
     transition:
@@ -586,7 +364,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
-    color: rgba(246, 241, 231, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     transition: opacity 0.5s ease;
     pointer-events: none;
   }
@@ -603,158 +381,10 @@
     }
   }
 
-  /* Manifesto "traversata": la sezione si aggancia (sticky) e lo scroll
-     verticale scorre un binario orizzontale di 300vw con le tre
-     dichiarazioni. Lo SCRUB (binario, inchiostro della rotta, barchetta,
-     parallasse di costa) è guidato da Motion in manifesto-voyage.tsx —
-     useScroll + useSpring, cross-browser — quindi qui resta solo il
-     layout pinnato; con prefers-reduced-motion il componente rende un
-     racconto verticale statico che non usa queste classi. */
-  /* NIENTE overflow:hidden sulla sezione: la renderebbe uno scroll
-     container e lo sticky del pin si aggancerebbe a lei, non al
-     viewport. Il clipping del binario da 300vw lo fa il pin. */
-  .manifesto-voyage {
-    position: relative;
-    height: 400vh;
-  }
-  .manifesto-pin {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    /* Su mobile la barra indirizzi cambia l'altezza reale: dvh la segue */
-    height: 100dvh;
-    overflow: hidden;
-  }
-  /* Sfondo di costa mosso da Motion a metà velocità: parallasse vera */
-  .manifesto-far {
-    position: absolute;
-    inset: 0;
-    width: 200vw;
-    will-change: transform;
-  }
-  .manifesto-eyebrow {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-  }
-  .manifesto-track {
-    position: relative;
-    display: flex;
-    width: 300vw;
-    height: 100%;
-    will-change: transform;
-  }
-  .manifesto-leg {
-    position: relative;
-    display: flex;
-    flex: 0 0 100vw;
-    align-items: center;
-    padding: 0 clamp(1.5rem, 8vw, 7rem);
-  }
-  /* Ritmo asimmetrico: partenza a sinistra, largo al centro, approdo
-     spinto a destra */
-  .manifesto-leg:nth-of-type(2) {
-    justify-content: center;
-  }
-  .manifesto-leg:nth-of-type(3) {
-    justify-content: flex-end;
-  }
-  .manifesto-num {
-    position: absolute;
-    right: clamp(0.5rem, 4vw, 4rem);
-    top: 50%;
-    translate: 0 -50%;
-    z-index: -1;
-    font-size: clamp(9rem, 26vw, 22rem);
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 2px
-      color-mix(in oklab, var(--inchiostro) 14%, transparent);
-    user-select: none;
-  }
-  /* Su schermi stretti la stessa rotta diventa illeggibile: 3000 unità
-     compresse in ~1170px triplicano ogni pendenza, e la curva pensata
-     come rotta di mare si alza a cappio sopra il titolo. Qui viene
-     appiattita (scaleY 0.267) e abbassata sotto il testo, restando UN
-     SOLO tracciato — niente seconda stringa da tenere allineata. La
-     barchetta la segue da sola: legge la matrice completa con getCTM(),
-     che questa trasformazione la contiene già. */
-  @media (max-width: 767px) {
-    .manifesto-route {
-      transform-box: view-box;
-      transform-origin: 0 0;
-      transform: translate(0, 531px) scaleY(0.267);
-    }
-    /* I porti: l'appiattimento della rotta compensa quasi esattamente
-       lo stiramento dell'SVG (ne escono ovali 1.385, contro 1.42 del
-       desktop), quindi la forma va già bene da sé. Vanno solo ingranditi,
-       perché a questa scala orizzontale sarebbero puntini da 5px. */
-    .manifesto-port {
-      transform-box: fill-box;
-      transform-origin: center;
-      transform: scale(2.2);
-    }
-  }
-
-  /* La barchetta sta FUORI dall'SVG della carta nautica: quello è
-     stirato in modo non uniforme (3000×800 su 300vw×100dvh) e le
-     schiacciava lo scafo, molto su schermi stretti. Posizione e
-     rotazione le calcola il componente convertendo il punto del
-     tracciato con le due scale reali; qui resta solo il disegno. */
-  .manifesto-boat {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 5;
-    color: var(--inchiostro);
-    pointer-events: none;
-    /* Il transform lo scrive il componente a ogni frame. */
-    will-change: transform;
-  }
-  .manifesto-boat-svg {
-    display: block;
-    /* Tarata per restituire su desktop lo stesso peso visivo di prima
-       (~110px di scafo), senza però portarsi dietro lo stiramento. */
-    width: clamp(3rem, 7.2vw, 7rem);
-    height: auto;
-    /* Centrata sul punto della rotta, non appesa per l'angolo. */
-    translate: -50% -50%;
-  }
-  /* Mare mosso credibile: sollevamento e beccheggio su periodi
-     diversi (5.6s vs 4.1s) si sfasano da soli, niente altalena. */
-  .manifesto-boat-heave {
-    animation: boat-heave 5.6s ease-in-out infinite;
-  }
-  .manifesto-boat-pitch {
-    transform-origin: 50% 85%;
-    animation: boat-pitch 4.1s ease-in-out infinite;
-  }
-  @keyframes boat-heave {
-    0%,
-    100% {
-      translate: 0 0;
-    }
-    50% {
-      translate: 0 -3.5px;
-    }
-  }
-  @keyframes boat-pitch {
-    0%,
-    100% {
-      rotate: -1.5deg;
-    }
-    50% {
-      rotate: 1.8deg;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .lantern-card,
     .lantern-card:hover {
       transform: none;
-    }
-    .group:hover .map-trail-dash {
-      animation: none;
     }
     .btn-shine::after {
       display: none;
@@ -765,32 +395,7 @@
       filter: none;
       transform: none;
     }
-    .animate-wave-slow,
-    .animate-wave-medium,
-    .animate-wave-fast,
-    .bubble-item,
-    .drift-cloud,
-    .seagull-track,
-    .seagull-bob,
-    .sail-track,
-    .sail-roll,
-    .animate-slow-spin,
-    .parallax-drift,
-    .kraken-tentacle,
-    .lighthouse-beam,
-    .fish-jumper {
-      animation: none;
-    }
-    .lighthouse-beam,
-    .fish-jumper {
-      opacity: 0;
-    }
-    /* Traversata e linea del tempo: con reduced-motion i componenti
-       (manifesto-voyage.tsx, history-timeline.tsx) rendono già la
-       versione statica via useReducedMotion — niente da neutralizzare
-       qui. */
-    .manifesto-boat-heave,
-    .manifesto-boat-pitch {
+    .parallax-drift {
       animation: none;
     }
   }

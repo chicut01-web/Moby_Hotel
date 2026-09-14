@@ -15,11 +15,11 @@ import { InkReveal } from "@/components/ink-reveal";
 import { cn } from "@/lib/utils";
 
 const STAGES = [
-  { key: "fondazione", accent: "text-cotto", dot: "bg-cotto" },
-  { key: "vita", accent: "text-salvia", dot: "bg-salvia" },
-  { key: "terremoto", accent: "text-tramonto", dot: "bg-tramonto" },
-  { key: "recupero", accent: "text-salvia", dot: "bg-salvia" },
-  { key: "oggi", accent: "text-cotto", dot: "bg-cotto" },
+  { key: "fondazione", accent: "text-blu-scuro", dot: "bg-blu-scuro" },
+  { key: "vita", accent: "text-blu-testo", dot: "bg-blu-testo" },
+  { key: "terremoto", accent: "text-blu", dot: "bg-blu" },
+  { key: "recupero", accent: "text-blu-testo", dot: "bg-blu-testo" },
+  { key: "oggi", accent: "text-blu-scuro", dot: "bg-blu-scuro" },
 ] as const;
 
 /**
@@ -65,7 +65,7 @@ export function HistoryTimeline() {
             <path
               d="M 12 6 V 994"
               pathLength={1}
-              stroke="var(--inchiostro)"
+              stroke="var(--blu-scuro)"
               strokeOpacity="0.15"
               strokeWidth="2"
               strokeDasharray="0.018 0.013"
@@ -73,7 +73,7 @@ export function HistoryTimeline() {
             />
             <motion.path
               d="M 12 6 V 994"
-              stroke="var(--salvia)"
+              stroke="var(--blu-testo)"
               strokeOpacity="0.5"
               strokeWidth="2.5"
               strokeLinecap="round"
@@ -88,14 +88,14 @@ export function HistoryTimeline() {
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "absolute left-[6px] top-2.5 size-3 rounded-full ring-4 ring-calce",
+                    "absolute left-[6px] top-2.5 size-3 rounded-full ring-4 ring-carta",
                     dot,
                   )}
                 />
                 <Reveal delay={i * 90}>
                   <p
                     className={cn(
-                      "font-serif text-2xl italic sm:text-3xl",
+                      "font-heading text-2xl font-black sm:text-3xl",
                       accent,
                     )}
                   >

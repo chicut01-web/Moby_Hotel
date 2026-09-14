@@ -35,10 +35,10 @@ function Sezione({
   return (
     <Reveal>
       <section className="border-t border-border/60 py-10">
-        <h2 className="font-serif text-2xl leading-tight sm:text-3xl">
+        <h2 className="text-2xl leading-tight sm:text-3xl">
           {title}
         </h2>
-        <div className="mt-5 space-y-4 text-lg leading-relaxed text-salvia">
+        <div className="mt-5 space-y-4 text-lg leading-relaxed text-blu-testo">
           {children}
         </div>
       </section>
@@ -64,19 +64,19 @@ export default async function PrivacyPage({
 
       <Container className="pb-24">
         <div className="mx-auto max-w-2xl">
-          <p className="text-sm text-pietra">{t("updated")}</p>
+          <p className="text-sm text-blu-testo">{t("updated")}</p>
 
           <Sezione title={t("controller.title")}>
             <p>{t("controller.body")}</p>
             <dl className="grid gap-3 rounded-2xl border border-border/70 bg-card/60 p-5 text-base sm:grid-cols-2">
               <div>
-                <dt className="text-sm text-pietra">
+                <dt className="text-sm text-blu-testo">
                   {t("controller.legal")}
                 </dt>
                 <dd className="mt-1">{SITE.orgLegal}</dd>
               </div>
               <div>
-                <dt className="text-sm text-pietra">
+                <dt className="text-sm text-blu-testo">
                   {t("controller.operational")}
                 </dt>
                 <dd className="mt-1">{SITE.orgOperational}</dd>
@@ -86,14 +86,14 @@ export default async function PrivacyPage({
               {t("controller.contact")}{" "}
               <a
                 href={`mailto:${SITE.email}`}
-                className="text-cotto underline underline-offset-4 coarse:inline-flex coarse:min-h-11 coarse:items-center"
+                className="text-blu-scuro underline underline-offset-4 coarse:inline-flex coarse:min-h-11 coarse:items-center"
               >
                 {SITE.email}
               </a>{" "}
               — PEC{" "}
               <a
                 href={`mailto:${SITE.pec}`}
-                className="text-cotto underline underline-offset-4 coarse:inline-flex coarse:min-h-11 coarse:items-center"
+                className="text-blu-scuro underline underline-offset-4 coarse:inline-flex coarse:min-h-11 coarse:items-center"
               >
                 {SITE.pec}
               </a>
@@ -103,13 +103,13 @@ export default async function PrivacyPage({
 
           <Sezione title={t("collected.title")}>
             <p>{t("collected.body")}</p>
-            <h3 className="pt-2 font-serif text-xl text-foreground">
+            <h3 className="pt-2 text-xl text-foreground">
               {t("collected.formTitle")}
             </h3>
             <ul className="space-y-2">
               {raccolti.map((voce) => (
                 <li key={voce} className="flex gap-3">
-                  <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-cotto" />
+                  <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-blu-scuro" />
                   <span>{voce}</span>
                 </li>
               ))}
@@ -131,7 +131,7 @@ export default async function PrivacyPage({
             <ul className="space-y-2">
               {fornitori.map((voce) => (
                 <li key={voce} className="flex gap-3">
-                  <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-salvia" />
+                  <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-blu-testo" />
                   <span>{voce}</span>
                 </li>
               ))}
@@ -141,7 +141,7 @@ export default async function PrivacyPage({
 
           <Sezione title={t("cookies.title")}>
             <p>{t("cookies.body")}</p>
-            <h3 className="pt-2 font-serif text-xl text-foreground">
+            <h3 className="pt-2 text-xl text-foreground">
               {t("cookies.mapsTitle")}
             </h3>
             <p>{t("cookies.mapsBody")}</p>

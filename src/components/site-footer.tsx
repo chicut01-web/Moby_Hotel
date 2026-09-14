@@ -1,10 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/container";
-import { ArchColonnade } from "@/components/arch-motif";
-import { WaveDivider } from "@/components/wave-divider";
-import { Bubbles } from "@/components/bubbles";
-import { Kraken } from "@/components/kraken";
+import { HeyLogo } from "@/components/hey-logo";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -20,29 +17,14 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 bg-calce-deep">
-      <div className="relative">
-        <Kraken />
-        <WaveDivider
-          flipped={true}
-          waveColorClass="fill-calce-deep"
-          className="relative -translate-y-px"
-        />
-      </div>
+    <footer className="mt-24 bg-grigio pt-2">
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-sm">
-            <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cotto">
-              Hub for
-            </span>
-            <p className="mt-1 font-serif text-2xl">European Youth</p>
+            <HeyLogo className="h-24 w-auto" />
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {t("about.body")}
             </p>
-            <div className="relative mt-6 flex items-end gap-5">
-              <ArchColonnade count={5} className="h-12 w-44 text-salvia/60" />
-              <Bubbles className="inset-y-0 right-0 w-24" />
-            </div>
           </div>
 
           <nav aria-label="Footer" className="flex flex-col gap-3">
@@ -53,7 +35,7 @@ export function SiteFooter() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-cotto"
+                className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-blu-scuro"
               >
                 {tn(item.key)}
               </Link>
@@ -67,13 +49,13 @@ export function SiteFooter() {
             <p className="text-sm text-muted-foreground">{SITE.address}</p>
             <a
               href={`mailto:${SITE.email}`}
-              className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-cotto"
+              className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-blu-scuro"
             >
               {SITE.email}
             </a>
             <a
               href={`mailto:${SITE.pec}`}
-              className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-cotto"
+              className="w-fit coarse:inline-flex coarse:min-h-11 coarse:items-center text-sm text-muted-foreground transition-colors hover:text-blu-scuro"
             >
               PEC: {SITE.pec}
             </a>
@@ -87,7 +69,7 @@ export function SiteFooter() {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <Link
               href="/privacy"
-              className="coarse:inline-flex coarse:min-h-11 coarse:items-center underline underline-offset-4 transition-colors hover:text-cotto"
+              className="coarse:inline-flex coarse:min-h-11 coarse:items-center underline underline-offset-4 transition-colors hover:text-blu-scuro"
             >
               {t("privacy")}
             </Link>

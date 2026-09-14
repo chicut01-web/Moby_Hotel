@@ -32,8 +32,8 @@ type AdminRequest = {
 };
 
 const statusStyles: Record<AdminRequest["status"], string> = {
-  pending: "bg-ocra/15 text-ocra-foreground border-ocra/30",
-  confirmed: "bg-salvia-soft text-salvia-foreground border-salvia/30",
+  pending: "bg-blu/15 text-blu-scuro border-blu/30",
+  confirmed: "bg-cielo text-blu-scuro border-blu-testo/30",
   declined: "bg-destructive/10 text-destructive border-destructive/25",
 };
 
@@ -109,7 +109,7 @@ export default async function AdminPage({
                         >
                           {t(`status.${r.status}`)}
                         </Badge>
-                        <span className="text-xs uppercase tracking-wide text-pietra">
+                        <span className="text-xs uppercase tracking-wide text-blu-testo">
                           {r.locale}
                         </span>
                       </div>
@@ -123,18 +123,18 @@ export default async function AdminPage({
                       <p className="mt-1 text-sm text-muted-foreground">
                         <a
                           href={`mailto:${r.guest_email}`}
-                          className="hover:text-cotto"
+                          className="hover:text-blu-scuro"
                         >
                           {r.guest_email}
                         </a>
                         {r.guest_phone ? <> · {r.guest_phone}</> : null}
                       </p>
                       {r.message ? (
-                        <p className="mt-3 border-l-2 border-pietra-soft pl-3 text-sm italic text-muted-foreground">
+                        <p className="mt-3 border-l-2 border-cielo pl-3 text-sm italic text-muted-foreground">
                           «{r.message}»
                         </p>
                       ) : null}
-                      <p className="mt-3 text-xs text-pietra">
+                      <p className="mt-3 text-xs text-blu-testo">
                         {t("requestedOn")}{" "}
                         {format.dateTime(new Date(r.created_at), {
                           day: "numeric",

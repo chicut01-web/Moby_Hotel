@@ -55,3 +55,7 @@ next-env.d.ts
 # Scatti originali della struttura (50 file, 130MB): restano fuori dal
 # repo. Le versioni web ottimizzate stanno in public/images/.
 /DEF/
+
+# Manuali di stile e asset sorgente (PDF pesanti)
+/style/
+

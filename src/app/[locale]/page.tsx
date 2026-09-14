@@ -6,20 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
 import { RoomCard } from "@/components/room-card";
-import { WaveDivider } from "@/components/wave-divider";
 import { Reveal } from "@/components/reveal";
-import { Seagulls } from "@/components/seagulls";
-import { CompassRose } from "@/components/compass-rose";
-import { SailboatCrossing } from "@/components/sailboat";
-import { Clouds } from "@/components/clouds";
-import { OceanWaves } from "@/components/ocean-waves";
-import { Bubbles } from "@/components/bubbles";
 import { TiltCard } from "@/components/tilt-card";
 import { Magnetic } from "@/components/magnetic";
 import { InkReveal } from "@/components/ink-reveal";
 import { CountUp } from "@/components/count-up";
-import { FishJump } from "@/components/fish-jump";
-import { ManifestoVoyage } from "@/components/manifesto-voyage";
+import { Manifesto } from "@/components/manifesto";
 import { IntroScrub } from "@/components/intro-scrub";
 
 /** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
@@ -92,10 +84,7 @@ export default async function HomePage({
       <IntroScrub />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-salvia-soft/50 via-calce to-calce pt-6">
-        <Clouds />
-        <Seagulls />
-        <CompassRose className="animate-slow-spin pointer-events-none absolute -right-16 -top-16 size-64 opacity-[0.07]" />
+      <section className="relative overflow-hidden bg-gradient-to-b from-cielo/50 via-carta to-carta pt-6">
         <Container className="relative grid gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
           <div>
             <p
@@ -106,7 +95,7 @@ export default async function HomePage({
             </p>
             <h1 className="mt-5 text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl">
               <InkWords text={t("hero.title")} startDelay={120} />
-              <span className="italic text-cotto">
+              <span className="text-blu">
                 <InkWords
                   text={t("hero.titleAccent")}
                   startDelay={120 + (t("hero.title").split(" ").length + 1) * 130}
@@ -143,7 +132,7 @@ export default async function HomePage({
             className="relative animate-in fade-in duration-1000"
             style={{ animationDelay: "180ms", animationFillMode: "both" }}
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[11rem] rounded-b-2xl ring-1 ring-border/70 shadow-[0_40px_80px_-50px_var(--inchiostro)]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[11rem] rounded-b-2xl ring-1 ring-border/70 shadow-[0_40px_80px_-50px_var(--blu-scuro)]">
               <div className="parallax-drift absolute inset-0">
                 <Image
                   src="/images/chiostro-alto.jpg"
@@ -156,19 +145,12 @@ export default async function HomePage({
               </div>
             </div>
             <div className="absolute -left-4 bottom-10 hidden rounded-xl border border-border/70 bg-card/90 px-4 py-3 backdrop-blur sm:block">
-              <p className="text-[0.65rem] uppercase tracking-[0.16em] text-cotto">
+              <p className="text-[0.65rem] uppercase tracking-[0.16em] text-blu-scuro">
                 {t("hero.imageAlt")}
               </p>
             </div>
           </div>
         </Container>
-
-        <OceanWaves className="h-28" />
-        <Bubbles className="bottom-0 h-28" />
-        <SailboatCrossing />
-        <FishJump />
-        <div aria-hidden="true" className="lighthouse-beam left-0" />
-        <WaveDivider waveColorClass="fill-background" className="translate-y-px" />
       </section>
 
       {/* Intro */}
@@ -179,7 +161,7 @@ export default async function HomePage({
             <InkReveal text={t("intro.title")} className="mt-4 text-3xl sm:text-4xl" />
             <ArchColonnade
               count={4}
-              className="mt-7 h-14 w-40 text-salvia/45"
+              className="mt-7 h-14 w-40 text-blu-testo/45"
             />
           </div>
           <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
@@ -189,16 +171,16 @@ export default async function HomePage({
         </Container>
       </section>
 
-      {/* Manifesto: traversata orizzontale guidata dallo scroll */}
-      <ManifestoVoyage />
+      {/* Manifesto: le tre frasi del manuale del logo */}
+      <Manifesto />
 
       {/* Stats band */}
-      <section className="border-y border-border/50 bg-calce-deep/40 py-12 sm:py-16">
+      <section className="border-y border-border/50 bg-grigio/40 py-12 sm:py-16">
         <Container>
           <p className="eyebrow text-center">{t("stats.eyebrow")}</p>
           <div className="mt-8 grid gap-8 text-center sm:grid-cols-3">
             <Reveal>
-              <span className="block font-serif text-4xl text-salvia sm:text-5xl">
+              <span className="block font-heading text-4xl font-black tracking-tight text-blu sm:text-5xl">
                 <CountUp value={Number(t("stats.years.value"))} suffix={t("stats.years.suffix")} />
               </span>
               <span className="mt-2 block text-sm text-muted-foreground">
@@ -206,7 +188,7 @@ export default async function HomePage({
               </span>
             </Reveal>
             <Reveal delay={120}>
-              <span className="block font-serif text-4xl text-salvia sm:text-5xl">
+              <span className="block font-heading text-4xl font-black tracking-tight text-blu sm:text-5xl">
                 <CountUp value={Number(t("stats.rooms.value"))} suffix={t("stats.rooms.suffix")} />
               </span>
               <span className="mt-2 block text-sm text-muted-foreground">
@@ -214,7 +196,7 @@ export default async function HomePage({
               </span>
             </Reveal>
             <Reveal delay={240}>
-              <span className="block font-serif text-4xl text-salvia sm:text-5xl">
+              <span className="block font-heading text-4xl font-black tracking-tight text-blu sm:text-5xl">
                 <CountUp value={Number(t("stats.altitude.value"))} suffix={t("stats.altitude.suffix")} />
               </span>
               <span className="mt-2 block text-sm text-muted-foreground">
@@ -233,7 +215,7 @@ export default async function HomePage({
             {HIGHLIGHTS.map(({ key, Icon }, i) => (
               <Reveal key={key} delay={i * 110} className="h-full">
                 <div className="lantern-card h-full rounded-2xl border border-border/70 bg-card p-7">
-                  <span className="inline-flex size-12 items-center justify-center rounded-full bg-secondary text-salvia-foreground">
+                  <span className="inline-flex size-12 items-center justify-center rounded-full bg-secondary text-blu-scuro">
                     <Icon className="size-5" aria-hidden="true" />
                   </span>
                   <h3 className="mt-5 text-xl">
@@ -284,23 +266,23 @@ export default async function HomePage({
       <section className="pb-4">
         <Container>
           <Reveal>
-          <div className="relative overflow-hidden rounded-3xl bg-cotto px-7 py-14 text-cotto-foreground sm:px-14">
+          <div className="relative overflow-hidden rounded-3xl bg-blu-scuro px-7 py-14 text-carta sm:px-14">
             <ArchColonnade
               count={9}
-              className="pointer-events-none absolute -bottom-2 right-0 h-44 w-[44rem] max-w-none text-cotto-foreground/15"
+              className="pointer-events-none absolute bottom-0 right-6 h-28 w-[32rem] max-w-none text-carta/15"
             />
             <div className="relative max-w-xl">
               <InkReveal
                 text={t("cta.title")}
-                className="text-3xl text-cotto-foreground sm:text-4xl"
+                className="text-3xl text-carta sm:text-4xl"
               />
-              <p className="mt-4 leading-relaxed text-cotto-foreground">
+              <p className="mt-4 leading-relaxed text-carta">
                 {t("cta.body")}
               </p>
               <Button
                 asChild
                 size="lg"
-                className="btn-shine mt-8 rounded-full bg-calce px-7 text-foreground hover:bg-calce/90"
+                className="btn-shine mt-8 rounded-full bg-carta px-7 text-foreground hover:bg-carta/90"
               >
                 <Magnetic>
                   <Link href="/prenota">{t("cta.button")}</Link>

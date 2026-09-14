@@ -181,16 +181,16 @@ export function BookingForm({
     return (
       <div
         role="status"
-        className="rounded-2xl border border-salvia/40 bg-salvia-soft px-8 py-14 text-center"
+        className="rounded-2xl border border-blu-testo/40 bg-cielo px-8 py-14 text-center"
       >
         <CheckCircle2
-          className="mx-auto size-10 text-salvia"
+          className="mx-auto size-10 text-blu-testo"
           aria-hidden="true"
         />
-        <h2 className="mt-5 text-2xl text-salvia-foreground">
+        <h2 className="mt-5 text-2xl text-blu-scuro">
           {t("success.title")}
         </h2>
-        <p className="mx-auto mt-3 max-w-md leading-relaxed text-salvia-foreground/90">
+        <p className="mx-auto mt-3 max-w-md leading-relaxed text-blu-scuro/90">
           {t("success.body", {
             room: submitted.room,
             checkIn: submitted.checkIn,
@@ -199,7 +199,7 @@ export function BookingForm({
         </p>
         <Button
           variant="outline"
-          className="mt-8 rounded-full border-salvia/50"
+          className="mt-8 rounded-full border-blu-testo/50"
           onClick={() => {
             setSubmitted(null);
             reset();
@@ -243,7 +243,7 @@ export function BookingForm({
             )}
           />
           {checkingAvailability ? (
-            <p className="mt-1.5 text-xs text-pietra" aria-live="polite">
+            <p className="mt-1.5 text-xs text-blu-testo" aria-live="polite">
               {t("form.availability.checking")}
             </p>
           ) : availableRooms !== null ? (
@@ -251,7 +251,7 @@ export function BookingForm({
               className={
                 availableRooms.length === 0
                   ? "mt-1.5 text-xs text-destructive"
-                  : "mt-1.5 text-xs text-salvia-foreground"
+                  : "mt-1.5 text-xs text-blu-scuro"
               }
               aria-live="polite"
             >
@@ -314,7 +314,7 @@ export function BookingForm({
               {...register("num_guests", { valueAsNumber: true })}
             />
             {selectedRoom ? (
-              <p id="hint-guests" className="mt-1.5 text-xs text-pietra">
+              <p id="hint-guests" className="mt-1.5 text-xs text-blu-testo">
                 {t("form.capacityHint", { count: selectedRoom.capacity })}
               </p>
             ) : null}
@@ -360,7 +360,7 @@ export function BookingForm({
         <div>
           <Label htmlFor="guest_phone">
             {t("form.phoneLabel")}{" "}
-            <span className="font-normal text-pietra">
+            <span className="font-normal text-blu-testo">
               ({t("form.optional")})
             </span>
           </Label>
@@ -377,7 +377,7 @@ export function BookingForm({
         <div>
           <Label htmlFor="message">
             {t("form.messageLabel")}{" "}
-            <span className="font-normal text-pietra">
+            <span className="font-normal text-blu-testo">
               ({t("form.optional")})
             </span>
           </Label>

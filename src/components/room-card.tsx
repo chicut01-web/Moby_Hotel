@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Accessibility, BedDouble, Users } from "lucide-react";
+import { Accessibility, ArrowRight, BedDouble, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { roomCoverImage } from "@/lib/room-images";
 import { ArchColonnade } from "@/components/arch-motif";
-import { MapTrailArrow } from "@/components/map-trail-arrow";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
 import type { Room } from "@/lib/types";
@@ -35,11 +34,11 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
              alternativo — il nome della camera è già nel titolo qui sotto. */
           <div
             aria-hidden="true"
-            className="flex h-full w-full items-end justify-center bg-gradient-to-b from-salvia-soft/50 to-calce"
+            className="flex h-full w-full items-end justify-center bg-gradient-to-b from-cielo/50 to-carta"
           >
             <ArchColonnade
               count={5}
-              className="w-[112%] max-w-none translate-y-px text-salvia/45"
+              className="w-[88%] text-blu/25"
             />
           </div>
         )}
@@ -55,7 +54,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
           </Badge>
           {/* Ente del Terzo Settore: niente prezzi sul sito, tariffe
               comunicate su richiesta */}
-          <p className="text-xs italic text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             {t("card.onRequest")}
           </p>
         </div>
@@ -65,7 +64,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
           {description}
         </p>
 
-        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-pietra">
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-blu-testo">
           <span className="inline-flex items-center gap-1.5">
             <Users className="size-3.5" aria-hidden="true" />
             {t("card.guests", { count: room.capacity })}
@@ -76,7 +75,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
           </span>
           {room.is_accessible ? (
             <span
-              className={cn("inline-flex items-center gap-1.5 text-salvia")}
+              className={cn("inline-flex items-center gap-1.5 text-blu-testo")}
             >
               <Accessibility className="size-3.5" aria-hidden="true" />
               {t("card.accessible")}
@@ -91,14 +90,14 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
             /* `h-auto` toglie l'altezza del bottone perché qui deve leggersi
                come un link; su schermo tattile la riprende, o resterebbe una
                riga di testo alta 22px da centrare col dito. */
-            className="h-auto coarse:h-11 px-0 text-cotto hover:bg-transparent hover:text-cotto/80"
+            className="h-auto coarse:h-11 px-0 text-blu-scuro hover:bg-transparent hover:text-blu-scuro/80"
           >
             <Link
               href={{ pathname: "/prenota", query: { room: room.id } }}
               aria-label={`${t("card.request")} - ${name}`}
             >
               {t("card.request")}
-              <MapTrailArrow className="ml-1" />
+              <ArrowRight className="ml-1 size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
             </Link>
           </Button>
         </div>

@@ -97,7 +97,7 @@ export default async function ConventoPage({
       <HistoryTimeline />
 
       {/* Spaces */}
-      <section className="bg-calce-deep py-16 sm:py-24">
+      <section className="bg-grigio py-16 sm:py-24">
         <Container>
           <div className="max-w-xl">
             <p className="eyebrow">{t("spaces.title")}</p>
@@ -106,7 +106,7 @@ export default async function ConventoPage({
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border/70 bg-border/70 md:grid-cols-3">
             {SPACES.map((key, i) => (
               <div key={key} className="bg-card p-7">
-                <span className="font-serif text-5xl text-salvia/40">
+                <span className="font-heading text-5xl font-black text-blu">
                   0{i + 1}
                 </span>
                 <h3 className="mt-4 text-xl">{t(`spaces.${key}.title`)}</h3>
@@ -124,9 +124,9 @@ export default async function ConventoPage({
         <Container className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-card">
             <div className="absolute inset-0 flex items-center justify-center p-10">
-              <ArchColonnade count={5} className="w-full text-pietra/30" />
+              <ArchColonnade count={5} className="w-full text-blu-testo/30" />
             </div>
-            <span className="absolute left-5 top-5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-pietra">
+            <span className="absolute left-5 top-5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-blu-testo">
               {t("plan.eyebrow")}
             </span>
           </div>

@@ -121,7 +121,7 @@ export function Lightbox({
               mai) va rifatto a ogni frame e costava un terzo dei
               fotogrammi dell'apertura — misurati 44fps contro 61. */}
           <motion.div
-            className="absolute inset-0 bg-calce/95"
+            className="absolute inset-0 bg-carta/95"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -172,7 +172,7 @@ export function Lightbox({
                   fill
                   draggable={false}
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="rounded-2xl object-contain shadow-[0_30px_80px_-30px_var(--inchiostro)]"
+                  className="rounded-2xl object-contain shadow-[0_30px_80px_-30px_var(--blu-scuro)]"
                 />
                 {/* Alta risoluzione: entra in dissolvenza quando è pronta */}
                 <Image
@@ -194,7 +194,7 @@ export function Lightbox({
           {/* Caption */}
           {img.alt ? (
             <motion.p
-              className="absolute bottom-6 left-1/2 z-10 max-w-lg -translate-x-1/2 text-center text-sm text-pietra"
+              className="absolute bottom-6 left-1/2 z-10 max-w-lg -translate-x-1/2 text-center text-sm text-blu-testo"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -238,7 +238,7 @@ export function Lightbox({
               </button>
 
               {/* Contatore */}
-              <span className="absolute left-1/2 top-5 z-10 -translate-x-1/2 text-xs font-medium text-pietra/70">
+              <span className="absolute left-1/2 top-5 z-10 -translate-x-1/2 text-xs font-medium text-blu-testo/70">
                 {current + 1} / {images.length}
               </span>
             </>
