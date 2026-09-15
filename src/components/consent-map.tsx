@@ -4,7 +4,6 @@ import { useState } from "react";
 import { MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { ArchColonnade } from "@/components/arch-motif";
 
 /**
  * La mappa di Google, ma non prima che qualcuno la chieda.
@@ -41,11 +40,6 @@ export function ConsentMap({
 
   return (
     <div className="relative flex aspect-[4/3] w-full flex-col items-center justify-center gap-4 bg-gradient-to-b from-cielo/50 to-carta px-6 text-center">
-      <ArchColonnade
-        count={4}
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-blu-testo/25"
-      />
       <MapPin className="size-6 text-blu-scuro" aria-hidden="true" />
       <div className="relative">
         <p className="text-xl font-bold">{t("consentTitle")}</p>
