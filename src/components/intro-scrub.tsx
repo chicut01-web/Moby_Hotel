@@ -155,7 +155,7 @@ export function IntroScrub() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/80 via-blu-scuro/10 to-blu-scuro/25"
+          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/90 via-blu-scuro/40 via-35% to-transparent"
         />
         <p className="intro-scrub-step is-active">{t("steps.porta")}</p>
       </section>
@@ -209,10 +209,10 @@ export function IntroScrub() {
           />
         </video>
 
-        {/* Sfumatura cinematografica per far risaltare il testo */}
+        {/* Sfumatura inferiore in blu scuro per far risaltare il testo e il pulsante scorri */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blu-scuro/85 via-blu-scuro/15 to-blu-scuro/30"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blu-scuro/90 via-blu-scuro/40 via-35% to-transparent"
         />
 
         {/* I 3 testi si alternano dolcemente col procedere del filmato */}
