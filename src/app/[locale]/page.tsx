@@ -4,9 +4,7 @@ import { Accessibility, Columns3, Mountain } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
-import { RoomCard } from "@/components/room-card";
 import { Reveal } from "@/components/reveal";
-import { TiltCard } from "@/components/tilt-card";
 import { Magnetic } from "@/components/magnetic";
 import { InkReveal } from "@/components/ink-reveal";
 import { CountUp } from "@/components/count-up";
@@ -14,8 +12,6 @@ import { Manifesto } from "@/components/manifesto";
 import { IntroScrub } from "@/components/intro-scrub";
 import { HeyLogo } from "@/components/hey-logo";
 
-import { getActiveRooms } from "@/lib/rooms";
-import { roomCoverImage } from "@/lib/room-images";
 import type { Locale } from "@/i18n/routing";
 
 // ISR: le camere arrivano dal DB, la pagina si rigenera senza rebuild.
@@ -35,19 +31,6 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-
-  /**
-   * In vetrina prima le camere che hanno una fotografia.
-   * L'elenco completo è ordinato per prezzo, e le camerate — le più
-   * economiche — finivano in home proprio mentre sono le uniche senza
-   * scatto: tre riquadri di cui due col solo motivo ad archi. Il
-   * segnaposto va bene in /camere, dove si sfoglia tutto; qui è la prima
-   * impressione. Chi non ha foto scala in fondo alla coda, non sparisce:
-   * se un giorno le camerate saranno fotografate, tornano da sole, e se
-   * le foto mancassero del tutto la home mostrerebbe comunque tre camere.
-   */
-  const tutte = await getActiveRooms();
-  const rooms = tutte.filter((r) => Boolean(roomCoverImage(r))).slice(0, 3);
 
   return (
     <>
@@ -182,7 +165,7 @@ export default async function HomePage({
       </section>
 
       {/* Highlights */}
-      <section className="pb-8">
+      <section className="pb-16 sm:pb-24">
         <Container>
           <h2 className="sr-only">{t("highlights.title")}</h2>
           <div className="grid gap-6 md:grid-cols-3">
@@ -199,37 +182,6 @@ export default async function HomePage({
                     {t(`highlights.${key}.body`)}
                   </p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Rooms preview */}
-      <section className="py-16 sm:py-24">
-        <Container>
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-xl">
-              <p className="eyebrow">{t("rooms.eyebrow")}</p>
-              <InkReveal text={t("rooms.title")} className="mt-3 text-3xl sm:text-4xl" />
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                {t("rooms.body")}
-              </p>
-            </div>
-            <Button
-              asChild
-              variant="outline"
-              className="shrink-0 rounded-full border-border/80"
-            >
-              <Link href="/camere">{t("rooms.cta")}</Link>
-            </Button>
-          </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rooms.map((room, i) => (
-              <Reveal key={room.id} delay={i * 110} className="h-full">
-                <TiltCard className="h-full">
-                  <RoomCard room={room} locale={locale} />
-                </TiltCard>
               </Reveal>
             ))}
           </div>
