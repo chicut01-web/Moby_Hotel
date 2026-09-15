@@ -85,14 +85,14 @@ export default async function HomePage({
 
         {/* Tutto a sinistra: Logo HEY! e sotto testi e call to action */}
         <Container className="relative z-10">
-          <div className="max-w-2xl text-left animate-in fade-in slide-in-from-bottom-3 duration-700">
-            {/* Logo HEY! completo in bianco */}
-            <div className="mb-7 sm:mb-9">
+          <div className="max-w-xl text-left animate-in fade-in slide-in-from-bottom-3 duration-700">
+            {/* Logo HEY! completo in bianco: proporzionato ed elegante */}
+            <div className="mb-5 sm:mb-6">
               <HeyLogo
                 variante="completo"
                 colore="bianco"
                 priority
-                className="w-32 sm:w-40 md:w-48 drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+                className="w-24 sm:w-28 md:w-32 drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
               />
             </div>
 
@@ -101,23 +101,23 @@ export default async function HomePage({
               {t("hero.eyebrow")}
             </p>
 
-            {/* Titolo principale a due colori */}
-            <h1 className="mt-4 font-heading text-3xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.04] drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
+            {/* Titolo principale a due colori in raffinato stile editoriale */}
+            <h1 className="mt-3.5 font-heading text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black tracking-tight text-white leading-[1.08] drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
               <span className="block">{t("hero.title")}</span>
               <span className="block text-[#7ec6e6]">{t("hero.titleAccent")}</span>
             </h1>
 
             {/* Sottotitolo */}
-            <p className="mt-6 max-w-xl text-base sm:text-lg lg:text-xl font-normal leading-relaxed text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+            <p className="mt-5 max-w-lg text-sm sm:text-base lg:text-lg font-normal leading-relaxed text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
               {t("hero.subtitle")}
             </p>
 
             {/* Pulsanti di azione */}
-            <div className="mt-9 flex flex-wrap gap-3.5">
+            <div className="mt-8 flex flex-wrap gap-3.5">
               <Button
                 asChild
                 size="lg"
-                className="btn-shine rounded-full bg-white px-8 font-bold text-blu-scuro hover:bg-white/90 shadow-2xl"
+                className="btn-shine rounded-full bg-white px-7 font-bold text-blu-scuro hover:bg-white/90 shadow-2xl"
               >
                 <Magnetic>
                   <Link href="/prenota">{t("hero.ctaPrimary")}</Link>
@@ -127,7 +127,7 @@ export default async function HomePage({
                 asChild
                 size="lg"
                 variant="outline"
-                className="rounded-full border-white/60 bg-black/25 px-8 font-medium text-white backdrop-blur-md hover:bg-white/20 hover:text-white"
+                className="rounded-full border-white/60 bg-black/25 px-7 font-medium text-white backdrop-blur-md hover:bg-white/20 hover:text-white"
               >
                 <Link href="/convento">{t("hero.ctaSecondary")}</Link>
               </Button>
