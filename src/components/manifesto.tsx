@@ -48,7 +48,7 @@ export function Manifesto() {
       <Container className="relative z-10">
         <div className="max-w-2xl text-left">
           {/* Eyebrow */}
-          <p className="text-sm sm:text-base font-bold uppercase tracking-[0.22em] text-[#9bd2eb] drop-shadow">
+          <p className="text-base sm:text-lg lg:text-xl font-bold uppercase tracking-[0.2em] text-[#9bd2eb] drop-shadow-md">
             {t("eyebrow")}
           </p>
 
