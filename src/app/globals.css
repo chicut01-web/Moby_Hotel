@@ -323,17 +323,9 @@
     transform: translateX(130%);
   }
 
-  /* Apertura a scrubbing: la sezione si aggancia e lo scroll scorre il
-     video (currentTime via JS in intro-scrub.tsx); qui solo layout e
-     dissolvenze delle scritte. */
-  /* 13 secondi di camminata. L'altezza decide quanto filmato passa a ogni
-     scatto di rotella, ed è la leva che conta per la fluidità: misurato con
-     rotella a scatti, da 420vh a 520vh ogni aggiornamento dello schermo
-     salta il 32% di filmato in meno, senza aggiungere ritardo. Allungare
-     invece lo smorzamento in intro-scrub.tsx toglieva poco e faceva
-     inseguire il video in ritardo. */
+  /* Apertura con video in loop continuo e fluido a piena altezza schermo */
   .intro-scrub {
-    height: 520vh;
+    height: 100dvh;
   }
   /* Fondo della scena: gestito con <picture> in intro-scrub.tsx per discovery immediata e fetchPriority high */
   .intro-scrub-step {
@@ -377,7 +369,7 @@
     gap: 0.4rem;
     color: rgba(255, 255, 255, 0.85);
     transition: opacity 0.5s ease;
-    pointer-events: none;
+    pointer-events: auto;
   }
   .intro-scrub-hint svg {
     animation: hint-dip 1.8s ease-in-out infinite;

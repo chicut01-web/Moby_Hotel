@@ -2,7 +2,6 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
-import { ArchColonnade } from "@/components/arch-motif";
 import { GalleryWithLightbox } from "@/components/gallery-with-lightbox";
 import { HistoryTimeline } from "@/components/history-timeline";
 import { InkReveal } from "@/components/ink-reveal";

@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils";
 
 const STEPS = ["monti", "chiostro", "porta"] as const;
 
-/* Media query come external store: funzioni stabili a livello modulo,
-   così useSyncExternalStore non risottoscrive a ogni render. */
+/* Media query come external store: funzioni stabili a livello modulo */
 const REDUCED_QUERY = "(prefers-reduced-motion: reduce)";
 const subscribeReduced = (onChange: () => void) => {
   const mq = window.matchMedia(REDUCED_QUERY);
@@ -19,27 +18,16 @@ const getReduced = () => window.matchMedia(REDUCED_QUERY).matches;
 const getServerSnapshot = () => false;
 
 /**
- * La camminata nel convento come apertura della home, governata dallo scroll:
- * la sezione si aggancia e lo scroll manda avanti e indietro il video,
- * con un filo di smorzamento che ammorbidisce gli scatti della rotella;
- * tre scritte si alternano sul filmato. Con prefers-reduced-motion
- * niente scrub: poster fermo e la scritta di benvenuto.
- *
- * Due tagli della stessa camminata. Su un telefono in verticale `object-fit:
- * cover` mostra solo il 26% della larghezza del 16:9: il resto viene
- * scaricato e decodificato per essere buttato. La versione verticale è
- * quella stessa fetta centrale, ritagliata in codifica invece che a
- * schermo — inquadratura identica. Dal girato del telefono (HEVC, 60fps,
- * 13 secondi) a H.264 tenendo i 60fps, con un keyframe ogni mezzo secondo
- * per lo scrub: 1440px e 3,7MB su desktop, 720×1280 e 2MB su telefono.
- * Il dimezzamento a 30fps risparmiava solo il 4%, e con uno scroll lento
- * da trackpad lasciava ogni immagine ferma per due aggiornamenti.
+ * Apertura della home con video in loop continuo e tranquillo:
+ * il video aereo scorre lentamente e dolcemente come nel girato originale
+ * senza costringere l'utente a uno scroll forzato di 520vh.
+ * Le tre scritte si alternano in sincronia col procedere del filmato.
+ * Con prefers-reduced-motion niente riproduzione: poster fisso e benvenuto.
  */
 const VIDEO_WIDE = "/videos/hey-intro.mp4";
 const VIDEO_PORTRAIT = "/videos/hey-intro-mobile.mp4";
-/* Solo telefoni in verticale: sopra questa soglia, o ruotando, il 16:9 è
-   di nuovo l'inquadratura giusta. */
 const PORTRAIT_QUERY = "(max-width: 767px) and (orientation: portrait)";
+
 export function IntroScrub() {
   const t = useTranslations("intro");
   const sectionRef = useRef<HTMLElement>(null);
@@ -51,30 +39,19 @@ export function IntroScrub() {
     getReduced,
     getServerSnapshot,
   );
-  /**
-   * Il video compare solo quando ha davvero dei fotogrammi da mostrare
-   * (`loadeddata`); prima resta il poster di fondo. Scaricarlo tutto in
-   * memoria come blob sembrava la mossa giusta — seek sempre immediati —
-   * ma è tutto-o-niente: su una connessione lenta lo scroll non muove
-   * nulla finché non è finito. Meglio il caricamento progressivo, con un
-   * file abbastanza leggero da riempirsi in fretta.
-   */
+
   useEffect(() => {
     if (reduced) return;
     const video = videoRef.current;
     if (!video) return;
 
-    /* Sorgente scelta qui e non nel JSX: un `src` assegnato dal client non
-       può far litigare server e browser sull'HTML iniziale, e non servono
-       hook in più. Ricontrolla alla rotazione, perché il taglio verticale
-       disteso in orizzontale mostrerebbe un frammento ingrandito; il punto
-       del filmato viene ripreso dov'era. */
     const mq = window.matchMedia(PORTRAIT_QUERY);
     const applySource = () => {
       const wanted = mq.matches ? VIDEO_PORTRAIT : VIDEO_WIDE;
       if (video.getAttribute("src") === wanted) return;
       const wasAt = video.currentTime;
       video.src = wanted;
+      video.load();
       if (wasAt > 0) {
         const restore = () => {
           video.currentTime = wasAt;
@@ -82,29 +59,15 @@ export function IntroScrub() {
         };
         video.addEventListener("loadedmetadata", restore);
       }
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay fallback se bloccato da risparmio energetico
+        });
+      }
     };
 
-    /* Il `src` non parte al montaggio. Con `preload="auto"` il filmato è
-       il 95% dei byte della pagina, e partendo subito si prendeva la
-       banda mentre l'immagine dell'hero doveva ancora arrivare: su 4G
-       lento questo da solo portava l'LCP a 5,2s.
-       Ma aspettare `load` e basta significava fermi 2,6 secondi, e chi
-       apre il sito e scorre subito vedeva l'intro non partire. Quindi
-       parte al PRIMO di due segnali: la pagina ha finito di caricare,
-       oppure la mano si muove. Chi scorre ha già detto cosa vuole, e per
-       lui il video parte lì; chi guarda e basta lascia la banda
-       all'immagine — ed è anche il caso che misura Lighthouse, che non
-       scorre mai. `wheel` e `touchstart` arrivano un attimo prima che la
-       pagina si muova davvero, così il download parte col gesto. */
-    /* Il rinvio vale solo sul telefono, ed è una questione di aritmetica.
-       Il taglio verticale pesa 1,5MB su una pagina che ne pesa 1,7: lì il
-       video è quasi tutto il peso, si prende la banda dell'immagine
-       dell'hero e da solo portava l'LCP a 5,2s — rimandarlo ha spostato
-       il punteggio da 77 a 86. Il 16:9 pesa 4,4MB, ma su desktop la banda
-       abbonda: il punteggio era 99 prima e 99 dopo. Lì il rinvio non
-       comprava niente e costava soltanto l'attesa prima che il volo
-       parta, che è la cosa che si vede. Quindi su schermo largo la
-       sorgente parte al montaggio, come è sempre stato. */
+    // Avvio progressivo: su desktop subito, su mobile dopo primo tocco/scroll o load
     const segnali = ["wheel", "touchstart", "scroll", "keydown"] as const;
     let avviato = false;
     const smettiDiAspettare = () => {
@@ -126,158 +89,58 @@ export function IntroScrub() {
       );
       if (document.readyState === "complete") avvia();
       else window.addEventListener("load", avvia);
-      /* I segnali esistono solo da quando React ha idratato, e su una
-         prima visita lenta l'idratazione può arrivare tardi: chi ha
-         scorso nel frattempo avrebbe comunque aspettato `load`. Ma se la
-         pagina non è più in cima, quel gesto c'è già stato — vale come se
-         l'avessimo sentito. Copre anche il ritorno indietro su una pagina
-         ripristinata a metà. */
       if (window.scrollY > 0) avvia();
     }
     mq.addEventListener("change", applySource);
 
-    const onLoaded = () => setReady(true);
-    if (video.readyState >= 2) setReady(true);
-    else video.addEventListener("loadeddata", onLoaded);
+    const onCanPlay = () => {
+      setReady(true);
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    };
+
+    if (video.readyState >= 2) {
+      setReady(true);
+      video.play().catch(() => {});
+    } else {
+      video.addEventListener("loadeddata", onCanPlay);
+      video.addEventListener("canplay", onCanPlay);
+    }
+
+    // Le tre scritte si alternano in sincronia col minutaggio del filmato (13.25s)
+    const onTimeUpdate = () => {
+      const duration = video.duration || 13.25;
+      const current = video.currentTime;
+      const ratio = duration > 0 ? current / duration : 0;
+      if (ratio < 0.35) {
+        setStage(0);
+      } else if (ratio < 0.7) {
+        setStage(1);
+      } else {
+        setStage(2);
+      }
+    };
+    video.addEventListener("timeupdate", onTimeUpdate);
 
     return () => {
       smettiDiAspettare();
       mq.removeEventListener("change", applySource);
-      video.removeEventListener("loadeddata", onLoaded);
+      video.removeEventListener("loadeddata", onCanPlay);
+      video.removeEventListener("canplay", onCanPlay);
+      video.removeEventListener("timeupdate", onTimeUpdate);
     };
   }, [reduced]);
 
-  useEffect(() => {
-    if (reduced) return;
-    const section = sectionRef.current;
-    const video = videoRef.current;
-    if (!section || !video) return;
-
-    let raf = 0;
-    let progress = 0;
-    let current = -1; // tempo-video inseguitore; -1 = da inizializzare
-    let lastTick = 0;
-
-    // Morbidezza su base TEMPO, non per-frame: la stessa identica
-    // sensazione a 60, 120 o 144Hz. TAU è la costante di tempo dello
-    // smorzamento esponenziale — l'unico numero da girare: più alto =
-    // più morbido e pigro, più basso = più secco (90ms ≈ il video si
-    // posa in circa un quarto di secondo).
-    const TAU_MS = 90;
-    // Quanto restare indietro dal bordo del buffer: un seek che atterra
-    // esattamente sull'ultimo fotogramma scaricato resta appeso in
-    // attesa del chunk dopo.
-    const SAFE_MARGIN = 0.25;
-
-    /**
-     * Fine del tratto scaricato **di seguito dall'inizio**, non della
-     * porzione più avanzata. È la distinzione che conta: ogni seek apre
-     * una richiesta a intervalli e spezza il buffer in isole tipo
-     * `[0-1.2][3.5-4.2]`. Leggere la fine dell'ultima isola (4.2) fa
-     * credere disponibile anche il buco in mezzo: il video ci si infila,
-     * il seek non si completa mai e l'immagine resta congelata. Con
-     * `preload="auto"` il download procede in ordine, quindi il tratto
-     * che parte da zero è l'unico di cui fidarsi.
-     */
-    const contiguousEnd = () => {
-      const b = video.buffered;
-      for (let i = 0; i < b.length; i++) {
-        if (b.start(i) <= 0.1) return b.end(i);
-      }
-      return 0;
-    };
-
-    // Un solo seek per volta: assegnare `currentTime` mentre il decoder
-    // sta ancora lavorando annulla il seek precedente, e a 60fps significa
-    // annullarlo per sempre — immagine ferma mentre `seeking` resta vero.
-    // Il prossimo parte quando il decoder ha finito, verso il target di
-    // quel momento: si autoregola alla velocità reale della macchina.
-    let seekPending = false;
-    const onSeeked = () => {
-      seekPending = false;
-    };
-    video.addEventListener("seeked", onSeeked);
-
-    const tick = (now: number) => {
-      const d = video.duration;
-      if (Number.isFinite(d) && d > 0) {
-        // Rete di sicurezza se `seeked` sfugge (succede su alcuni
-        // browser quando il seek finisce dove eravamo già).
-        if (seekPending && !video.seeking) seekPending = false;
-
-        let target = progress * (d - 0.05);
-
-        // MAI chiedere fotogrammi non ancora scaricati. Se la rete è
-        // indietro il video si posa sull'ultimo fotogramma sicuro e
-        // riprende da solo appena il buffer cresce (il loop resta acceso).
-        const safeEnd = Math.max(0, contiguousEnd() - SAFE_MARGIN);
-        const waitingOnBuffer = target > safeEnd;
-        if (waitingOnBuffer) target = safeEnd;
-
-        if (current < 0) current = video.currentTime;
-        const dt = lastTick ? Math.min(now - lastTick, 100) : 16.7;
-        current += (target - current) * (1 - Math.exp(-dt / TAU_MS));
-
-        // Sotto la durata di un fotogramma a 60fps (16,7ms): con 0,02 gli
-        // spostamenti di un solo fotogramma venivano ignorati e il video
-        // restava fermo a tratti mentre lo scroll avanzava.
-        if (!seekPending && Math.abs(video.currentTime - current) > 0.01) {
-          seekPending = true;
-          video.currentTime = current;
-        }
-
-        // Il loop resta acceso finché non ha raggiunto il punto voluto
-        // o finché sta aspettando rete; poi si spegne e riparte al
-        // prossimo scroll.
-        if (Math.abs(target - current) > 0.008 || waitingOnBuffer) {
-          lastTick = now;
-          raf = requestAnimationFrame(tick);
-          return;
-        }
-        current = target;
-        if (!seekPending) {
-          seekPending = true;
-          video.currentTime = target;
-        }
-      }
-      lastTick = 0;
-      raf = 0;
-    };
-
-    const onScroll = () => {
-      const r = section.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      progress = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
-      setStage(progress < 0.36 ? 0 : progress < 0.7 ? 1 : 2);
-      // Ultimo 10%: la home emerge dal volo (overlay calce via --exit).
-      const exit = progress > 0.9 ? (progress - 0.9) / 0.1 : 0;
-      section.style.setProperty("--exit", exit.toFixed(3));
-      if (!raf) raf = requestAnimationFrame(tick);
-    };
-
-    /* `tick` si spegne se il video non ha ancora una durata, e a
-       riaccenderlo è solo un altro evento di scroll. Da quando la
-       sorgente parte dopo `load`, chi scorre nei primi istanti spegne il
-       loop mentre il filmato è ancora per strada: poi si ferma, nessuno
-       scrolla più, e l'intro resta sul poster anche a video pronto.
-       Quando la durata arriva il loop va riacceso da qui. */
-    const onPronto = () => onScroll();
-    video.addEventListener("loadedmetadata", onPronto);
-
-    // Prima lettura al frame successivo: niente setState sincrono
-    // nel corpo dell'effect.
-    const first = requestAnimationFrame(onScroll);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(first);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      video.removeEventListener("loadedmetadata", onPronto);
-      video.removeEventListener("seeked", onSeeked);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [reduced]);
+  const scrollToHero = () => {
+    const nextSection = sectionRef.current?.nextElementSibling;
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+    }
+  };
 
   if (reduced) {
     return (
@@ -300,14 +163,12 @@ export function IntroScrub() {
   }
 
   return (
-    <section ref={sectionRef} className="intro-scrub relative">
-      {/* Il poster fa da fondo permanente: se il video non è ancora pronto
-          — o viene rimontato tornando sulla home — la scena resta comunque
-          quella giusta, mai uno schermo vuoto. Sta in CSS e non più in uno
-          style inline perché così il telefono in verticale scarica il
-          taglio verticale (80KB) invece del 16:9 (216KB), di cui vedrebbe
-          comunque solo la fetta centrale. */}
-      <div className="intro-scrub-stage sticky top-0 h-dvh overflow-hidden bg-blu-scuro">
+    <section
+      ref={sectionRef}
+      className="intro-scrub relative h-dvh w-full overflow-hidden bg-blu-scuro"
+    >
+      <div className="relative h-full w-full overflow-hidden">
+        {/* Poster di fondo per caricamento immediato */}
         <picture className="pointer-events-none absolute inset-0 h-full w-full">
           <source
             media="(max-width: 767px) and (orientation: portrait)"
@@ -324,22 +185,18 @@ export function IntroScrub() {
             className="h-full w-full object-cover"
           />
         </picture>
+
+        {/* Video in loop tranquillo a riproduzione automatica e silenziosa */}
         <video
           ref={videoRef}
-          /* Niente `src` qui: lo assegna l'effect dopo aver visto quanto è
-             largo lo schermo. Se ci fosse, il browser inizierebbe a
-             scaricare il file sbagliato prima ancora del montaggio.
-             Niente nemmeno `poster`: il video resta a opacità 0 fino a
-             `loadeddata`, quindi quell'immagine non si vedeva mai — era
-             solo un download in più, a carico di ogni visitatore. */
+          autoPlay
           muted
+          loop
           playsInline
-          // Scarica subito e in sequenza: così il buffer cresce da solo
-          // invece di frammentarsi in una range request per ogni seek.
           preload="auto"
           aria-label="Video introduttivo del convento"
           className={cn(
-            "relative h-full w-full object-cover transition-opacity duration-300",
+            "relative h-full w-full object-cover transition-opacity duration-700",
             ready ? "opacity-100" : "opacity-0",
           )}
         >
@@ -351,30 +208,41 @@ export function IntroScrub() {
             default
           />
         </video>
+
+        {/* Sfumatura cinematografica per far risaltare il testo */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/80 via-blu-scuro/10 to-blu-scuro/25"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blu-scuro/85 via-blu-scuro/15 to-blu-scuro/30"
         />
+
+        {/* I 3 testi si alternano dolcemente col procedere del filmato */}
         {STEPS.map((key, i) => (
           <p
             key={key}
-            className={cn("intro-scrub-step whitespace-pre-line", stage === i && "is-active")}
+            className={cn(
+              "intro-scrub-step whitespace-pre-line",
+              stage === i && "is-active",
+            )}
           >
             {t(`steps.${key}`)}
           </p>
         ))}
 
-        <div
-          aria-hidden="true"
-          className={cn(
-            "intro-scrub-hint",
-            stage === 0 ? "opacity-100" : "opacity-0",
-          )}
+        {/* Pulsante scorri per scendere subito all'hero con la foto del chiostro */}
+        <button
+          type="button"
+          onClick={scrollToHero}
+          aria-label={t("scrollHint")}
+          className="intro-scrub-hint group cursor-pointer border-none bg-transparent focus:outline-none"
         >
-          <span className="text-[0.65rem] uppercase tracking-[0.3em]">
+          <span className="text-[0.65rem] uppercase tracking-[0.3em] transition-colors group-hover:text-white">
             {t("scrollHint")}
           </span>
-          <svg viewBox="0 0 16 16" fill="none" className="size-4">
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            className="size-4 transition-transform group-hover:translate-y-0.5"
+          >
             <path
               d="M 3 6 L 8 11 L 13 6"
               stroke="currentColor"
@@ -383,7 +251,7 @@ export function IntroScrub() {
               strokeLinejoin="round"
             />
           </svg>
-        </div>
+        </button>
       </div>
     </section>
   );

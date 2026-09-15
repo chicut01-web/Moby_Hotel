@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { InkReveal } from "@/components/ink-reveal";
 import { ConsentMap } from "@/components/consent-map";
 import { MAPS_DIRECTIONS_URL, MAPS_EMBED_URL, SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
