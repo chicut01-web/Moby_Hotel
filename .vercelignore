@@ -20,6 +20,10 @@ DEF
 # Manuale e PDF del brand: materiale di riferimento, il sito non li serve.
 style
 
+# Documenti sorgente testi e test locali
+testi
+immagini_pagespeed_insight
+
 # Dipendenze e build: Vercel se li ricostruisce da sé.
 node_modules
 .next

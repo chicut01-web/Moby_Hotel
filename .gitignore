@@ -59,6 +59,7 @@ next-env.d.ts
 # Manuali di stile e asset sorgente (PDF pesanti)
 /style/
 
-# Documenti sorgente testi
+# Documenti sorgente testi e test locali
 /testi/
+/immagini_pagespeed_insight/
 
