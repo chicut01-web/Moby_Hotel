@@ -9,7 +9,7 @@
       },
       "camere": {
         "title": "Rooms and dorms · Hub for European Youth",
-        "description": "Group dorms and private rooms around the cloister: vaulted ceilings, terracotta, calm light. Availability and rates on request."
+        "description": "Group dorms and private rooms around the cloister: vaulted ceilings, terracotta, diffuse light. Availability and rates on request."
       },
       "contatti": {
         "title": "Contact and directions · Hub for European Youth",
@@ -17,7 +17,7 @@
       },
       "prenota": {
         "title": "Request a booking · Hub for European Youth",
-        "description": "Pick your dates and room: we save your request and get back to you to confirm. No online payment."
+        "description": "Pick your dates and room: we save your request and get back to you to confirm."
       },
       "privacy": {
         "title": "Privacy and cookie notice",
@@ -42,9 +42,9 @@
   "home": {
     "hero": {
       "eyebrow": "Acerno · Picentini Mountains",
-      "title": "A 17th-century convent,",
-      "titleAccent": "a home for those who walk",
-      "subtitle": "Simple, warm hospitality around a stone cloister. Dorms for groups, private rooms for families and travellers, a step away from the trails of the Park.",
+      "title": "A 17th-century cloister,",
+      "titleAccent": "a home for tomorrow's Europe",
+      "subtitle": "An ancient monastery becoming a place of encounter, training and growth for new European generations. Around a stone cloister, young people from all over Europe live, learn and share experiences in a simple, open and welcoming environment. An international hub where knowledge, cultures and ideas meet.",
       "ctaPrimary": "Request a booking",
       "ctaSecondary": "Discover the convent",
       "imageAlt": "Arcaded convent cloister with arches on stone columns"
@@ -53,7 +53,7 @@
       "eyebrow": "Who we are",
       "title": "A place that has welcomed for four centuries",
       "body1": "The Hub for European Youth is located inside the suggestive 17th-century Franciscan complex in the centre of Acerno, restored and given back to the community as a place of sustainable, accessible hospitality.",
-      "body2": "It is run by Moby Dick ETS, a non-profit social enterprise: no showy luxury, but authenticity, care for the place and attention to everyone — groups, school trips, hikers, pilgrims and families."
+      "body2": "Moby Dick ETS, a non-profit organisation specialised in youth policies and European mobility, manages and curates this evocative location, fostering the arrival of groups from all over Europe."
     },
     "stats": {
       "eyebrow": "At a glance",
@@ -76,16 +76,16 @@
     "highlights": {
       "title": "Why stay here",
       "chiostro": {
-        "title": "The cloister",
-        "body": "The heart of the building: a portico of arches on stone columns, with a garden and a well. Monastic quiet in the middle of the village."
+        "title": "The Cloister",
+        "body": "The heart of the building: an elegant portico of stone arches and columns embracing the garden and its ancient well. A corner of quiet and beauty in the centre of the village, where time slows down and people meet. A suspended space, designed to meet, reflect and find inspiration."
       },
       "accessibilita": {
         "title": "Accessible to all",
-        "body": "Thoughtful accessibility and honest prices: here hospitality is a right, not a privilege."
+        "body": "Spaces and services designed to welcome everyone, without barriers. An open, inclusive and accessible place where hospitality becomes an opportunity to meet, share and grow together."
       },
       "territorio": {
         "title": "In the Picentini Mountains",
-        "body": "Hiking, nature, horse riding and good food: Acerno is the ideal base to explore the Regional Park."
+        "body": "Hiking, nature, horse riding and local gastronomy: Acerno is the ideal base to explore the Regional Park."
       }
     },
     "manifesto": {
@@ -108,13 +108,13 @@
     },
     "rooms": {
       "eyebrow": "Accommodation",
-      "title": "Dorms and rooms around the cloister",
-      "body": "Around twenty rooms on the first floor, with vaulted or beamed ceilings and terracotta floors. From group dorms to private rooms.",
+      "title": "Cloister-view rooms and dorms",
+      "body": "Located on the first floor, with vaulted or beamed ceilings and terracotta floors, the rooms are welcoming and atmospheric, divided into collective dorms and private rooms.",
       "cta": "See all rooms"
     },
     "cta": {
-      "title": "Want to come and stay?",
-      "body": "Pick your dates and tell us about you: we'll reply with availability and details. No online payment, just a request.",
+      "title": "Come and visit us.",
+      "body": "Choose your dates and tell us your story and goal. We are ready to provide all the details needed for your new experience.",
       "button": "Request a booking"
     }
   },
@@ -129,7 +129,7 @@
       "title": "Four centuries, one calling: to welcome",
       "body1": "A 17th-century Franciscan convent, arranged around a central arcaded cloister — arches on stone columns, a garden with a well — and connected to a single-nave church.",
       "body2": "Damaged by the 1980 earthquake, it was restored and turned into a youth hostel. During the works, 17th- and 18th-century frescoes resurfaced, today part of the charm of the place.",
-      "body3": "The church is not part of the hostel: hospitality lives in the convent's spaces, among terracotta, vaults and silence."
+      "body3": "Hospitality lives in the convent's spaces, among terracotta, vaults and silence."
     },
     "timeline": {
       "eyebrow": "The timeline",
@@ -158,7 +158,7 @@
         "oggi": {
           "era": "Today",
           "title": "The Hub",
-          "body": "With Moby Dick ETS the complex becomes the Hub for European Youth: sustainable, social, accessible hospitality — once again a home for those who walk."
+          "body": "With Moby Dick ETS the complex becomes the Hub for European Youth: a place of training and encounter for youth from all over Europe."
         }
       }
     },
@@ -167,11 +167,11 @@
       "intro": "Three levels that tell the life of the convent.",
       "pianoTerra": {
         "title": "Ground floor",
-        "body": "Reception in the entrance hall, an office, a meeting room and a dining hall for about 50 with meal service. The cloister is the visual heart; the sacristy remains."
+        "body": "Reception in the entrance hall, an office, a meeting room and a dining room for about 50 with meal service. The cloister is the visual heart."
       },
       "primoPiano": {
         "title": "First floor",
-        "body": "Around twenty rooms around the cloister: a mix of 3–4 single-bed dorms and private rooms, vaulted or beamed ceilings, terracotta floors and shared bathrooms. Accessible options available."
+        "body": "Twenty rooms positioned around the cloister: a mix of 3–4 single-bed dorms and private rooms, vaulted or beamed ceilings, terracotta floors and shared bathrooms. Accessible solutions for all available."
       },
       "seminterrato": {
         "title": "Lower level",
@@ -194,10 +194,10 @@
     "hero": {
       "eyebrow": "Accommodation",
       "title": "The rooms",
-      "subtitle": "Group dorms and private rooms, all facing or near the cloister. Vaulted ceilings, terracotta, calm light."
+      "subtitle": "Group dorms and private rooms, all facing or near the cloister. Vaulted ceilings, terracotta, diffuse light."
     },
     "intro": {
-      "body": "Availability and rates are confirmed on request: pick a room and send us a request, with no online payment."
+      "body": "We look forward to welcoming you. Choose where to stay and write to us. We will take care of everything else."
     },
     "empty": {
       "title": "Rooms coming soon",
@@ -256,7 +256,7 @@
     "hero": {
       "eyebrow": "Bookings",
       "title": "Request a booking",
-      "subtitle": "Pick your dates and room: we save your request and get back to you to confirm. No online payment."
+      "subtitle": "Pick your dates and room: we save your request and get back to you to confirm."
     },
     "form": {
       "sectionStay": "Your stay",
@@ -331,7 +331,7 @@
       },
       "gruppi": {
         "q": "Do you host groups and school trips?",
-        "a": "Yes, they're most welcome: our 3-4 bed dorms are made for it and the dining hall seats about 50. For groups it's best to write a little in advance so we can tailor everything."
+        "a": "Yes, they're most welcome: our 3-4 bed dorms are made for it and the dining room seats about 50. For groups it's best to write a little in advance so we can tailor everything."
       },
       "accessibilita": {
         "q": "Is the building accessible?",
@@ -343,7 +343,7 @@
       },
       "pasti": {
         "q": "Can I eat at the hostel?",
-        "a": "The dining hall (~50 seats) serves meals on reservation, ideal for groups and school trips. The village also offers trattorias and Picentini food and wine."
+        "a": "The dining room (~50 seats) serves meals on reservation, ideal for groups and school trips. The village also offers trattorias and Picentini food and wine."
       },
       "tariffe": {
         "q": "How much does a night cost?",
@@ -354,9 +354,9 @@
   "intro": {
     "scrollHint": "Scroll",
     "steps": {
-      "monti": "Acerno, high in the Picentini Mountains",
-      "chiostro": "A 17th-century cloister, four hundred years of quiet",
-      "porta": "The door is open. Welcome to the Hub for European Youth."
+      "monti": "Acerno, in the Picentini Mountains",
+      "chiostro": "A convent with 4 centuries of history",
+      "porta": "The door is open.\nWelcome to the Hub for European Youth."
     }
   },
   "admin": {
@@ -390,7 +390,7 @@
   "footer": {
     "about": {
       "title": "The Hub",
-      "body": "Sustainable, accessible hospitality in a 17th-century Franciscan convent, in the centre of Acerno."
+      "body": "A convent. A new European generation. Training, encounter and hospitality in the heart of Acerno."
     },
     "explore": "Explore",
     "contact": "Contact",

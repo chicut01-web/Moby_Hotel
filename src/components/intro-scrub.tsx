@@ -351,7 +351,7 @@ export function IntroScrub() {
         {STEPS.map((key, i) => (
           <p
             key={key}
-            className={cn("intro-scrub-step", stage === i && "is-active")}
+            className={cn("intro-scrub-step whitespace-pre-line", stage === i && "is-active")}
           >
             {t(`steps.${key}`)}
           </p>

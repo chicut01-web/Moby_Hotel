@@ -123,10 +123,14 @@ export default async function ConventoPage({
       <section className="py-16 sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-card">
-            <div className="absolute inset-0 flex items-center justify-center p-10">
-              <ArchColonnade count={4} className="w-full text-blu-testo/30" />
-            </div>
-            <span className="absolute left-5 top-5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-blu-testo">
+            <Image
+              src="/images/chiostro-pozzo.jpg"
+              alt={t("plan.title")}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+            <span className="absolute left-5 top-5 rounded-full border border-border/60 bg-carta/90 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-blu-scuro backdrop-blur">
               {t("plan.eyebrow")}
             </span>
           </div>
