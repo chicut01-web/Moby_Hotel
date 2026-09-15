@@ -12,7 +12,7 @@ export function StructuredData() {
     "@type": "Hostel",
     name: SITE.name,
     url: SITE_URL,
-    image: `${SITE_URL}/og.jpg`,
+    image: `${SITE_URL}/og-hey.jpg`,
     email: SITE.email,
     address: {
       "@type": "PostalAddress",

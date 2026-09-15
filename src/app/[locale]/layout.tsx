@@ -53,7 +53,20 @@ export async function generateMetadata({
       siteName: SITE.name,
       title: t("title"),
       description: t("description"),
-      images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+      images: [
+        {
+          url: "/og-hey.jpg",
+          width: 1200,
+          height: 630,
+          alt: "HEY! Hub for European Youth · Acerno",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/og-hey.jpg"],
     },
   };
 }
