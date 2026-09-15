@@ -356,12 +356,7 @@ export function IntroScrub() {
             {t(`steps.${key}`)}
           </p>
         ))}
-        {/* Uscita: la home emerge dal volo, niente taglio netto */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-carta"
-          style={{ opacity: "var(--exit, 0)" }}
-        />
+
         <div
           aria-hidden="true"
           className={cn(

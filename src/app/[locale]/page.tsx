@@ -13,34 +13,8 @@ import { InkReveal } from "@/components/ink-reveal";
 import { CountUp } from "@/components/count-up";
 import { Manifesto } from "@/components/manifesto";
 import { IntroScrub } from "@/components/intro-scrub";
+import { HeyLogo } from "@/components/hey-logo";
 
-/** Parole del titolo che si "scrivono" a inchiostro, in cascata. */
-function InkWords({
-  text,
-  startDelay = 0,
-  className,
-}: {
-  text: string;
-  startDelay?: number;
-  className?: string;
-}) {
-  return (
-    <>
-      {text.split(" ").map((word, i) => (
-        // Spazio FUORI dallo span: dentro un inline-block verrebbe
-        // troncato (l'NBSP evitava il taglio ma bloccava il wrapping).
-        <span key={`${word}-${i}`}>
-          <span
-            className={`ink-word ${className ?? ""}`}
-            style={{ animationDelay: `${startDelay + i * 130}ms` }}
-          >
-            {word}
-          </span>{" "}
-        </span>
-      ))}
-    </>
-  );
-}
 import { getActiveRooms } from "@/lib/rooms";
 import { roomCoverImage } from "@/lib/room-images";
 import type { Locale } from "@/i18n/routing";
@@ -81,71 +55,75 @@ export default async function HomePage({
       {/* Apertura: il volo sul convento scandito dallo scroll */}
       <IntroScrub />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-cielo/50 via-carta to-carta pt-6">
-        <Container className="relative grid gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
-          <div>
-            <p
-              className="eyebrow animate-in fade-in slide-in-from-bottom-2 duration-700"
-              style={{ animationDelay: "60ms", animationFillMode: "both" }}
-            >
-              {t("hero.eyebrow")}
-            </p>
-            <h1 className="mt-5 text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-7xl">
-              <InkWords text={t("hero.title")} startDelay={120} />
-              <span className="text-blu">
-                <InkWords
-                  text={t("hero.titleAccent")}
-                  startDelay={120 + (t("hero.title").split(" ").length + 1) * 130}
-                />
-              </span>
-            </h1>
-            <p
-              className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground animate-in fade-in slide-in-from-bottom-3 duration-700"
-              style={{ animationDelay: "200ms", animationFillMode: "both" }}
-            >
-              {t("hero.subtitle")}
-            </p>
-            <div
-              className="mt-9 flex flex-wrap gap-3 animate-in fade-in slide-in-from-bottom-3 duration-700"
-              style={{ animationDelay: "280ms", animationFillMode: "both" }}
-            >
-              <Button asChild size="lg" className="btn-shine rounded-full px-7">
-                <Magnetic>
-                  <Link href="/prenota">{t("hero.ctaPrimary")}</Link>
-                </Magnetic>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-border/80 px-7"
-              >
-                <Link href="/convento">{t("hero.ctaSecondary")}</Link>
-              </Button>
-            </div>
-          </div>
-
+      {/* Hero a tutta pagina con la nuova foto del chiostro e grafica HEY! */}
+      <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col justify-between">
+        {/* Foto a tutto schermo */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/chiostro-hero.jpg"
+            alt={t("hero.imageAlt")}
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="object-cover object-[center_35%]"
+          />
+          {/* Sfumatura superiore per staccare il logo HEY! */}
           <div
-            className="relative animate-in fade-in duration-1000"
-            style={{ animationDelay: "180ms", animationFillMode: "both" }}
-          >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[11rem] rounded-b-2xl ring-1 ring-border/70 shadow-[0_40px_80px_-50px_var(--blu-scuro)]">
-              <div className="parallax-drift absolute inset-0">
-                <Image
-                  src="/images/chiostro-alto.jpg"
-                  alt={t("hero.imageAlt")}
-                  fill
-                  priority
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 470px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <div className="absolute -left-4 bottom-10 hidden rounded-xl border border-border/70 bg-card/90 px-4 py-3 backdrop-blur sm:block">
-              <p className="text-[0.65rem] uppercase tracking-[0.16em] text-blu-scuro">
-                {t("hero.imageAlt")}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-transparent"
+          />
+          {/* Sfumatura inferiore e laterale destra per contrasto perfetto sui testi */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blu-scuro/95 via-blu-scuro/40 to-transparent lg:bg-gradient-to-l lg:from-blu-scuro/90 lg:via-blu-scuro/40 lg:to-transparent"
+          />
+        </div>
+
+        {/* In alto a sinistra: Logo HEY! completo in bianco */}
+        <Container className="relative z-10 pt-8 sm:pt-12">
+          <div className="animate-in fade-in duration-700">
+            <HeyLogo
+              variante="completo"
+              colore="bianco"
+              priority
+              className="w-28 sm:w-36 md:w-44 drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+            />
+          </div>
+        </Container>
+
+        {/* In basso a destra: Testi e call to action */}
+        <Container className="relative z-10 pb-14 sm:pb-20 pt-16">
+          <div className="flex justify-end">
+            <div className="max-w-xl lg:max-w-2xl text-left animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <h1 className="font-heading text-[2.5rem] font-black tracking-tight text-white sm:text-6xl lg:text-7xl leading-[1.04] drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
+                <span className="block">{t("hero.line1")}</span>
+                <span className="block">{t("hero.line2")}</span>
+                <span className="block">{t("hero.line3")}</span>
+                <span className="block">{t("hero.line4")}</span>
+              </h1>
+              <p className="mt-5 max-w-lg text-base sm:text-lg lg:text-xl font-normal leading-relaxed text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+                {t("hero.subtitle")}
               </p>
+              <div className="mt-8 flex flex-wrap gap-3.5">
+                <Button
+                  asChild
+                  size="lg"
+                  className="btn-shine rounded-full bg-white px-8 font-bold text-blu-scuro hover:bg-white/90 shadow-2xl"
+                >
+                  <Magnetic>
+                    <Link href="/prenota">{t("hero.ctaPrimary")}</Link>
+                  </Magnetic>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full border-white/60 bg-black/25 px-8 font-medium text-white backdrop-blur-md hover:bg-white/20 hover:text-white"
+                >
+                  <Link href="/convento">{t("hero.ctaSecondary")}</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </Container>

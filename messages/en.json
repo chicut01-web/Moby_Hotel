@@ -42,12 +42,15 @@
   "home": {
     "hero": {
       "eyebrow": "Acerno · Picentini Mountains",
-      "title": "A 17th-century cloister,",
-      "titleAccent": "a home for tomorrow's Europe",
-      "subtitle": "An ancient monastery becoming a place of encounter, training and growth for new European generations. Around a stone cloister, young people from all over Europe live, learn and share experiences in a simple, open and welcoming environment. An international hub where knowledge, cultures and ideas meet.",
+      "line1": "Every route",
+      "line2": "begins",
+      "line3": "at a starting",
+      "line4": "point.",
+      "title": "Every route begins at a starting point.",
+      "subtitle": "The Hub for European Youth is where ideas become directions and aspirations start to take shape.",
       "ctaPrimary": "Request a booking",
       "ctaSecondary": "Discover the convent",
-      "imageAlt": "Arcaded convent cloister with arches on stone columns"
+      "imageAlt": "Cloister of the Franciscan complex of Acerno with central stone well and arcades"
     },
     "intro": {
       "eyebrow": "Who we are",
