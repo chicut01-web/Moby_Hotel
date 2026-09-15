@@ -55,7 +55,7 @@ export async function generateMetadata({
       description: t("description"),
       images: [
         {
-          url: "/og-hey.jpg",
+          url: "/og-share.jpg",
           width: 1200,
           height: 630,
           alt: "HEY! Hub for European Youth · Acerno",
@@ -66,7 +66,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: ["/og-hey.jpg"],
+      images: ["/og-share.jpg"],
     },
   };
 }
