@@ -4,7 +4,6 @@ import { Accessibility, Columns3, Mountain } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
-import { ArchColonnade } from "@/components/arch-motif";
 import { RoomCard } from "@/components/room-card";
 import { Reveal } from "@/components/reveal";
 import { TiltCard } from "@/components/tilt-card";
@@ -68,18 +67,14 @@ export default async function HomePage({
             sizes="100vw"
             className="object-cover object-[center_35%]"
           />
-          {/* Sfumatura sinistra e inferiore per contrasto ideale sui testi a sinistra */}
+          {/* Sfumatura morbida a sinistra per contrasto sui testi, lasciando la foto luminosa e visibile */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blu-scuro/90 via-transparent to-black/40 lg:hidden"
+            className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-black/70 via-black/30 via-38% to-transparent"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-blu-scuro/95 via-blu-scuro/75 via-50% to-transparent"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 block lg:hidden bg-blu-scuro/75"
+            className="pointer-events-none absolute inset-0 block lg:hidden bg-gradient-to-t from-black/80 via-black/40 to-black/10"
           />
         </div>
 
@@ -142,10 +137,6 @@ export default async function HomePage({
           <div>
             <p className="eyebrow">{t("intro.eyebrow")}</p>
             <InkReveal text={t("intro.title")} className="mt-4 text-3xl sm:text-4xl" />
-            <ArchColonnade
-              count={4}
-              className="mt-7 h-14 w-40 text-blu-testo/45"
-            />
           </div>
           <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
             <p>{t("intro.body1")}</p>
@@ -250,10 +241,6 @@ export default async function HomePage({
         <Container>
           <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-blu-scuro px-7 py-14 text-carta sm:px-14">
-            <ArchColonnade
-              count={4}
-              className="pointer-events-none absolute bottom-0 right-6 h-28 w-72 max-w-none text-carta/15 sm:w-80"
-            />
             <div className="relative max-w-xl">
               <InkReveal
                 text={t("cta.title")}

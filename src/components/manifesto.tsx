@@ -33,23 +33,14 @@ export function Manifesto() {
           sizes="100vw"
           className="object-cover object-[center_35%]"
         />
-        {/* Sfumatura sinistra direzionale per contrasto ideale sui testi a sinistra */}
+        {/* Sfumatura morbida a sinistra per contrasto sui testi, lasciando la foto luminosa e visibile */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-blu-scuro/95 via-blu-scuro/85 via-55% to-transparent"
+          className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-black/75 via-black/35 via-42% to-transparent"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 block lg:hidden bg-blu-scuro/80"
-        />
-        {/* Sfumatura superiore e inferiore per fondere naturalmente con le sezioni adiacenti */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/40 to-transparent"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/40 to-transparent"
+          className="pointer-events-none absolute inset-0 block lg:hidden bg-gradient-to-t from-black/80 via-black/45 to-black/15"
         />
       </div>
 
