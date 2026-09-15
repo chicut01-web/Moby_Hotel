@@ -17,6 +17,9 @@ public/videos/convento-intro-kling-4k.mp4
 ACERNO
 DEF
 
+# Manuale e PDF del brand: materiale di riferimento, il sito non li serve.
+style
+
 # Dipendenze e build: Vercel se li ricostruisce da sé.
 node_modules
 .next

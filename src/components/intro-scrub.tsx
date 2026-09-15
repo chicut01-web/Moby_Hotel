@@ -19,20 +19,24 @@ const getReduced = () => window.matchMedia(REDUCED_QUERY).matches;
 const getServerSnapshot = () => false;
 
 /**
- * Il volo sul convento come apertura della home, governato dallo scroll:
+ * La camminata nel convento come apertura della home, governata dallo scroll:
  * la sezione si aggancia e lo scroll manda avanti e indietro il video,
  * con un filo di smorzamento che ammorbidisce gli scatti della rotella;
  * tre scritte si alternano sul filmato. Con prefers-reduced-motion
  * niente scrub: poster fermo e la scritta di benvenuto.
  *
- * Due tagli dello stesso volo. Su un telefono in verticale `object-fit:
+ * Due tagli della stessa camminata. Su un telefono in verticale `object-fit:
  * cover` mostra solo il 26% della larghezza del 16:9: il resto viene
  * scaricato e decodificato per essere buttato. La versione verticale è
  * quella stessa fetta centrale, ritagliata in codifica invece che a
- * schermo — inquadratura identica, 1.5MB invece di 4.3.
+ * schermo — inquadratura identica. Dal girato del telefono (HEVC, 60fps,
+ * 13 secondi) a H.264 tenendo i 60fps, con un keyframe ogni mezzo secondo
+ * per lo scrub: 1440px e 3,7MB su desktop, 720×1280 e 2MB su telefono.
+ * Il dimezzamento a 30fps risparmiava solo il 4%, e con uno scroll lento
+ * da trackpad lasciava ogni immagine ferma per due aggiornamenti.
  */
-const VIDEO_WIDE = "/videos/convento-intro-scrub.mp4";
-const VIDEO_PORTRAIT = "/videos/convento-intro-scrub-mobile.mp4";
+const VIDEO_WIDE = "/videos/hey-intro.mp4";
+const VIDEO_PORTRAIT = "/videos/hey-intro-mobile.mp4";
 /* Solo telefoni in verticale: sopra questa soglia, o ruotando, il 16:9 è
    di nuovo l'inquadratura giusta. */
 const PORTRAIT_QUERY = "(max-width: 767px) and (orientation: portrait)";
@@ -214,7 +218,10 @@ export function IntroScrub() {
         const dt = lastTick ? Math.min(now - lastTick, 100) : 16.7;
         current += (target - current) * (1 - Math.exp(-dt / TAU_MS));
 
-        if (!seekPending && Math.abs(video.currentTime - current) > 0.02) {
+        // Sotto la durata di un fotogramma a 60fps (16,7ms): con 0,02 gli
+        // spostamenti di un solo fotogramma venivano ignorati e il video
+        // restava fermo a tratti mentre lo scroll avanzava.
+        if (!seekPending && Math.abs(video.currentTime - current) > 0.01) {
           seekPending = true;
           video.currentTime = current;
         }
@@ -276,7 +283,7 @@ export function IntroScrub() {
     return (
       <section className="relative h-[72vh] overflow-hidden">
         <Image
-          src="/videos/convento-intro-poster.jpg"
+          src="/videos/hey-intro-poster.jpg"
           alt=""
           fill
           priority
@@ -285,7 +292,7 @@ export function IntroScrub() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/50 via-transparent to-blu-scuro/20"
+          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/80 via-blu-scuro/10 to-blu-scuro/25"
         />
         <p className="intro-scrub-step is-active">{t("steps.porta")}</p>
       </section>
@@ -304,10 +311,10 @@ export function IntroScrub() {
         <picture className="pointer-events-none absolute inset-0 h-full w-full">
           <source
             media="(max-width: 767px) and (orientation: portrait)"
-            srcSet="/videos/convento-intro-poster-mobile.jpg"
+            srcSet="/videos/hey-intro-poster-mobile.jpg"
           />
           <img
-            src="/videos/convento-intro-poster.jpg"
+            src="/videos/hey-intro-poster.jpg"
             alt=""
             width={1920}
             height={1080}
@@ -346,7 +353,7 @@ export function IntroScrub() {
         </video>
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/50 via-transparent to-blu-scuro/20"
+          className="absolute inset-0 bg-gradient-to-t from-blu-scuro/80 via-blu-scuro/10 to-blu-scuro/25"
         />
         {STEPS.map((key, i) => (
           <p
