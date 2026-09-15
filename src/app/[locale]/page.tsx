@@ -56,7 +56,7 @@ export default async function HomePage({
       <IntroScrub />
 
       {/* Hero a tutta pagina con la nuova foto del chiostro e grafica HEY! */}
-      <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col justify-between">
+      <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col justify-center py-20 sm:py-28">
         {/* Foto a tutto schermo */}
         <div className="absolute inset-0">
           <Image
@@ -68,62 +68,69 @@ export default async function HomePage({
             sizes="100vw"
             className="object-cover object-[center_35%]"
           />
-          {/* Sfumatura superiore per staccare il logo HEY! */}
+          {/* Sfumatura sinistra e inferiore per contrasto ideale sui testi a sinistra */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-transparent"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blu-scuro/90 via-transparent to-black/40 lg:hidden"
           />
-          {/* Sfumatura inferiore e laterale destra per contrasto perfetto sui testi */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blu-scuro/95 via-blu-scuro/40 to-transparent lg:bg-gradient-to-l lg:from-blu-scuro/90 lg:via-blu-scuro/40 lg:to-transparent"
+            className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-blu-scuro/95 via-blu-scuro/75 via-50% to-transparent"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 block lg:hidden bg-blu-scuro/75"
           />
         </div>
 
-        {/* In alto a sinistra: Logo HEY! completo in bianco */}
-        <Container className="relative z-10 pt-8 sm:pt-12">
-          <div className="animate-in fade-in duration-700">
-            <HeyLogo
-              variante="completo"
-              colore="bianco"
-              priority
-              className="w-28 sm:w-36 md:w-44 drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
-            />
-          </div>
-        </Container>
+        {/* Tutto a sinistra: Logo HEY! e sotto testi e call to action */}
+        <Container className="relative z-10">
+          <div className="max-w-2xl text-left animate-in fade-in slide-in-from-bottom-3 duration-700">
+            {/* Logo HEY! completo in bianco */}
+            <div className="mb-7 sm:mb-9">
+              <HeyLogo
+                variante="completo"
+                colore="bianco"
+                priority
+                className="w-32 sm:w-40 md:w-48 drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+              />
+            </div>
 
-        {/* In basso a destra: Testi e call to action */}
-        <Container className="relative z-10 pb-14 sm:pb-20 pt-16">
-          <div className="flex justify-end">
-            <div className="max-w-xl lg:max-w-2xl text-left animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <h1 className="font-heading text-[2.5rem] font-black tracking-tight text-white sm:text-6xl lg:text-7xl leading-[1.04] drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
-                <span className="block">{t("hero.line1")}</span>
-                <span className="block">{t("hero.line2")}</span>
-                <span className="block">{t("hero.line3")}</span>
-                <span className="block">{t("hero.line4")}</span>
-              </h1>
-              <p className="mt-5 max-w-lg text-base sm:text-lg lg:text-xl font-normal leading-relaxed text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
-                {t("hero.subtitle")}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3.5">
-                <Button
-                  asChild
-                  size="lg"
-                  className="btn-shine rounded-full bg-white px-8 font-bold text-blu-scuro hover:bg-white/90 shadow-2xl"
-                >
-                  <Magnetic>
-                    <Link href="/prenota">{t("hero.ctaPrimary")}</Link>
-                  </Magnetic>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full border-white/60 bg-black/25 px-8 font-medium text-white backdrop-blur-md hover:bg-white/20 hover:text-white"
-                >
-                  <Link href="/convento">{t("hero.ctaSecondary")}</Link>
-                </Button>
-              </div>
+            {/* Eyebrow */}
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#9bd2eb] drop-shadow">
+              {t("hero.eyebrow")}
+            </p>
+
+            {/* Titolo principale a due colori */}
+            <h1 className="mt-4 font-heading text-3xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.04] drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
+              <span className="block">{t("hero.title")}</span>
+              <span className="block text-[#7ec6e6]">{t("hero.titleAccent")}</span>
+            </h1>
+
+            {/* Sottotitolo */}
+            <p className="mt-6 max-w-xl text-base sm:text-lg lg:text-xl font-normal leading-relaxed text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+              {t("hero.subtitle")}
+            </p>
+
+            {/* Pulsanti di azione */}
+            <div className="mt-9 flex flex-wrap gap-3.5">
+              <Button
+                asChild
+                size="lg"
+                className="btn-shine rounded-full bg-white px-8 font-bold text-blu-scuro hover:bg-white/90 shadow-2xl"
+              >
+                <Magnetic>
+                  <Link href="/prenota">{t("hero.ctaPrimary")}</Link>
+                </Magnetic>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full border-white/60 bg-black/25 px-8 font-medium text-white backdrop-blur-md hover:bg-white/20 hover:text-white"
+              >
+                <Link href="/convento">{t("hero.ctaSecondary")}</Link>
+              </Button>
             </div>
           </div>
         </Container>

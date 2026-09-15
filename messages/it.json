@@ -42,12 +42,9 @@
   "home": {
     "hero": {
       "eyebrow": "Acerno · Monti Picentini",
-      "line1": "Ogni rotta",
-      "line2": "nasce",
-      "line3": "da un punto",
-      "line4": "di partenza.",
-      "title": "Ogni rotta nasce da un punto di partenza.",
-      "subtitle": "L'Hub for European Youth è il luogo in cui le idee diventano direzioni e le aspirazioni iniziano a prendere forma.",
+      "title": "Un chiostro del Seicento,",
+      "titleAccent": "una casa per l'Europa di domani",
+      "subtitle": "Un antico monastero che diventa un luogo di incontro, formazione e crescita per le nuove generazioni europee. Attorno a un chiostro di pietra, giovani da tutta Europa vivono, imparano e condividono esperienze, in un ambiente semplice, aperto e accogliente. Un hub internazionale dove conoscenze, culture e idee si incontrano.",
       "ctaPrimary": "Richiedi una prenotazione",
       "ctaSecondary": "Scopri il convento",
       "imageAlt": "Chiostro del complesso francescano di Acerno con pozzo centrale in pietra e archi su colonne"
