@@ -114,9 +114,25 @@
       "cta": "Vedi tutte le camere"
     },
     "cta": {
+      "eyebrow": "Il tuo soggiorno",
       "title": "Vieni a trovarci.",
       "body": "Scegli le date e raccontaci la tua storia e il tuo obiettivo. Siamo pronti a fornirti tutti i dettagli necessari alla tua nuova esperienza.",
-      "button": "Richiedi una prenotazione"
+      "button": "Richiedi una prenotazione",
+      "secondaryButton": "Contattaci",
+      "features": {
+        "location": {
+          "title": "Nel cuore di Acerno",
+          "subtitle": "Parco Regionale dei Monti Picentini, Salerno"
+        },
+        "hospitality": {
+          "title": "Per gruppi e singoli",
+          "subtitle": "Spazi per formazione, eventi e soggiorni"
+        },
+        "rates": {
+          "title": "Tariffe etiche e trasparenti",
+          "subtitle": "Preventivi su misura comunicati rapidamente"
+        }
+      }
     }
   },
   "convento": {

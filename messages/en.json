@@ -114,9 +114,25 @@
       "cta": "See all rooms"
     },
     "cta": {
+      "eyebrow": "Your stay",
       "title": "Come and visit us.",
       "body": "Choose your dates and tell us your story and goal. We are ready to provide all the details needed for your new experience.",
-      "button": "Request a booking"
+      "button": "Request a booking",
+      "secondaryButton": "Contact us",
+      "features": {
+        "location": {
+          "title": "In the heart of Acerno",
+          "subtitle": "Monti Picentini Regional Park, Salerno"
+        },
+        "hospitality": {
+          "title": "For groups and individuals",
+          "subtitle": "Spaces for training, youth exchanges and retreats"
+        },
+        "rates": {
+          "title": "Ethical and transparent rates",
+          "subtitle": "Custom quotes communicated promptly"
+        }
+      }
     }
   },
   "convento": {
