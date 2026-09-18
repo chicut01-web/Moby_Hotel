@@ -6,7 +6,6 @@ import { AdminLoginForm } from "@/components/admin/login-form";
 import type { Locale } from "@/i18n/routing";
 import type { Metadata } from "next";
 
-// Area riservata: fuori dai motori di ricerca.
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
@@ -19,7 +18,6 @@ export default async function AdminLoginPage({
   const { locale } = await params;
   const t = await getTranslations("admin.login");
 
-  // Già autenticato → dritto alla dashboard.
   const supabase = await createClient();
   const {
     data: { user },

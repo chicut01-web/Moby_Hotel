@@ -5,7 +5,6 @@ import type { BookingRoomOption } from "@/components/booking-form";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** Opzioni camera disponibili per le date scelte (per il form pubblico). */
 export async function fetchAvailableRooms(
   checkIn: string,
   checkOut: string,

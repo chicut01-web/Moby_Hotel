@@ -29,9 +29,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
             className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-110"
           />
         ) : (
-          /* Camera non ancora fotografata: il colonnato al posto di uno
-             scatto che non la rappresenta. Decorativo, quindi senza testo
-             alternativo — il nome della camera è già nel titolo qui sotto. */
+
           <div
             aria-hidden="true"
             className="flex h-full w-full items-end justify-center bg-gradient-to-b from-cielo/50 to-carta"
@@ -52,8 +50,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
           >
             {t(`types.${room.type}`)}
           </Badge>
-          {/* Ente del Terzo Settore: niente prezzi sul sito, tariffe
-              comunicate su richiesta */}
+
           <p className="text-xs text-muted-foreground">
             {t("card.onRequest")}
           </p>
@@ -87,9 +84,7 @@ export function RoomCard({ room, locale }: { room: Room; locale: Locale }) {
           <Button
             asChild
             variant="ghost"
-            /* `h-auto` toglie l'altezza del bottone perché qui deve leggersi
-               come un link; su schermo tattile la riprende, o resterebbe una
-               riga di testo alta 22px da centrare col dito. */
+
             className="h-auto coarse:h-11 px-0 text-blu-scuro hover:bg-transparent hover:text-blu-scuro/80"
           >
             <Link

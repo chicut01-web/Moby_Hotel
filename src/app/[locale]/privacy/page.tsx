@@ -24,7 +24,6 @@ export async function generateMetadata({
   };
 }
 
-/** Blocco di testo con titolo: la pagina è tutta di questa forma. */
 function Sezione({
   title,
   children,

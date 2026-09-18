@@ -10,22 +10,11 @@ export interface LightboxImage {
   alt: string;
 }
 
-/** Molla del morph griglia ↔ schermo pieno: apre deciso, si posa morbido. */
 const MORPH = { type: "spring" as const, stiffness: 260, damping: 30 };
 
-/** Soglie dello swipe: px trascinati, oppure px/s di slancio al rilascio. */
 const SWIPE_DISTANCE = 70;
 const SWIPE_VELOCITY = 380;
 
-/**
- * Overlay lightbox per gallerie: l'immagine cliccata **cresce dalla
- * miniatura** fino a schermo pieno e ci ritorna alla chiusura (Motion
- * layoutId condiviso con la griglia), su sfondo calce sfumato.
- * Navigazione con frecce (crossfade direzionale, senza morph: quello
- * vale solo griglia↔fullscreen), chiusura Escape o click sul fondo.
- * Accessibile: dialog modale, aria-label, blocco dello scroll.
- * Con prefers-reduced-motion niente morph, solo comparsa immediata.
- */
 export function Lightbox({
   images,
   initial = 0,
@@ -42,18 +31,13 @@ export function Lightbox({
   const [current, setCurrent] = useState(initial);
   const [prevInitial, setPrevInitial] = useState(initial);
   const [direction, setDirection] = useState(0);
-  // src dell'alta risoluzione già caricata: finché non arriva resta
-  // visibile il layer con la stessa risorsa della miniatura.
+
   const [hiResSrc, setHiResSrc] = useState<string | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  // Istante dell'ultimo trascinamento: al rilascio il browser emette
-  // comunque un click, e senza questa guardia lo swipe chiude il
-  // lightbox invece di cambiare foto.
+
   const draggedAt = useRef(0);
   const reduced = useReducedMotion();
 
-  // Sync indice iniziale durante il render (pattern React "derived state"):
-  // se initial cambia mentre siamo chiusi, il prossimo render è già giusto.
   if (!open && prevInitial !== initial) {
     setPrevInitial(initial);
     setCurrent(initial);
@@ -67,7 +51,6 @@ export function Lightbox({
     [images.length],
   );
 
-  // Chiudi con Escape; naviga con frecce.
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!open) return;
@@ -83,7 +66,6 @@ export function Lightbox({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [onKeyDown]);
 
-  // Blocca scroll del body quando è aperto.
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -94,9 +76,7 @@ export function Lightbox({
   }, [open]);
 
   const img = images[current];
-  // Il morph vale solo per la foto da cui si è aperto: sfogliando con le
-  // frecce si passa al crossfade, altrimenti il layout salterebbe verso
-  // miniature diverse.
+
   const morphing = !reduced && current === prevInitial;
 
   return (
@@ -109,17 +89,13 @@ export function Lightbox({
           aria-label={img.alt}
           className="fixed inset-0 z-[80] flex items-center justify-center"
           onClick={(e) => {
-            // Un trascinamento appena concluso lascia dietro un click:
-            // ignoralo, o sfogliare col dito chiuderebbe la galleria.
+
             if (Date.now() - draggedAt.current < 250) return;
-            // Chiudi solo se si clicca il fondo (non l'immagine).
+
             if (e.target === overlayRef.current) onClose();
           }}
         >
-          {/* Sfondo calce quasi pieno. NIENTE backdrop-blur: sfocare
-              l'intero sfondo (dove le animazioni ambient non si fermano
-              mai) va rifatto a ogni frame e costava un terzo dei
-              fotogrammi dell'apertura — misurati 44fps contro 61. */}
+
           <motion.div
             className="absolute inset-0 bg-carta/95"
             initial={{ opacity: 0 }}
@@ -128,10 +104,6 @@ export function Lightbox({
             transition={{ duration: 0.25 }}
           />
 
-          {/* Trascinamento per sfogliare: il gesto sta su un contenitore a
-              parte, non sull'elemento che fa il morph. Mettere `drag` e
-              `layoutId` sullo stesso nodo li fa scrivere entrambi sulla
-              transform, e la crescita dalla miniatura ne esce storta. */}
           <motion.div
             className="relative z-10 h-[85vh] w-[90vw]"
             drag={reduced || images.length < 2 ? false : "x"}
@@ -140,15 +112,14 @@ export function Lightbox({
             dragMomentum={false}
             onDragEnd={(_, info) => {
               draggedAt.current = Date.now();
-              // Serve la distanza o lo slancio: uno scatto corto e veloce
-              // vale quanto un trascinamento lungo e lento.
+
               const passa =
                 Math.abs(info.offset.x) > SWIPE_DISTANCE ||
                 Math.abs(info.velocity.x) > SWIPE_VELOCITY;
               if (passa) go(info.offset.x < 0 ? 1 : -1);
             }}
           >
-            {/* Immagine: cresce dalla miniatura (layoutId condiviso) */}
+
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={img.src}
@@ -161,10 +132,7 @@ export function Lightbox({
                 exit={morphing ? { opacity: 0 } : { opacity: 0, x: direction * -40 }}
                 transition={morphing ? MORPH : { duration: 0.22 }}
               >
-                {/* Base: la STESSA risorsa della miniatura (sizes identiche
-                    alla griglia → stessa URL, già in cache HTTP). Il morph
-                    ha pixel veri dal primo frame anche a cache fredda,
-                    mentre l'alta risoluzione arriva dalla rete. */}
+
                 <Image
                   src={img.src}
                   alt=""
@@ -174,7 +142,7 @@ export function Lightbox({
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="rounded-2xl object-contain shadow-[0_30px_80px_-30px_var(--blu-scuro)]"
                 />
-                {/* Alta risoluzione: entra in dissolvenza quando è pronta */}
+
                 <Image
                   src={img.src}
                   alt={img.alt}
@@ -191,7 +159,6 @@ export function Lightbox({
             </AnimatePresence>
           </motion.div>
 
-          {/* Caption */}
           {img.alt ? (
             <motion.p
               className="absolute bottom-6 left-1/2 z-10 max-w-lg -translate-x-1/2 text-center text-sm text-blu-testo"
@@ -204,7 +171,6 @@ export function Lightbox({
             </motion.p>
           ) : null}
 
-          {/* Bottone chiudi */}
           <button
             onClick={onClose}
             aria-label="Chiudi"
@@ -215,7 +181,6 @@ export function Lightbox({
             </svg>
           </button>
 
-          {/* Frecce — solo se più di un'immagine */}
           {images.length > 1 ? (
             <>
               <button
@@ -237,7 +202,6 @@ export function Lightbox({
                 </svg>
               </button>
 
-              {/* Contatore */}
               <span className="absolute left-1/2 top-5 z-10 -translate-x-1/2 text-xs font-medium text-blu-testo/70">
                 {current + 1} / {images.length}
               </span>

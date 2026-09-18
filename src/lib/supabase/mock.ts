@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { PLACEHOLDER_ROOMS } from "../placeholder-rooms";
 
 export interface MockBookingRequest {

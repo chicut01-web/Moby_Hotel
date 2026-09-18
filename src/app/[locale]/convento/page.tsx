@@ -45,7 +45,6 @@ export default async function ConventoPage({
         subtitle={t("hero.subtitle")}
       />
 
-      {/* Story */}
       <section className="py-16 sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-16">
           <div>
@@ -68,11 +67,6 @@ export default async function ConventoPage({
         </Container>
       </section>
 
-      {/* Gallery: chiostro + volte (con lightbox).
-          Non c'è una foto degli affreschi: stanno nella chiesa, che resta
-          fuori dalla gestione e non è stata fotografata. Al loro posto il
-          chiostro col pozzo, che è il cuore visivo del complesso — meglio
-          un soggetto vero che un'immagine costruita spacciata per scatto. */}
       <section className="pb-4">
         <Container>
           <GalleryWithLightbox
@@ -92,10 +86,8 @@ export default async function ConventoPage({
         </Container>
       </section>
 
-      {/* Linea del tempo: quattro secoli in cinque tappe */}
       <HistoryTimeline />
 
-      {/* Spaces */}
       <section className="bg-grigio py-16 sm:py-24">
         <Container>
           <div className="max-w-xl">
@@ -118,7 +110,6 @@ export default async function ConventoPage({
         </Container>
       </section>
 
-      {/* Floor plan */}
       <section className="py-16 sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-card">

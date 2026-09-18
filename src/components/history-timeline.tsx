@@ -22,14 +22,6 @@ const STAGES = [
   { key: "oggi", accent: "text-blu-scuro", dot: "bg-blu-scuro" },
 ] as const;
 
-/**
- * La storia del convento come linea del tempo: una rotta verticale
- * tratteggiata che si inchiostra mentre scorri (Motion: useScroll +
- * useSpring sul blocco delle tappe, quindi cross-browser e con la
- * stessa inerzia della traversata), con le cinque tappe rivelate in
- * cascata. Con prefers-reduced-motion la rotta è già tutta inchiostrata
- * e non si muove nulla.
- */
 export function HistoryTimeline() {
   const t = useTranslations("convento.timeline");
   const reduced = useReducedMotion();

@@ -5,16 +5,6 @@ import { MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 
-/**
- * La mappa di Google, ma non prima che qualcuno la chieda.
- *
- * Un iframe di Google contatta i suoi server appena la pagina si apre e
- * può depositare cookie di terze parti, cioè prima e a prescindere da
- * qualsiasi consenso. Qui resta un'anteprima disegnata in casa: finché
- * non si tocca il pulsante non parte nessuna richiesta verso Google.
- * Chi non vuole collegarsi ha comunque il pulsante delle indicazioni,
- * che apre Maps solo su sua azione esplicita.
- */
 export function ConsentMap({
   src,
   title,

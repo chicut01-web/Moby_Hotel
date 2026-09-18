@@ -4,21 +4,9 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { cn } from "@/lib/utils";
 
-const MAX_PULL = 6; // px massimi di attrazione verso il cursore
+const MAX_PULL = 6; 
 const PULL_SPRING = { stiffness: 260, damping: 16, mass: 0.5 };
 
-/**
- * Avvolge un elemento e lo attira leggermente verso il cursore (effetto
- * "magnetico"), con molla Motion: al rilascio scatta indietro invece di
- * tornare linearmente. Pensato per CTA e link d'azione. Solo puntatori
- * fini e senza prefers-reduced-motion.
- *
- * Usato con `<Button asChild>` è questo span a ricevere le classi del
- * bottone: il link dentro resta alto quanto il suo testo, e il bordo del
- * bottone — padding compreso — non navigava. Un `::after` steso su tutto
- * lo span riporta l'area cliccabile a coincidere con quella visibile,
- * lasciando il link nel flusso a dettare le dimensioni.
- */
 export function Magnetic({
   children,
   className,
@@ -43,7 +31,7 @@ export function Magnetic({
     const cy = rect.top + rect.height / 2;
     const dx = (e.clientX - cx) / (rect.width / 2);
     const dy = (e.clientY - cy) / (rect.height / 2);
-    // Smorza ai bordi del range [-1,1] per un'attrazione naturale.
+
     const pull = (n: number) => Math.max(-1, Math.min(1, n)) * MAX_PULL;
     x.set(pull(dx));
     y.set(pull(dy));

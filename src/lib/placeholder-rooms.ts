@@ -1,10 +1,5 @@
 import type { Room } from "./types";
 
-/**
- * Camere segnaposto usate finché Supabase non è configurato (o per il design
- * in locale). Rispecchiano il vero mix del primo piano: camerate e camere
- * private attorno al chiostro. Prezzi indicativi.
- */
 export const PLACEHOLDER_ROOMS: Room[] = [
   {
     id: "ph-camerata-chiostro",

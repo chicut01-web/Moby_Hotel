@@ -13,9 +13,6 @@ type BookingEmailData = {
   locale: "it" | "en";
 };
 
-/* HTML minimale, compatibile coi client email: layout in tabella, stili inline,
-   palette del sito (carta/cotto/inchiostro). */
-
 function shell(title: string, bodyHtml: string): string {
   return `<!doctype html>
 <html>
@@ -61,7 +58,6 @@ function detailRows(d: BookingEmailData, labels: Record<string, string>): string
   </table>`;
 }
 
-/** Email all'ospite: "richiesta ricevuta". */
 export function guestConfirmationEmail(d: BookingEmailData): {
   subject: string;
   html: string;
@@ -90,7 +86,6 @@ export function guestConfirmationEmail(d: BookingEmailData): {
   };
 }
 
-/** Email all'ostello: nuova richiesta da gestire. */
 export function hostelNotificationEmail(d: BookingEmailData): {
   subject: string;
   html: string;
@@ -126,7 +121,6 @@ type BookingStatusEmailData = {
   numGuests: number;
 };
 
-/** Email di esito all'ospite: richiesta confermata o rifiutata. */
 export function bookingStatusEmail(d: BookingStatusEmailData): {
   subject: string;
   html: string;

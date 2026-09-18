@@ -1,11 +1,6 @@
 import { SITE } from "@/lib/site";
 import { SITE_URL } from "@/lib/seo";
 
-/**
- * Dati strutturati schema.org per i motori di ricerca: la struttura è
- * un ostello (Hostel ⊂ LodgingBusiness) ad Acerno, gestito da Moby Dick
- * ETS. Niente telefono finché non c'è un numero reale.
- */
 export function StructuredData() {
   const data = {
     "@context": "https://schema.org",

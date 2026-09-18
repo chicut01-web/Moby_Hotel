@@ -29,8 +29,6 @@ function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
-/* Nell'intestazione il logo secondario — HEY! e payoff, senza la corona di
-   archi — che è quello indicato dal manuale per l'header dei siti web. */
 function Brand({ onClick }: { onClick?: () => void }) {
   return (
     <Link
@@ -99,7 +97,6 @@ export function SiteHeader() {
             </Magnetic>
           </Button>
 
-          {/* Menu mobile */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button

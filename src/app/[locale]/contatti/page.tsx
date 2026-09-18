@@ -106,7 +106,6 @@ export default async function ContattiPage({
             </div>
           </div>
 
-          {/* Facciata + località */}
           <div className="lantern-card group relative min-h-72 overflow-hidden rounded-2xl border border-border/70">
             <Image
               src="/images/facciata.jpg"
@@ -125,7 +124,6 @@ export default async function ContattiPage({
         </Container>
       </section>
 
-      {/* L'ente gestore + mappa Google con indicazioni */}
       <section className="pb-16 sm:pb-20">
         <Container className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
           <Reveal className="h-full">

@@ -104,8 +104,6 @@ export function BookingForm({
   const watchedCheckOut = useWatch({ control, name: "check_out" });
   const minDate = todayISO();
 
-  // Disponibilità live: con date valide, il select mostra solo camere libere.
-  // Stato derivato dalla chiave-date: niente setState sincrono nell'effect.
   const datesKey =
     watchedCheckIn && watchedCheckOut && watchedCheckOut > watchedCheckIn
       ? `${watchedCheckIn}_${watchedCheckOut}`
@@ -137,7 +135,6 @@ export function BookingForm({
   const roomOptions = availableRooms ?? rooms;
   const selectedRoom = roomOptions.find((r) => r.id === watchedRoomId);
 
-  // Se la camera scelta non è più tra le disponibili, deselezione.
   useEffect(() => {
     if (
       availableRooms !== null &&
@@ -213,7 +210,7 @@ export function BookingForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-10">
-      {/* Soggiorno */}
+
       <fieldset className="space-y-5">
         <legend className="eyebrow mb-4">{t("form.sectionStay")}</legend>
 
@@ -323,7 +320,6 @@ export function BookingForm({
         </div>
       </fieldset>
 
-      {/* Dati ospite */}
       <fieldset className="space-y-5">
         <legend className="eyebrow mb-4">{t("form.sectionGuest")}</legend>
 

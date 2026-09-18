@@ -3,16 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-const DURATION = 1600; // ms totali dell'animazione
+const DURATION = 1600; 
 
-/**
- * Contatore che anima un numero da 0 a `value` quando entra in viewport,
- * con easing ease-out cubico. Pensato per statistiche d'impatto.
- * Con prefers-reduced-motion mostra subito il valore finale.
- *
- * `suffix`/`prefix` per etichette (es. "+", " m", "€"); `decimals` per
- * valori non interi.
- */
 export function CountUp({
   value,
   prefix = "",
@@ -53,7 +45,7 @@ export function CountUp({
           const start = performance.now();
           const tick = (now: number) => {
             const p = Math.min(1, (now - start) / duration);
-            // ease-out cubico
+
             const eased = 1 - Math.pow(1 - p, 3);
             setDisplay(value * eased);
             if (p < 1) requestAnimationFrame(tick);

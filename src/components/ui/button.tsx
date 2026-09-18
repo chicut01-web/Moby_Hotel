@@ -20,9 +20,7 @@ const buttonVariants = cva(
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
       },
-      /* Le altezze `coarse:` valgono solo dove si tocca con un dito: 44px è
-         la soglia sotto la quale un bersaglio si sbaglia. Il desktop resta
-         alla densità di prima. */
+
       size: {
         default:
           "h-8 coarse:h-11 gap-1.5 px-2.5 coarse:px-4 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",

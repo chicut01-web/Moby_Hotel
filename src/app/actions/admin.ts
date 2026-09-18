@@ -28,7 +28,6 @@ async function updateBookingStatus(
     .single();
 
   if (error || !request) {
-    console.error("update booking status fallito:", error?.message);
     return { ok: false, error: "update_failed" };
   }
 

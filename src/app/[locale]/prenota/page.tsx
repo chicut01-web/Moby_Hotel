@@ -80,9 +80,7 @@ export default async function PrenotaPage({
           <BookingForm rooms={rooms} preselectedRoomId={room} />
 
           <aside className="lg:pt-2">
-            {/* Corridoio voltato (decorativo). Era un filmato costruito:
-                sostituito con lo scatto reale, che pesa 600KB in meno e
-                mostra il corridoio che si percorre davvero. */}
+
             <div className="relative mb-6 hidden aspect-[3/4] overflow-hidden rounded-t-[7rem] rounded-b-2xl ring-1 ring-border/70 lg:block">
               <Image
                 src="/images/corridoio.jpg"
@@ -135,7 +133,6 @@ export default async function PrenotaPage({
         </Container>
       </section>
 
-      {/* FAQ / info pratiche */}
       <section className="pb-20 sm:pb-24">
         <Container className="max-w-3xl">
           <Reveal>

@@ -12,18 +12,6 @@ export interface GalleryItem {
   caption: string;
 }
 
-/**
- * Galleria di immagini con lightbox al click: la miniatura condivide il
- * `layoutId` con l'immagine a schermo pieno, così al click **cresce**
- * fino al fullscreen invece di comparire in dissolvenza. Le miniature
- * usano next/image per le performance.
- */
-/**
- * La versione grande che chiederà il lightbox (`sizes="90vw"`) è una
- * richiesta diversa da quella della miniatura: la scarichiamo appena il
- * cursore sfiora la foto, così all'apertura è già pronta e non si vede
- * comparire in ritardo.
- */
 function preloadFullSize(src: string) {
   const img = new window.Image();
   img.src = `/_next/image?url=${encodeURIComponent(src)}&w=1920&q=75`;
@@ -46,8 +34,7 @@ export function GalleryWithLightbox({ items }: { items: GalleryItem[] }) {
             <figure
               className="lantern-card group cursor-pointer overflow-hidden rounded-2xl border border-border/70 bg-card"
               onPointerEnter={() => preloadFullSize(item.src)}
-              // Su touch non c'è hover: pointerdown precede il click di
-              // qualche decina di ms, meglio di niente.
+
               onPointerDown={() => preloadFullSize(item.src)}
               onClick={() => {
                 setInitial(i);

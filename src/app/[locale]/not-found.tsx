@@ -4,9 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
 import { ArchColonnade } from "@/components/arch-motif";
 
-/**
- * 404 di brand: gli archi del chiostro e la strada per tornare a casa. Attivata dal catch-all [...rest] per i percorsi inesistenti.
- */
 export default function NotFound() {
   const t = useTranslations("notFound");
 

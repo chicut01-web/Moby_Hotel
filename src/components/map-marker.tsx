@@ -3,11 +3,6 @@
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-/**
- * Marker della carta del territorio: al passaggio del cursore si solleva
- * e si ingrandisce con una molla. Wrapper client minimo, così la mappa
- * resta un server component.
- */
 export function MapMarker({
   children,
   className,

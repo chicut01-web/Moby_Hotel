@@ -4,12 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
-  Dito invece di mouse. Vale il tipo di puntatore, non la larghezza: una
-  finestra desktop stretta non merita comandi da 44px, un tablet grande sì.
-  Serve a portare i bersagli di tocco alla soglia dei 44px senza cambiare
-  la densità del desktop.
-*/
+
 @custom-variant coarse (@media (pointer: coarse));
 
 @theme inline {
@@ -20,7 +15,7 @@
   --font-heading: var(--font-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Palette HEY! (utilities: bg-blu, text-blu-scuro, border-cielo, ...) */
+  
   --color-blu: var(--blu);
   --color-blu-scuro: var(--blu-scuro);
   --color-blu-testo: var(--blu-testo);
@@ -73,18 +68,14 @@
   --blu: #448bab;
   --blu-scuro: #214e6d;
   --nero: #000000;
-  /* Il blu del logo fa 3,8:1 sul bianco: basta per i titoli grandi, non
-     per il testo piccolo (AA chiede 4,5). Questo è lo stesso blu scurito
-     quanto basta per passare su tutti e tre i fondi del sito:
-     5,6 bianco · 5,0 grigio · 4,5 cielo. */
+  
   --blu-testo: #316f8b;
-  --cielo: #ddeaf0;        /* velatura del blu, come gli archi chiari del manuale */
+  --cielo: #ddeaf0;        
   --carta: #ffffff;
-  /* PROVVISORIO: il grigio chiaro per staccare le sezioni è ancora da
-     decidere. Cambiando solo questo valore si aggiorna tutto il sito. */
+  
   --grigio: #f1f3f4;
 
-  /* Token semantici shadcn mappati sulla palette */
+  
   --background: var(--carta);
   --foreground: var(--blu-scuro);
   --card: var(--carta);
@@ -96,7 +87,7 @@
   --secondary: var(--cielo);
   --secondary-foreground: var(--blu-scuro);
   --muted: var(--grigio);
-  /* Testo secondario: 6,7 bianco · 6,0 grigio · 5,4 cielo */
+  
   --muted-foreground: #4a5f6e;
   --accent: var(--cielo);
   --accent-foreground: var(--blu-scuro);
@@ -132,30 +123,16 @@
   }
   html {
     @apply font-sans;
-    /* NIENTE scroll-behavior: smooth globale: rende animato anche il
-       ritorno in cima che Next fa al cambio rotta, e da una pagina
-       lunga il viaggio dura oltre un secondo — sembra che la pagina
-       non si carichi. Lo scorrimento morbido resta solo per i salti
-       verso un'ancora esplicita. */
+    
 
-    /* Via il rettangolo grigio che iOS e Android disegnano al tocco:
-       il riscontro lo danno già gli stati :active e :focus-visible,
-       che seguono la forma vera del comando invece del suo riquadro. */
+    
     -webkit-tap-highlight-color: transparent;
   }
   html:has(:target) {
     scroll-behavior: smooth;
   }
 
-  /* Dissolvenza tra le pagine.
-     La curva conta più della durata: con un ease-out marcato l'opacità
-     arrivava al 90% in un sesto del tempo e la dissolvenza, pur presente
-     nei numeri, non si vedeva. Questa sale in modo più regolare, e la
-     lieve salita le dà un verso.
-     `backwards` e non `both`: dopo l'ultimo fotogramma non deve restare
-     applicato NIENTE. Una `transform` che sopravvive all'animazione crea
-     un blocco contenitore, ed è esattamente ciò che in WebKit impediva
-     al pin sticky dell'intro di essere dipinto, lasciando la home vuota. */
+  
   .page-enter {
     animation: page-enter 0.34s cubic-bezier(0.33, 0, 0.2, 1) backwards;
   }
@@ -175,7 +152,7 @@
     }
   }
 
-  /* Titoli: Inter Black (peso 900) per i titoli come nei manifesti del brand */
+  
   h1, h2, h3, h4 {
     @apply font-heading;
     font-weight: 900;
@@ -192,7 +169,7 @@
 }
 
 @layer utilities {
-  /* Occhiello sopra i titoli */
+  
   .eyebrow {
     font-family: var(--font-sans);
     font-weight: 700;
@@ -202,23 +179,14 @@
     color: var(--blu-testo);
   }
 
-  /*
-    Con `<Button asChild><Magnetic><Link>` le classi del bottone finiscono
-    sullo span di Magnetic: il link dentro resta alto quanto il suo testo
-    (20px su 48), e il padding del bottone non naviga. Questo ::after
-    riporta l'area cliccabile a coincidere con quella visibile, lasciando
-    il link nel flusso a dettare le dimensioni. Sta qui e non fra le
-    utility perché Tailwind non genera varianti arbitrarie con
-    pseudo-elemento su un figlio — la classe c'era nel markup ma la regola
-    non veniva mai emessa.
-  */
+  
   .magnetic-hit > a::after {
     content: "";
     position: absolute;
     inset: 0;
   }
 
-  /* Card "illuminata dalla lanterna" al passaggio del mouse */
+  
   .lantern-card {
     position: relative;
     transition:
@@ -252,7 +220,7 @@
     opacity: 1;
   }
 
-  /* Parallasse leggera guidata dallo scroll (solo browser che la supportano) */
+  
   @supports (animation-timeline: view()) {
     .parallax-drift {
       animation: parallax-drift linear both;
@@ -269,9 +237,7 @@
     }
   }
 
-  /* Titolo che si "scrive" a inchiostro, parola per parola: usata dal
-     titolo dell'hero (InkWords in [locale]/page.tsx), server-rendered e
-     senza JS. <InkReveal/> fa lo stesso effetto con Motion. */
+  
   @keyframes ink-in {
     from {
       opacity: 0;
@@ -290,7 +256,7 @@
     animation: ink-in 0.7s ease forwards;
   }
 
-  /* Riflesso "shine" che attraversa i bottoni primari */
+  
   .btn-shine {
     position: relative;
     overflow: hidden;
@@ -313,11 +279,11 @@
     transform: translateX(130%);
   }
 
-  /* Apertura con video in loop continuo e fluido a piena altezza schermo */
+  
   .intro-scrub {
     height: 100dvh;
   }
-  /* Fondo della scena: gestito con <picture> in intro-scrub.tsx per discovery immediata e fetchPriority high */
+  
   .intro-scrub-step {
     position: absolute;
     inset-inline: 0;
@@ -332,9 +298,7 @@
     font-size: clamp(1.7rem, 4.2vw, 3.4rem);
     line-height: 1.15;
     color: #f6f1e7;
-    /* La camminata è girata in pieno sole: sui muri chiari l'alone largo da
-       solo non bastava. Il secondo strato, stretto, tiene il bordo delle
-       lettere; quello largo stacca la riga dal fondo. */
+    
     text-shadow:
       0 1px 3px rgba(33, 78, 109, 0.55),
       0 2px 28px rgba(33, 78, 109, 0.75);

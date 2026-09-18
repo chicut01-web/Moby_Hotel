@@ -5,26 +5,8 @@ import { motion, useReducedMotion } from "motion/react";
 import { paginaGiaDipinta } from "@/lib/after-hydration";
 import { cn } from "@/lib/utils";
 
-/** Rete di sicurezza: oltre questa soglia il titolo compare comunque. */
 const SAFETY_MS = 1200;
 
-/**
- * Titolo che "si scrive" a inchiostro, parola per parola, quando entra in
- * viewport: ogni parola sale a fuoco (blur + salita) su una molla, in
- * cascata. Una sola volta.
- *
- * Come <Reveal/>: al primo caricamento il titolo nasce **leggibile** nel
- * markup del server, perché uno stato iniziale nascosto finirebbe
- * nell'HTML e lascerebbe i titoli sfocati per tutta l'attesa
- * dell'idratazione — e per sempre senza JavaScript. Cambiando pagina
- * invece lo script c'è già, quindi si parte nascosti e la cascata si
- * vede: è [[paginaGiaDipinta]] a separare i due casi.
- * Osservatore esplicito + timeout di sicurezza, perché `whileInView` non
- * scatta in modo affidabile per nodi montati già dentro il viewport.
- *
- * `as` sceglie il tag (default h2); `startDelay` ritarda la cascata iniziale;
- * `stagger` è il ritardo tra una parola e l'altra (ms).
- */
 export function InkReveal({
   text,
   as,
@@ -51,8 +33,7 @@ export function InkReveal({
 
     const r = el.getBoundingClientRect();
     if (r.top < window.innerHeight && r.bottom > 0) {
-      // In vista: al primo caricamento era già scritto; cambiando pagina
-      // è partito nascosto e ora si scrive parola per parola.
+
       setMostra(true);
       return;
     }
@@ -92,8 +73,7 @@ export function InkReveal({
   return (
     <Tag ref={ref} className={cn(className)}>
       {words.map((word, i) => (
-        // Lo spazio sta FUORI dallo span animato: dentro un inline-block
-        // il whitespace finale viene troncato e le parole si attaccano.
+
         <span key={`${word}-${i}`}>
           <motion.span
             className={cn("inline-block", wordClassName)}

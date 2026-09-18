@@ -39,10 +39,9 @@ export default async function HomePage({
 
   return (
     <>
-      {/* 1. Apertura: il video del convento in loop continuo */}
+
       <IntroScrub />
 
-      {/* 2. Chi siamo: posizionato subito dopo il video, prima della prima foto, con ampio respiro */}
       <section className="bg-background py-24 sm:py-32">
         <Container className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16 items-start">
           <div>
@@ -59,9 +58,8 @@ export default async function HomePage({
         </Container>
       </section>
 
-      {/* 3. Prima foto: Hero Chiostro a tutta pagina con logo e call to action */}
       <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col justify-center py-20 sm:py-28">
-        {/* Foto a tutto schermo */}
+
         <div className="absolute inset-0">
           <Image
             src="/images/chiostro-hero.jpg"
@@ -72,7 +70,7 @@ export default async function HomePage({
             sizes="100vw"
             className="object-cover object-[center_35%]"
           />
-          {/* Sfumatura laterale in blu scuro #214e6d, concentrata a sinistra per non coprire troppo la foto */}
+
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-[#214e6d]/95 via-[#214e6d]/55 via-32% to-transparent"
@@ -83,10 +81,9 @@ export default async function HomePage({
           />
         </div>
 
-        {/* Tutto a sinistra: Logo HEY! e sotto testi e call to action */}
         <Container className="relative z-10">
           <div className="max-w-xl text-left animate-in fade-in slide-in-from-bottom-3 duration-700">
-            {/* Logo HEY! completo in bianco: proporzionato ed elegante */}
+
             <div className="mb-5 sm:mb-6">
               <HeyLogo
                 variante="completo"
@@ -96,23 +93,19 @@ export default async function HomePage({
               />
             </div>
 
-            {/* Eyebrow */}
             <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#9bd2eb] drop-shadow">
               {t("hero.eyebrow")}
             </p>
 
-            {/* Titolo principale a due colori in raffinato stile editoriale */}
             <h1 className="mt-3.5 font-heading text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black tracking-tight text-white leading-[1.08] drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
               <span className="block">{t("hero.title")}</span>
               <span className="block text-[#7ec6e6]">{t("hero.titleAccent")}</span>
             </h1>
 
-            {/* Sottotitolo */}
             <p className="mt-5 max-w-lg text-sm sm:text-base lg:text-lg font-normal leading-relaxed text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
               {t("hero.subtitle")}
             </p>
 
-            {/* Pulsanti di azione */}
             <div className="mt-8 flex flex-wrap gap-3.5">
               <Button
                 asChild
@@ -136,7 +129,6 @@ export default async function HomePage({
         </Container>
       </section>
 
-      {/* 4. In cifre: posizionato tra le due foto, su sfondo bianco, con la stessa ampiezza di Chi siamo */}
       <section className="bg-background py-24 sm:py-32 border-y border-border/40">
         <Container>
           <p className="eyebrow text-center">{t("stats.eyebrow")}</p>
@@ -178,10 +170,8 @@ export default async function HomePage({
         </Container>
       </section>
 
-      {/* 5. Seconda foto: Manifesto a tutta pagina sul porticato */}
       <Manifesto />
 
-      {/* 6. Highlights */}
       <section className="py-20 sm:py-28">
         <Container>
           <h2 className="sr-only">{t("highlights.title")}</h2>
@@ -205,12 +195,11 @@ export default async function HomePage({
         </Container>
       </section>
 
-      {/* 7. CTA band riprogettata: layout equilibrato con riquadro informativo a destra */}
       <section className="pb-16 sm:pb-24">
         <Container>
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl bg-[#214e6d] p-8 sm:p-12 lg:p-16 text-carta shadow-2xl border border-white/10">
-              {/* Luci ambientali diffuse */}
+
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-16 -top-16 size-80 rounded-full bg-[#7ec6e6]/15 blur-3xl"
@@ -221,7 +210,7 @@ export default async function HomePage({
               />
 
               <div className="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-                {/* Colonna sinistra: invito, descrizione e pulsanti d'azione */}
+
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#9bd2eb]">
                     {t("cta.eyebrow")}
@@ -254,7 +243,6 @@ export default async function HomePage({
                   </div>
                 </div>
 
-                {/* Colonna destra: card informativa per riempire con valore e bellezza lo spazio */}
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-6 sm:p-8 backdrop-blur-md space-y-5">
                   <div className="flex items-start gap-4">
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/15 text-[#9bd2eb] shadow-inner">

@@ -10,7 +10,6 @@ export const SITE = {
   orgLegal: "Via Cupa Parisi 11, Salerno",
 } as const;
 
-/** Query Google Maps della struttura, per embed e indicazioni. */
 export const MAPS_QUERY = "Convento di Sant'Antonio, Acerno SA";
 
 export const MAPS_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(

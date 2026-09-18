@@ -18,12 +18,10 @@ export async function getActiveRooms(): Promise<Room[]> {
       .order("price_per_night", { ascending: true });
 
     if (error) {
-      console.error("Errore lettura rooms:", error.message);
       return [];
     }
     return (data ?? []) as Room[];
-  } catch (err) {
-    console.error("Supabase non raggiungibile:", err);
+  } catch {
     return [];
   }
 }
@@ -44,15 +42,10 @@ export async function getAvailableRooms(
     });
 
     if (error) {
-      console.warn(
-        "RPC get_available_rooms non disponibile, fallback a rooms attive:",
-        error.message,
-      );
       return getActiveRooms();
     }
     return (data ?? []) as Room[];
-  } catch (err) {
-    console.error("Supabase non raggiungibile (availability):", err);
+  } catch {
     return getActiveRooms();
   }
 }

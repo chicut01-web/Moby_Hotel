@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 
 const STEPS = ["monti", "chiostro", "porta"] as const;
 
-/* Media query come external store: funzioni stabili a livello modulo */
 const REDUCED_QUERY = "(prefers-reduced-motion: reduce)";
 const subscribeReduced = (onChange: () => void) => {
   const mq = window.matchMedia(REDUCED_QUERY);
@@ -17,13 +16,6 @@ const subscribeReduced = (onChange: () => void) => {
 const getReduced = () => window.matchMedia(REDUCED_QUERY).matches;
 const getServerSnapshot = () => false;
 
-/**
- * Apertura della home con video in loop continuo e tranquillo:
- * il video aereo scorre lentamente e dolcemente come nel girato originale
- * senza costringere l'utente a uno scroll forzato di 520vh.
- * Le tre scritte si alternano in sincronia col procedere del filmato.
- * Con prefers-reduced-motion niente riproduzione: poster fisso e benvenuto.
- */
 const VIDEO_WIDE = "/videos/hey-intro.mp4";
 const VIDEO_PORTRAIT = "/videos/hey-intro-mobile.mp4";
 const PORTRAIT_QUERY = "(max-width: 767px) and (orientation: portrait)";
@@ -62,12 +54,11 @@ export function IntroScrub() {
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Autoplay fallback se bloccato da risparmio energetico
+
         });
       }
     };
 
-    // Avvio progressivo: su desktop subito, su mobile dopo primo tocco/scroll o load
     const segnali = ["wheel", "touchstart", "scroll", "keydown"] as const;
     let avviato = false;
     const smettiDiAspettare = () => {
@@ -109,7 +100,6 @@ export function IntroScrub() {
       video.addEventListener("canplay", onCanPlay);
     }
 
-    // Le tre scritte si alternano in sincronia col minutaggio del filmato (13.25s)
     const onTimeUpdate = () => {
       const duration = video.duration || 13.25;
       const current = video.currentTime;
@@ -168,7 +158,7 @@ export function IntroScrub() {
       className="intro-scrub relative h-dvh w-full overflow-hidden bg-blu-scuro"
     >
       <div className="relative h-full w-full overflow-hidden">
-        {/* Poster di fondo per caricamento immediato */}
+
         <picture className="pointer-events-none absolute inset-0 h-full w-full">
           <source
             media="(max-width: 767px) and (orientation: portrait)"
@@ -186,7 +176,6 @@ export function IntroScrub() {
           />
         </picture>
 
-        {/* Video in loop tranquillo a riproduzione automatica e silenziosa */}
         <video
           ref={videoRef}
           autoPlay
@@ -209,13 +198,11 @@ export function IntroScrub() {
           />
         </video>
 
-        {/* Sfumatura inferiore in blu scuro #214e6d per far risaltare il testo e il pulsante scorri */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#214e6d]/95 via-[#214e6d]/50 via-35% to-transparent"
         />
 
-        {/* I 3 testi si alternano dolcemente col procedere del filmato */}
         {STEPS.map((key, i) => (
           <p
             key={key}
@@ -228,7 +215,6 @@ export function IntroScrub() {
           </p>
         ))}
 
-        {/* Pulsante scorri per scendere subito all'hero con la foto del chiostro */}
         <button
           type="button"
           onClick={scrollToHero}

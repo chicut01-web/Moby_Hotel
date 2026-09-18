@@ -45,7 +45,6 @@ export async function submitBookingRequest(
     namespace: "prenota.form.errors",
   });
 
-  // 1. Validazione (stesso schema del client, messaggi localizzati).
   const parsed = bookingSchema(await localizedMessages(locale)).safeParse(raw);
   if (!parsed.success) {
     const fieldErrors: Record<string, string> = {};
@@ -90,7 +89,6 @@ export async function submitBookingRequest(
   });
 
   if (insertError) {
-    console.error("booking insert fallito:", insertError.message);
     return { ok: false, formError: t("generic") };
   }
 

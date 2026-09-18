@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 
-/** Rotte pubbliche (l'italiano è senza prefisso, l'inglese sotto /en). */
 const ROUTES = ["", "/convento", "/camere", "/contatti", "/prenota"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

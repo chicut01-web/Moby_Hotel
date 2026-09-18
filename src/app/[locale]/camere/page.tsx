@@ -29,7 +29,6 @@ export async function generateMetadata({
   };
 }
 
-// ISR: le camere arrivano dal DB, la pagina si rigenera senza rebuild.
 export const revalidate = 300;
 
 export default async function CamerePage({

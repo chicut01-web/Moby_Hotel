@@ -37,9 +37,7 @@ function SheetOverlay({
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"
       className={cn(
-        // Niente backdrop-blur qui: come nel lightbox, sfocare tutto lo
-        // sfondo mentre l'overlay sfuma costa un terzo dei fotogrammi
-        // (peggio su mobile, dove questo menu vive). Velo più marcato.
+
         "fixed inset-0 z-50 bg-blu-scuro/25 duration-100 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0",
         className
       )}

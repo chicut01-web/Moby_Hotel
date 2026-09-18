@@ -13,10 +13,6 @@ import { StructuredData } from "@/components/structured-data";
 import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 
-/**
- * Inter per l'intero sito: lo stesso carattere dei manifesti e del payoff
- * del logo HEY!. È variabile: un solo file porta tutti i pesi (da Regular 400 a Black 900).
- */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -27,10 +23,6 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-/**
- * Su telefono la barra del browser si tinge di `themeColor`: senza,
- * resta grigia sopra il bianco del sito e si vede lo stacco.
- */
 export const viewport: Viewport = {
   themeColor: "#ffffff",
   colorScheme: "light",

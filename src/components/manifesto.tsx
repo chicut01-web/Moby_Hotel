@@ -9,11 +9,6 @@ const TAPPE = [
   { key: "persone", num: "03" },
 ] as const;
 
-/**
- * Il manifesto HEY! a tutto schermo sul porticato e colonnato del convento:
- * immagine panoramica in background con sfumatura scura e testi adattati
- * e allineati sulla sinistra per la massima chiarezza e impatto visivo.
- */
 export function Manifesto() {
   const t = useTranslations("home.manifesto");
 
@@ -22,7 +17,7 @@ export function Manifesto() {
       aria-labelledby="manifesto-heading"
       className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col justify-center py-20 sm:py-28 text-white"
     >
-      {/* Immagine a tutto schermo */}
+
       <div className="absolute inset-0">
         <Image
           src="/images/manifesto.jpg"
@@ -33,7 +28,7 @@ export function Manifesto() {
           sizes="100vw"
           className="object-cover object-[center_35%]"
         />
-        {/* Sfumatura laterale in blu scuro #214e6d, concentrata a sinistra per non coprire troppo la foto */}
+
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-[#214e6d]/95 via-[#214e6d]/55 via-32% to-transparent"
@@ -44,10 +39,9 @@ export function Manifesto() {
         />
       </div>
 
-      {/* Testi del manifesto allineati a sinistra */}
       <Container className="relative z-10">
         <div className="max-w-2xl text-left">
-          {/* Eyebrow */}
+
           <p className="text-base sm:text-lg lg:text-xl font-bold uppercase tracking-[0.2em] text-[#9bd2eb] drop-shadow-md">
             {t("eyebrow")}
           </p>

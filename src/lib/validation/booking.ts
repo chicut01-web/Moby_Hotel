@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-/** Messaggi di errore localizzati, iniettati da chi costruisce lo schema. */
 export type BookingMessages = {
   name: string;
   email: string;
@@ -12,7 +11,6 @@ export type BookingMessages = {
   guestsMin: string;
 };
 
-/** Data odierna in formato YYYY-MM-DD (confronto lessicografico tra date ISO). */
 export function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
 }
