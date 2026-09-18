@@ -16,37 +16,7 @@ export interface MockBookingRequest {
   room_id: string;
 }
 
-// In-memory module-level store of mock requests so updates persist during the container's lifecycle.
-const mockRequests: MockBookingRequest[] = [
-  {
-    id: "mock-req-1",
-    guest_name: "Marco Rossi",
-    guest_email: "marco.rossi@example.com",
-    guest_phone: "+39 333 1234567",
-    check_in: "2026-08-10",
-    check_out: "2026-08-15",
-    num_guests: 2,
-    message: "Vorremmo una camera silenziosa se possibile, grazie!",
-    status: "pending",
-    locale: "it",
-    created_at: new Date().toISOString(),
-    room_id: "ph-camera-pozzo"
-  },
-  {
-    id: "mock-req-2",
-    guest_name: "Alice Smith",
-    guest_email: "alice.smith@example.com",
-    guest_phone: "+1 555-0199",
-    check_in: "2026-09-01",
-    check_out: "2026-09-04",
-    num_guests: 1,
-    message: "Looking forward to my stay at the monastery!",
-    status: "confirmed",
-    locale: "en",
-    created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
-    room_id: "ph-camerata-chiostro"
-  }
-];
+const mockRequests: MockBookingRequest[] = [];
 
 interface CookieStore {
   get(name: string): { value: string } | undefined;

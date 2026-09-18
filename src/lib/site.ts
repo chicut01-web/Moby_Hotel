@@ -1,8 +1,3 @@
-/**
- * Configurazione struttura. Il nome è PROVVISORIO: tenuto qui (e, in futuro,
- * sovrascrivibile da `site_settings` su Supabase) così è facile cambiarlo.
- * Niente telefono finché non c'è un numero reale da pubblicare.
- */
 export const SITE = {
   name: "Hub for European Youth",
   shortName: "European Youth Hub",

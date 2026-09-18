@@ -4,13 +4,6 @@ import { isSupabaseConfigured } from "./supabase/env";
 import { PLACEHOLDER_ROOMS } from "./placeholder-rooms";
 import type { Room } from "./types";
 
-/**
- * Camere attive, ordinate per prezzo.
- * - Senza credenziali Supabase: usa le camere segnaposto (dev/design).
- * - Con Supabase: legge `rooms` attive via RLS pubblica con il client senza
- *   cookie (compatibile con prerender/ISR); in caso di errore restituisce
- *   lista vuota (la pagina mostra lo stato "vuoto").
- */
 export async function getActiveRooms(): Promise<Room[]> {
   if (!isSupabaseConfigured()) {
     return PLACEHOLDER_ROOMS;
@@ -35,12 +28,6 @@ export async function getActiveRooms(): Promise<Room[]> {
   }
 }
 
-/**
- * Camere disponibili per le date scelte, via RPC `get_available_rooms`
- * (security definer: considera blocchi e prenotazioni confermate).
- * Fallback graceful a tutte le camere attive se l'RPC non esiste ancora
- * (migrazione 0002 non applicata) o fallisce.
- */
 export async function getAvailableRooms(
   checkIn: string,
   checkOut: string,

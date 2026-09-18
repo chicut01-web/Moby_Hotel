@@ -5,11 +5,6 @@ import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
-/**
- * 1. next-intl gestisce il routing localizzato.
- * 2. @supabase/ssr rinfresca la sessione admin (cookie) se le env sono
- *    presenti: senza refresh qui, i token scaduti farebbero uscire l'admin.
- */
 export default async function proxy(request: NextRequest) {
   const response = intlMiddleware(request);
 
@@ -28,7 +23,6 @@ export default async function proxy(request: NextRequest) {
         },
       },
     });
-    // Tocca la sessione: se il token è scaduto viene rinnovato e riscritto.
     await supabase.auth.getUser();
   }
 
@@ -36,6 +30,5 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Tutto tranne API, asset interni Next/Vercel e file con estensione.
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };

@@ -1,14 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-/**
- * Il logo HEY! — archi del convento, barra, scritta e payoff — estratto
- * in vettoriale dal manuale in style/ e normalizzato a 1000 di larghezza.
- *
- * File statici in public/brand/ invece di SVG in linea: l'intestazione è
- * un componente client, e quei tracciati sarebbero finiti in ogni pagina
- * due volte, nell'HTML e nel bundle JavaScript. Così è un file in cache.
- */
 const VARIANTI = {
   /* archi + barra + HEY! + HUB FOR EUROPEAN YOUTH */
   completo: { file: "hey", w: 1000, h: 988 },

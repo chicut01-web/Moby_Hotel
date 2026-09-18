@@ -13,7 +13,6 @@ async function updateBookingStatus(
 ): Promise<AdminActionResult> {
   const supabase = await createClient();
 
-  // Solo admin autenticato (la RLS blocca comunque gli anonimi).
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -33,7 +32,6 @@ async function updateBookingStatus(
     return { ok: false, error: "update_failed" };
   }
 
-  // Email esito all'ospite, best-effort.
   const locale = request.locale === "en" ? "en" : "it";
   const roomName =
     (locale === "en" ? request.rooms?.name_en : request.rooms?.name_it) ?? "—";

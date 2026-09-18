@@ -1,14 +1,7 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
 
 # testing
 /coverage
@@ -28,21 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# env files (mai committare segreti). L'esempio è l'unica eccezione.
-.env*
-!.env.example
-
-# Foto/video originali della struttura (HEIC/MOV, ~260MB): restano fuori dal
-# repo. Le versioni web ottimizzate vanno in public/images/.
-/ACERNO/
-
-# Master video intro (pesanti, per editing/archivio): sul sito va solo
-# convento-intro-scrub.mp4 (all-keyframe per lo scrubbing da scroll).
-/public/videos/convento-intro-1080p.mp4
-/public/videos/convento-intro-4k.mp4
-/public/videos/convento-intro-kling-4k.mp4
+# local env files
+.env*.local
+.env
 
 # vercel
 .vercel
@@ -50,16 +32,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-/.zcode/
 
-# Scatti originali della struttura (50 file, 130MB): restano fuori dal
-# repo. Le versioni web ottimizzate stanno in public/images/.
-/DEF/
-
-# Manuali di stile e asset sorgente (PDF pesanti)
-/style/
-
-# Documenti sorgente testi e test locali
-/testi/
-/immagini_pagespeed_insight/
 

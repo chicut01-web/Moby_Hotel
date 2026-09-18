@@ -59,8 +59,6 @@ export async function submitBookingRequest(
 
   const supabase = await createClient();
 
-  // 2. La camera deve esistere, essere attiva e avere capienza sufficiente
-  //    (la RLS pubblica espone solo camere attive).
   const { data: room, error: roomError } = await supabase
     .from("rooms")
     .select("id, name_it, name_en, capacity")
@@ -74,14 +72,11 @@ export async function submitBookingRequest(
     return { ok: false, fieldErrors: { num_guests: t("guestsMax") } };
   }
 
-  // 2b. La camera deve essere ancora disponibile per le date scelte
-  //     (blocchi + prenotazioni confermate; fallback graceful se RPC assente).
   const available = await getAvailableRooms(data.check_in, data.check_out);
   if (!available.some((r) => r.id === data.room_id)) {
     return { ok: false, fieldErrors: { room_id: t("roomUnavailable") } };
   }
 
-  // 3. Insert (RLS: insert pubblico su booking_requests, stato pending).
   const { error: insertError } = await supabase.from("booking_requests").insert({
     room_id: data.room_id,
     guest_name: data.guest_name,
@@ -99,7 +94,6 @@ export async function submitBookingRequest(
     return { ok: false, formError: t("generic") };
   }
 
-  // 4. Email best-effort: la richiesta è già salvata, un errore qui non blocca.
   const emailData = {
     guestName: data.guest_name,
     guestEmail: data.guest_email,

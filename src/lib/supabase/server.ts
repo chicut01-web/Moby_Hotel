@@ -3,10 +3,6 @@ import { cookies } from "next/headers";
 import { isSupabaseConfigured } from "./env";
 import { createMockClient } from "./mock";
 
-/**
- * Client Supabase lato server (RSC, route handler, server action).
- * Usa la anon key: rispetta le RLS. La service_role NON va mai usata qui.
- */
 export async function createClient() {
   const cookieStore = await cookies();
 

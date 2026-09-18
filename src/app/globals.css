@@ -12,13 +12,6 @@
 */
 @custom-variant coarse (@media (pointer: coarse));
 
-/*
-  Hub for European Youth — design tokens.
-  Identità HEY! (manuale in style/): il blu del logo, il blu scuro, Inter
-  sia per i titoli (Black 900) che per il testo (Regular 400), e gli archi del
-  convento come segno grafico. Niente elementi marini.
-*/
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -77,12 +70,9 @@
 :root {
   --radius: 0.5rem;
 
-  /* Palette HEY! — dal manuale del logo (style/logo hey!defrgb.pdf).
-     I tre colori del manuale sono blu, blu scuro e nero; gli altri sono
-     derivati, e ognuno dice perché esiste. */
-  --blu: #448bab;          /* il blu del logo: titoli grandi, fondi, decori */
-  --blu-scuro: #214e6d;    /* testo, bottoni, titoli: 8,8:1 sul bianco */
-  --nero: #000000;         /* variante nera del logo */
+  --blu: #448bab;
+  --blu-scuro: #214e6d;
+  --nero: #000000;
   /* Il blu del logo fa 3,8:1 sul bianco: basta per i titoli grandi, non
      per il testo piccolo (AA chiede 4,5). Questo è lo stesso blu scurito
      quanto basta per passare su tutti e tre i fondi del sito:
